@@ -14,7 +14,7 @@ export default function HeaderMobileNav({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-0 z-50 left-0  w-full lg:hidden">
+    <div className="fixed top-0 z-500 left-0  w-full lg:hidden">
       <div className="flex w-full flex-col items-center pt-[72px] md:pt-[74px] lg:pt-24 justify-center bg-white">
         <div className="container-custom">
           <div className="flex flex-col py-5 gap-10 w-full">

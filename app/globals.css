@@ -134,4 +134,26 @@
   .container-custom {
     @apply mx-auto flex max-w-[1416px] px-6 lg:px-8 w-full;
   }
+
+  .slider-container {
+    @apply mx-6 sm:mr-0 lg:ml-8;
+    @apply [@media(min-width:1512px)]:ml-[calc((100vw-1352px)/2)];
+  }
+}
+
+.swiper-pagination-bullet {
+  @apply relative h-2 w-2 cursor-pointer bg-mulberry-900;
+}
+.swiper-pagination-bullet::after {
+  content: '';
+  @apply absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
+}
+
+.swiper-pagination-bullet-active {
+  @apply h-2! w-8! rounded-2xl! bg-pulse-pink-600!;
+}
+
+.swiper-pagination-bullet-active::after {
+  content: '';
+  @apply absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
 }

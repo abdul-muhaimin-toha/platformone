@@ -16,7 +16,7 @@ export default function HeaderTop({
   onMenuClick,
 }: HeaderTopProps) {
   return (
-    <div className="fixed top-0 left-0 z-60 w-full">
+    <div className="fixed top-0 left-0 z-501 w-full">
       <div className="flex w-full flex-row items-center justify-between bg-white shadow">
         <div className="container-custom">
           <div className="flex flex-row w-full py-5 items-center justify-between">
