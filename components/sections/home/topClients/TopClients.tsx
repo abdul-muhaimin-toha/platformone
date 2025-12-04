@@ -4,18 +4,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 
-function TopClients() {
+type ClientItem = {
+  href: string;
+  img: string;
+};
+
+function TopClients(): JSX.Element {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
-  const positionRef = useRef(0);
+  const positionRef = useRef<number>(0);
 
-  const images = Array.from({ length: 6 }, (_, i) => ({
+  const images: ClientItem[] = Array.from({ length: 6 }, (_, i) => ({
     href: '#',
     img: `/home/top-clients/client-${i + 1}.png`,
   }));
 
   const repeatCount = 3;
-  const items = Array(repeatCount).fill(images).flat();
+  const items: ClientItem[] = Array(repeatCount).fill(images).flat();
 
   useEffect(() => {
     const marquee = marqueeRef.current;
@@ -43,7 +48,7 @@ function TopClients() {
   }, []);
 
   return (
-    <section className="w-full overflow-hidden">
+    <section className="w-full overflow-hidden bg-white">
       <div className="container-custom">
         <div className="flex items-center gap-24 py-9 w-full" ref={marqueeRef}>
           {[...items, ...items].map((item, index) => (
@@ -52,14 +57,14 @@ function TopClients() {
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-[72px] h-[60px] justify-center items-center shrink-0"
+              className="inline-flex justify-center items-center shrink-0"
             >
               <Image
                 src={item.img}
-                alt="Client Logo"
-                width={72}
+                width={80}
                 height={60}
-                className="h-full w-full object-contain"
+                alt="Client Logo"
+                className="object-contain max-h-[60px]"
               />
             </Link>
           ))}
