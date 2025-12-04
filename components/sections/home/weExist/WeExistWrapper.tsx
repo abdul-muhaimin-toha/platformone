@@ -24,7 +24,7 @@ function WeExistWrapper({
   return (
     <section className="relative overflow-hidden">
       <div className="container-custom">
-        <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 py-32 xl:py-[200px] xl:grid-cols-[632px_1fr]">
+        <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 py-32 xl:pb-[200px] xl:pt-[235px] xl:grid-cols-[632px_1fr]">
           {/* Left Content */}
           <div className="flex flex-col justify-center xl:pr-14">
             <h3 className="text-[38px] font-bold leading-[1.26] xl:text-[56px] xl:leading-[1.28] text-black mb-2">

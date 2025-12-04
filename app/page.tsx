@@ -1,3 +1,4 @@
+import TopClients from '@/components/sections/home/topClients/TopClients';
 import WeExistWrapper from '@/components/sections/home/weExist/WeExistWrapper';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
 
@@ -115,6 +116,7 @@ export default function HomePage() {
           },
         ]}
       />
+      <TopClients />
     </>
   );
 }
