@@ -27,7 +27,7 @@ export interface Testimonial {
 }
 
 const TestimonialSlider: FC<Props> = ({ testimonials, autoplayDelay }) => (
-  <div className="flex w-full flex-col gap-6 lg:gap-10 items-stretch justify-stretch">
+  <div className="flex w-full flex-col items-stretch justify-stretch">
     <div className="slider-container">
       <Swiper
         modules={[Pagination, Autoplay, Navigation]}
@@ -59,7 +59,7 @@ const TestimonialSlider: FC<Props> = ({ testimonials, autoplayDelay }) => (
     </div>
 
     {/* Desktop navigation */}
-    <div className="container-custom hidden w-full justify-start gap-4 lg:flex">
+    <div className="container-custom hidden w-full justify-start gap-4 lg:flex mt-6 lg:mt-10">
       <button className="custom-prev cursor-pointer text-mulberry-900/30 duration-300 hover:text-mulberry-900 w-12 h-12 inline-flex justify-center items-center rounded-full border border-[#DBD9DD] hover:border-[#DBD9DD] focus:border-[#DBD9DD]">
         <ChevronLeft />
       </button>
@@ -69,7 +69,7 @@ const TestimonialSlider: FC<Props> = ({ testimonials, autoplayDelay }) => (
     </div>
 
     {/* Mobile pagination */}
-    <div className="container-custom lg:hidden py-1">
+    <div className="container-custom lg:hidden py-1 mt-6 lg:mt-10">
       <div className="custom-pagination-client dark flex items-center justify-center gap-2" />
     </div>
   </div>

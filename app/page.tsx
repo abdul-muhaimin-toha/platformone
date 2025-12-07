@@ -1,4 +1,7 @@
+import Cta from '@/components/sections/home/Cta';
+import TeamStartsWithUs from '@/components/sections/home/teamStartsWithUs/TeamStartsWithUs';
 import TopClients from '@/components/sections/home/topClients/TopClients';
+import TopInsightsWrapper from '@/components/sections/home/topInsights/TopInsightsWrapper';
 import WeExistWrapper from '@/components/sections/home/weExist/WeExistWrapper';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
 
@@ -117,6 +120,60 @@ export default function HomePage() {
         ]}
       />
       <TopClients />
+      <TeamStartsWithUs
+        heading="It starts with us."
+        subheading="People aren’t just what we understand - they’re who we are."
+        description="Curious minds. Sharp thinkers. Good humans. We back each other, challenge each other, and grow together. Because great insight starts with great people - and that’s what makes the work matter. "
+        centerpieceImage="https://i.postimg.cc/5tFcF0dM/Layer-1.png"
+        peopleImages={[
+          'https://i.postimg.cc/Qdhrcg1Z/Ben-Sullivan.png',
+          'https://i.postimg.cc/Qdhrcg1Z/Ben-Sullivan.png',
+          'https://i.postimg.cc/HkdCb0XC/David-Lillis-1.png',
+          'https://i.postimg.cc/P5Tk1bYh/Gary-Nicholas.png',
+          'https://i.postimg.cc/x1nSLGMr/Jodie-Roberts.png',
+          'https://i.postimg.cc/9QCjyPZQ/Kubra-D.png',
+          'https://i.postimg.cc/7ZwyS106/Lachie-K.png',
+          'https://i.postimg.cc/8zNVLdMc/Matthieu-P.png',
+          'https://i.postimg.cc/XY409KdX/Melissa-R.png',
+          'https://i.postimg.cc/9QbHb4YQ/Melodie.png',
+          'https://i.postimg.cc/YCRBR4zv/Nicole-G.png',
+          'https://i.postimg.cc/cH8zp6w3/Jo-OConnor.png',
+        ]}
+      />
+      <TopInsightsWrapper
+        insights={[
+          {
+            id: 1,
+            category: 'Blog • Community',
+            title: 'Food, Alcohol and Skincare: Gen Z’s New Wellbeing Paradigm',
+            imageSrc: '/home/insights/insight-1.png',
+            linkHref: '/',
+          },
+          {
+            id: 2,
+            category: 'Blog • Community',
+            title: 'Food, Alcohol and Skincare: Gen Z’s New Wellbeing Paradigm',
+            imageSrc: '/home/insights/insight-1.png',
+            linkHref: '/',
+          },
+          {
+            id: 3,
+            category: 'Blog • Community',
+            title: 'Food, Alcohol and Skincare: Gen Z’s New Wellbeing Paradigm',
+            imageSrc: '/home/insights/insight-1.png',
+            linkHref: '/',
+          },
+        ]}
+        title="We are thought leaders."
+        subtitle="See our latest insights"
+        viewAllHref="/"
+      />
+      <Cta
+        headingPrimary="People first."
+        headingSecondary="Insight always."
+        buttonText="Let’s talk"
+        buttonHref="/contact"
+      />
     </>
   );
 }

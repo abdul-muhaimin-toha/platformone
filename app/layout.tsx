@@ -3,6 +3,8 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
+import AOSWrapper from '@/lib/aos-wrapper';
+import ReactLenis from 'lenis/react';
 
 const overusedGothek = localFont({
   src: [
@@ -28,11 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${overusedGothek.variable} font-sans antialiased`}>
-        <Header />
-        <div className="min-h-screen">{children}</div>
-        <Footer />
-      </body>
+      <ReactLenis root>
+        <body className={`${overusedGothek.variable} font-sans antialiased`}>
+          <AOSWrapper>
+            <Header />
+            <div className="min-h-screen">{children}</div>
+            <Footer />
+          </AOSWrapper>
+        </body>
+      </ReactLenis>
     </html>
   );
 }

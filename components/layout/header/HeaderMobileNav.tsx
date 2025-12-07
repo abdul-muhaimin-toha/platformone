@@ -1,3 +1,4 @@
+import Button from '@/components/globals/Button';
 import Link from 'next/link';
 
 interface HeaderMobileNavProps {
@@ -20,18 +21,22 @@ export default function HeaderMobileNav({
           <div className="flex flex-col py-5 gap-10 w-full">
             <div className="w-full flex flex-col justify-start text-black gap-6 text-2xl font-semibold leading-[1.33]">
               {links.map((link, i) => (
-                <Link key={i} href={link.href} className="py-2">
+                <Link
+                  key={i}
+                  href={link.href}
+                  className="py-2 hover:text-pulse-pink-900 duration-300"
+                >
                   {link.label}
                 </Link>
               ))}
             </div>
-
-            <Link
+            <Button
               href={cta.href}
-              className="h-14 bg-pulse-pink-600 hover:bg-pulse-pink-700 duration-800 py-2 px-6 inline-flex justify-center items-center rounded-full text-white font-semibold"
+              variant="primary"
+              className="w-full font-semibold! text-xl!"
             >
               {cta.label}
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

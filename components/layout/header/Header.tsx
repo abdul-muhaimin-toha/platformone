@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HeaderTop from './HeaderTop';
 import HeaderMobileNav from './HeaderMobileNav';
 
@@ -18,14 +18,26 @@ const ctaButton = {
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header>
       <HeaderTop
         logoSrc="/brandings/logo.svg"
+        logoLightSrc="/brandings/logo-light.svg"
         desktopLinks={navLinks}
         cta={ctaButton}
         onMenuClick={() => setOpen(!open)}
+        scrolled={scrolled}
+        open={open}
       />
 
       <HeaderMobileNav links={navLinks} cta={ctaButton} isOpen={open} />

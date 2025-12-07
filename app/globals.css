@@ -141,6 +141,20 @@
   }
 }
 
+@layer utilities {
+  @keyframes float-rotate {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    50% {
+      transform: translate(-20px, -15px) rotate(6deg);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+  }
+}
+
 .swiper-pagination-bullet {
   @apply relative h-2 w-2 cursor-pointer bg-mulberry-900;
 }

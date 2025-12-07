@@ -1,4 +1,6 @@
+import Button from '@/components/globals/Button';
 import ArrowRightIcon from '@/components/icons/ArrowRightIcon';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -26,7 +28,10 @@ function WeExistWrapper({
       <div className="container-custom">
         <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 py-32 xl:pb-[200px] xl:pt-[235px] xl:grid-cols-[632px_1fr]">
           {/* Left Content */}
-          <div className="flex flex-col justify-center xl:pr-14">
+          <div
+            data-aos="fade-up"
+            className="flex flex-col justify-center xl:pr-14"
+          >
             <h3 className="text-[38px] font-bold leading-[1.26] xl:text-[56px] xl:leading-[1.28] text-black mb-2">
               {title}
             </h3>
@@ -37,17 +42,15 @@ function WeExistWrapper({
             <p className="text-xl font-normal leading-[1.33] text-black mb-8">
               {description}
             </p>
-
-            <Link
-              href={linkHref}
-              className="text-base self-start inline-flex justify-center items-center gap-2 font-normal leading-[1.37] text-black"
-            >
-              <ArrowRightIcon className="text-pulse-pink-700" />
-              <span>{linkLabel}</span>
-            </Link>
+            <Button href={linkHref} variant="tertiary">
+              {linkLabel}
+            </Button>
           </div>
           {/* Right Image */}
-          <div className="w-full relative rounded-3xl my-auto overflow-hidden aspect-380/240  md:w-full xl:aspect-680/428">
+          <div
+            data-aos="fade-up"
+            className="w-full relative rounded-3xl my-auto overflow-hidden aspect-380/240  md:w-full xl:aspect-680/428"
+          >
             <Image
               src={imageSrc}
               fill
@@ -63,7 +66,7 @@ function WeExistWrapper({
           width={640}
           height={630}
           alt=""
-          className="absolute -bottom-[85px] z-10 lg:w-[640px] lg:-right-[460px] lg:-bottom-[155px] -right-[130px] aspect-423/415 w-[423px]"
+          className="absolute -bottom-[85px] z-10 lg:w-[640px] lg:-right-[460px] lg:-bottom-[155px] -right-72 aspect-423/415 w-[423px] animate-[float-rotate_6s_ease-in-out_infinite]"
         />
       )}
     </section>
