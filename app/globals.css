@@ -142,16 +142,21 @@
 }
 
 @layer utilities {
-  @keyframes float-rotate {
+  @keyframes float {
     0% {
-      transform: translate(0px, 0px) rotate(0deg);
+      transform: translate(0px, 0px);
     }
     50% {
-      transform: translate(-20px, -15px) rotate(6deg);
+      transform: translate(20px, -15px);
     }
     100% {
-      transform: translate(0px, 0px) rotate(0deg);
+      transform: translate(0px, 0px);
     }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+    transform-origin: top;
   }
 }
 

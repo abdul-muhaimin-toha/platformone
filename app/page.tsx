@@ -1,4 +1,5 @@
 import Cta from '@/components/sections/home/Cta';
+import Hero from '@/components/sections/home/hero/Hero';
 import TeamStartsWithUs from '@/components/sections/home/teamStartsWithUs/TeamStartsWithUs';
 import TopClients from '@/components/sections/home/topClients/TopClients';
 import TopInsightsWrapper from '@/components/sections/home/topInsights/TopInsightsWrapper';
@@ -8,6 +9,13 @@ import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLike
 export default function HomePage() {
   return (
     <>
+      <Hero
+        bgImage="/home/hero/bg.svg"
+        titleSpans={['Know', 'what', 'your', 'customers', 'want']}
+        description="We get people – what they do, why they do it, and what that means for your business."
+        subDescription="We decode behaviour so you can lead with confidence, not assumptions. No fluff. Just sharp insights that drive action."
+        buttonLabel="Why We Exist"
+      />
       <WeExistWrapper
         title="We exist to make sense of people."
         subtitle="Because business doesn’t make sense without them."
@@ -15,7 +23,6 @@ export default function HomePage() {
         linkHref="/"
         linkLabel="See what drives us"
         imageSrc="/home/we-exist/we-exist.png"
-        backgroundImageSrc="/home/we-exist/background.png"
       />
       <WhatItLikeToWorkWithUsWrapper
         title="What it’s like to work with Platform One."

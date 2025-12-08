@@ -5,10 +5,12 @@ import { ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
 
 type ButtonProps = {
-  href: string;
+  href?: string; // <- now optional
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'tertiary';
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
 };
 
 export default function Button({
@@ -16,6 +18,8 @@ export default function Button({
   children,
   variant = 'primary',
   className,
+  type = 'button',
+  onClick,
 }: ButtonProps) {
   const baseStyles =
     'inline-flex items-center justify-center shrink-0 duration-300';
@@ -29,11 +33,8 @@ export default function Button({
       'group text-base font-normal w-fit leading-normal inline-flex items-center gap-2 text-black',
   };
 
-  return (
-    <Link
-      href={href}
-      className={clsx(baseStyles, variants[variant], className)}
-    >
+  const content = (
+    <>
       {variant === 'secondary' && (
         <div className="relative shrink-0 w-2 h-2 transition-all duration-300 origin-center group-hover:w-5 group-hover:h-5">
           <div className="absolute inset-0 rounded-full border-2 border-white bg-transparent transition-all duration-300 origin-center group-hover:bg-white" />
@@ -48,6 +49,29 @@ export default function Button({
       )}
 
       <span>{children}</span>
-    </Link>
+    </>
+  );
+
+  // 👉 If href exists → Link
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={clsx(baseStyles, variants[variant], className)}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  // 👉 If no href → real <button>
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className={clsx(baseStyles, variants[variant], className)}
+    >
+      {content}
+    </button>
   );
 }
