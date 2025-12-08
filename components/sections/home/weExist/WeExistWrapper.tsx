@@ -30,45 +30,49 @@ function WeExistWrapper({
   useGSAP(() => {
     if (!sectionRef.current || !svgRef.current) return;
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const svg = svgRef.current;
     const section = sectionRef.current;
 
-    gsap.registerPlugin(ScrollTrigger);
+    const moveStrength = 12;
+    const rotateStrength = 3;
 
-    const moveStrength = 14;
-    const rotateStrength = 4;
+    let idleTween: gsap.core.Tween | null = null;
 
-    let idleTween: gsap.core.Tween;
+    // 🧹 ALWAYS start from a clean transform
+    gsap.set(svg, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      transformOrigin: '100% 100%',
+    });
 
-    // Set transform origin
-    gsap.set(svg, { transformOrigin: '100% 100%' });
-
-    // 🌟 Idle floating animation
+    // 🌟 Idle float animation
     const startIdle = () => {
       idleTween = gsap.to(svg, {
-        y: '+=10',
-        rotate: '+=3',
-        duration: 4,
+        y: '+=8',
+        rotate: '+=2',
+        duration: 3.5,
         ease: 'sine.inOut',
-        yoyo: true,
         repeat: -1,
+        yoyo: true,
       });
     };
 
-    const stopIdle = () => {
-      idleTween?.kill();
-    };
+    const stopIdle = () => idleTween?.kill();
 
     startIdle();
 
-    // 🌟 Smooth scroll slide-in + zoom-in effect (NEW)
+    // 🌟 Entry scroll animation (does not interfere with parallax)
     gsap.fromTo(
       svg,
       {
-        scale: 0.2, // smaller start
-        x: 500, // further right
-        y: 300, // slightly lower
-        autoAlpha: 0.15, // more faded initially
+        scale: 0.25,
+        x: 300,
+        y: 150,
+        autoAlpha: 0,
       },
       {
         scale: 1,
@@ -78,13 +82,22 @@ function WeExistWrapper({
         ease: 'power3.out',
         scrollTrigger: {
           trigger: section,
-          start: 'top 85%',
-          end: 'top 25%',
-          scrub: 1.4,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 1.2,
         },
       }
     );
-    // 🌟 Mouse parallax movement
+
+    // 🟦 quickTo creates smooth, controlled motion (Fixes runaway transform)
+    const qx = gsap.quickTo(svg, 'x', { duration: 0.8, ease: 'power3.out' });
+    const qy = gsap.quickTo(svg, 'y', { duration: 0.8, ease: 'power3.out' });
+    const qrot = gsap.quickTo(svg, 'rotate', {
+      duration: 0.8,
+      ease: 'power3.out',
+    });
+
+    // 🌟 Mouse parallax (RESET each move)
     const handleMove = (e: MouseEvent) => {
       stopIdle();
 
@@ -95,23 +108,22 @@ function WeExistWrapper({
       const relX = (x / bounds.width - 0.5) * 2;
       const relY = (y / bounds.height - 0.5) * 2;
 
-      gsap.to(svg, {
-        x: relX * moveStrength,
-        y: relY * moveStrength,
-        rotate: relX * rotateStrength,
-        ease: 'power3.out',
-        duration: 1.2,
-      });
+      // Cap values to stop SVG from going too far out
+      qx(relX * moveStrength);
+      qy(relY * moveStrength);
+      qrot(relX * rotateStrength);
 
       clearTimeout((window as any)._idleTimer);
-      (window as any)._idleTimer = setTimeout(() => startIdle(), 1500);
+      (window as any)._idleTimer = setTimeout(() => startIdle(), 1200);
     };
 
     section.addEventListener('mousemove', handleMove);
 
+    // ♻ Cleanup
     return () => {
       section.removeEventListener('mousemove', handleMove);
       idleTween?.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -119,29 +131,25 @@ function WeExistWrapper({
     <section ref={sectionRef} className="relative bg-white overflow-hidden">
       <div className="container-custom">
         <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 pb-32 xl:pb-[200px] xl:grid-cols-[632px_1fr]">
-          {/* Left Content */}
           <div
             data-aos="fade-up"
             className="flex flex-col justify-center xl:pr-14"
           >
-            <h3 className="text-[38px] font-bold leading-[1.26] xl:text-[56px] xl:leading-[1.28] text-black mb-2">
+            <h3 className="text-[38px] font-bold xl:text-[56px] text-black mb-2">
               {title}
             </h3>
-            <h4 className="text-2xl font-semibold leading-normal text-pulse-pink-600 mb-10 xl:leading-[1.33]">
+            <h4 className="text-2xl font-semibold text-pulse-pink-600 mb-10">
               {subtitle}
             </h4>
-
-            <p className="text-xl font-normal leading-[1.33] text-black mb-8">
-              {description}
-            </p>
+            <p className="text-xl text-black mb-8">{description}</p>
             <Button href={linkHref} variant="tertiary">
               {linkLabel}
             </Button>
           </div>
-          {/* Right Image */}
+
           <div
             data-aos="fade-up"
-            className="w-full relative rounded-3xl my-auto overflow-hidden aspect-380/240  md:w-full xl:aspect-680/428"
+            className="relative rounded-3xl my-auto overflow-hidden aspect-380/240 md:w-full xl:aspect-680/428"
           >
             <Image
               src={imageSrc}
@@ -152,6 +160,8 @@ function WeExistWrapper({
           </div>
         </div>
       </div>
+
+      {/* SVG */}
       <svg
         ref={svgRef}
         className="absolute -bottom-[200px] z-10 lg:w-[640px] lg:-right-[400px] lg:-bottom-[155px] -right-72 aspect-423/415 w-[423px]"
