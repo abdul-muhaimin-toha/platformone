@@ -19,7 +19,7 @@ interface InsightCardProps {
 
 export default function InsightCard({ insight }: InsightCardProps) {
   return (
-    <div className="flex group flex-col w-full">
+    <div className="flex group cursor-pointer flex-col w-full">
       <div className="flex justify-center relative w-full rounded-t-4xl overflow-hidden items-center aspect-380/336">
         <Image
           src={insight.imageSrc}
