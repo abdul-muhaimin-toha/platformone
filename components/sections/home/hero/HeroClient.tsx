@@ -93,7 +93,7 @@ export default function HeroClient({
     <div className="w-full z-50 flex flex-col mt-[72px] md:mt-[74px] lg:mt-24">
       <h1
         ref={h1Ref}
-        className="text-[64px] max-w-[550px] lg:max-w-[800px] xl:text-[90px] [@media(min-width:1400px)]:text-[120px] xl:max-w-full [@media(min-width:1400px)]:leading-[1.31] md:max-w-full md:text-[70px] lg:text-[80px] md:mb-12 mb-[92px] gap-x-4 flex flex-row items-center md:gap-x-8 flex-wrap font-bold leading-tight text-white"
+        className="text-[64px] max-w-[550px] lg:max-w-[800px] xl:text-[90px] [@media(min-width:1400px)]:text-[120px] xl:max-w-full [@media(min-width:1400px)]:leading-[1.31] md:max-w-full md:text-[70px] lg:text-[80px] md:mb-12 mb-[92px] gap-x-4 flex flex-row items-center md:gap-x-8 flex-wrap font-bold leading-tight text-white z-20"
       >
         {titleSpans.map((word, idx) => {
           if (word === 'your') {

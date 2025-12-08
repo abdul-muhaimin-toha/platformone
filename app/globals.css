@@ -139,6 +139,11 @@
     @apply mx-6 sm:mr-0 lg:ml-8;
     @apply [@media(min-width:1512px)]:ml-[calc((100vw-1352px)/2)];
   }
+
+  .card-container {
+    @apply mr-6 sm:ml-0 lg:mr-8;
+    @apply [@media(min-width:1512px)]:mr-[calc((100vw-1352px)/2)];
+  }
 }
 
 @layer utilities {

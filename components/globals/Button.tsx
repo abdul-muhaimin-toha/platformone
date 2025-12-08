@@ -22,7 +22,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center shrink-0 duration-300';
+    'inline-flex items-center justify-center shrink-0 duration-300 cursor-pointer';
 
   const variants: Record<string, string> = {
     primary:

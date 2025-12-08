@@ -5,6 +5,7 @@ import TopClients from '@/components/sections/home/topClients/TopClients';
 import TopInsightsWrapper from '@/components/sections/home/topInsights/TopInsightsWrapper';
 import WeExistWrapper from '@/components/sections/home/weExist/WeExistWrapper';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
+import WhatWeDoSection from '@/components/sections/home/whatWeDo/WhatWeDoWrapper';
 
 export default function HomePage() {
   return (
@@ -15,6 +16,67 @@ export default function HomePage() {
         description="We get people – what they do, why they do it, and what that means for your business."
         subDescription="We decode behaviour so you can lead with confidence, not assumptions. No fluff. Just sharp insights that drive action."
         buttonLabel="Why We Exist"
+      />
+      <WhatWeDoSection
+        headingTitle="Insight starts with people."
+        headingDescription="We turn real understanding into ideas that move you forward. Whether it’s shaping strategy, sparking innovation, or refining experience, we uncover the truths that drive action - and bring clarity to what comes next."
+        cards={[
+          {
+            id: 1,
+            bg: 'bg-[#FDF6F9]',
+            category: 'Customer Experience',
+            title: 'Your customers are talking.',
+            subtitle: 'We help you hear what matters.',
+            description:
+              'Customer feedback is everywhere - but real understanding is rare. We help you uncover what customers truly value - so you can design products, services, and experiences that hit the mark. Our Voice of Customer solutions go beyond feedback to deliver sharp, human-first insight that drives relevance, loyalty, and growth.',
+            buttonText: 'Turn feedback into action',
+            imageSrc: '/home/what-we-do/card-1.png',
+          },
+          {
+            id: 2,
+            bg: 'bg-[#FCEFF4]',
+            category: 'Insight Communities',
+            title: 'We don’t just listen.',
+            subtitle: 'We stay in the conversation.',
+            description:
+              'Customer feedback is everywhere - but real understanding is rare. We help you uncover what customers truly value - so you can design products, services, and experiences that hit the mark. Our Voice of Customer solutions go beyond feedback to deliver sharp, human-first insight that drives relevance, loyalty, and growth.',
+            buttonText: 'Turn feedback into action',
+            imageSrc: '/home/what-we-do/card-1.png',
+          },
+          {
+            id: 3,
+            bg: 'bg-[#FFEAF1]',
+            category: 'On-Demand Market Research',
+            title: 'Insight when you need it.',
+            subtitle: 'Strategy when it counts.',
+            description:
+              'Customer feedback is everywhere - but real understanding is rare. We help you uncover what customers truly value - so you can design products, services, and experiences that hit the mark. Our Voice of Customer solutions go beyond feedback to deliver sharp, human-first insight that drives relevance, loyalty, and growth.',
+            buttonText: 'Turn feedback into action',
+            imageSrc: '/home/what-we-do/card-1.png',
+          },
+          {
+            id: 4,
+            bg: 'bg-[#FFE1EB]',
+            category: 'Syndicated Research',
+            title: 'We track what’s changing,',
+            subtitle: 'so you can lead what’s next.',
+            description:
+              'Customer feedback is everywhere - but real understanding is rare. We help you uncover what customers truly value - so you can design products, services, and experiences that hit the mark. Our Voice of Customer solutions go beyond feedback to deliver sharp, human-first insight that drives relevance, loyalty, and growth.',
+            buttonText: 'Turn feedback into action',
+            imageSrc: '/home/what-we-do/card-1.png',
+          },
+          {
+            id: 5,
+            bg: 'bg-[#FFD7E4]',
+            category: 'Digital Journey Intelligence',
+            title: 'We follow the journey,',
+            subtitle: 'so you can shape what comes next.',
+            description:
+              'Customer feedback is everywhere - but real understanding is rare. We help you uncover what customers truly value - so you can design products, services, and experiences that hit the mark. Our Voice of Customer solutions go beyond feedback to deliver sharp, human-first insight that drives relevance, loyalty, and growth.',
+            buttonText: 'Turn feedback into action',
+            imageSrc: '/home/what-we-do/card-1.png',
+          },
+        ]}
       />
       <WeExistWrapper
         title="We exist to make sense of people."

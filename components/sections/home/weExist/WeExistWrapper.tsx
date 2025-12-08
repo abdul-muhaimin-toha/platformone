@@ -116,9 +116,9 @@ function WeExistWrapper({
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative bg-white overflow-hidden">
       <div className="container-custom">
-        <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 py-32 xl:pb-[200px] xl:pt-[235px] xl:grid-cols-[632px_1fr]">
+        <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 pb-32 xl:pb-[200px] xl:grid-cols-[632px_1fr]">
           {/* Left Content */}
           <div
             data-aos="fade-up"

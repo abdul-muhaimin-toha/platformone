@@ -11,12 +11,14 @@ export interface HeroProps {
 export default function Hero(props: HeroProps) {
   return (
     <section>
-      <div
-        className="h-[95dvh] min-h-[872px] md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
-        style={{ backgroundImage: `url(${props.bgImage})` }}
-      >
-        <div className="container-custom">
-          <HeroClient {...props} />
+      <div className="bg-[#3E122F] rounded-bl-[64px]">
+        <div
+          className="h-[95dvh] min-h-[872px] md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
+          style={{ backgroundImage: `url(${props.bgImage})` }}
+        >
+          <div className="container-custom">
+            <HeroClient {...props} />
+          </div>
         </div>
       </div>
     </section>
