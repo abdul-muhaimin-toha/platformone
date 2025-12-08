@@ -40,10 +40,10 @@ function WeExistWrapper({
 
     let idleTween: gsap.core.Tween;
 
-    // Set transform origin (change to '100% 100%' for bottom-right)
+    // Set transform origin
     gsap.set(svg, { transformOrigin: '100% 100%' });
 
-    // 🌟 Idle floating when no mouse movement
+    // 🌟 Idle floating animation
     const startIdle = () => {
       idleTween = gsap.to(svg, {
         y: '+=10',
@@ -61,22 +61,29 @@ function WeExistWrapper({
 
     startIdle();
 
-    // 🌟 Smooth scroll zoom-in effect
+    // 🌟 Smooth scroll slide-in + zoom-in effect (NEW)
     gsap.fromTo(
       svg,
-      { scale: 0.85 },
+      {
+        scale: 0.2, // smaller start
+        x: 500, // further right
+        y: 300, // slightly lower
+        autoAlpha: 0.15, // more faded initially
+      },
       {
         scale: 1,
-        ease: 'power2.out',
+        x: 0,
+        y: 0,
+        autoAlpha: 1,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: section,
-          start: 'top bottom', // when section enters viewport
-          end: 'bottom top', // when section leaves viewport
-          scrub: 1.2, // smooth scrub
+          start: 'top 85%',
+          end: 'top 25%',
+          scrub: 1.4,
         },
       }
     );
-
     // 🌟 Mouse parallax movement
     const handleMove = (e: MouseEvent) => {
       stopIdle();
