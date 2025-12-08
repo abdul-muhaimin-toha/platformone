@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap, { ScrollTrigger } from 'gsap/all';
 import Button from '@/components/globals/Button';
-import { HeroProps } from './HeroServer';
+import { HeroProps } from './Hero';
 
 export default function HeroClient({
   titleSpans,
@@ -109,7 +109,9 @@ export default function HeroClient({
                   {word}
                 </span>
                 <span
-                  ref={(el) => (squareRefs.current[idx] = el)}
+                  ref={(el) => {
+                    squareRefs.current[idx] = el;
+                  }}
                   className="h-2 w-[170px] md:hidden bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 scale-x-0"
                 />
               </div>
@@ -121,7 +123,9 @@ export default function HeroClient({
                 className="flex flex-row items-center gap-x-4 [@media(min-width:1400px)]:gap-x-10"
               >
                 <span
-                  ref={(el) => (squareRefs.current[idx] = el)}
+                  ref={(el) => {
+                    squareRefs.current[idx] = el;
+                  }}
                   className="h-2 w-[170px] hidden md:block bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 scale-x-0"
                 />
                 <span

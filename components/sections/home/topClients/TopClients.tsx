@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { JSX, useEffect, useRef } from 'react';
 
 type ClientItem = {
   href: string;
