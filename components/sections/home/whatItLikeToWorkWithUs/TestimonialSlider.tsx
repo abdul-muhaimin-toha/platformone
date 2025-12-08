@@ -28,7 +28,7 @@ export interface Testimonial {
 
 const TestimonialSlider: FC<Props> = ({ testimonials, autoplayDelay }) => (
   <div className="flex w-full flex-col items-stretch justify-stretch">
-    <div className="slider-container bg-red-400">
+    <div className="slider-container">
       <Swiper
         modules={[Pagination, Autoplay, Navigation]}
         slidesPerView={1}
