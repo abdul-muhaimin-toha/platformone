@@ -1,5 +1,3 @@
-'use client';
-
 import TeamCylinder from './TeamCylinder';
 import TeamHeading from './TeamHeading';
 

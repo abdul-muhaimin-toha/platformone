@@ -48,7 +48,10 @@ export default function WhatWeDoCards({ cards }: Props) {
   );
 
   return (
-    <div ref={containerRef} className="relative flex w-full flex-col">
+    <div
+      ref={containerRef}
+      className="relative flex w-full flex-col lg:mb-[120px]"
+    >
       {cards.map((card, index) => {
         return (
           <div

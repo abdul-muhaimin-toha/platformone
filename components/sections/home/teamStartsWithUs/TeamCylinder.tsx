@@ -100,7 +100,7 @@ export default function TeamCylinder({
     <div className="overflow-hidden flex justify-center w-full items-center">
       <div
         ref={cylinderRef}
-        className="w-full h-[400px] pb-[200px] md:h-[800px] md:pb-[200px] scale-50 md:scale-100 flex justify-center items-center perspective-[2000px]"
+        className="w-full h-[400px] pb-[200px] md:h-[800px] md:pb-[200px] scale-50 md:scale-100 flex justify-center items-center lg:perspective-[1000px] md:perspective-[2000px]"
         style={{ transformStyle: 'preserve-3d' }}
       >
         <div

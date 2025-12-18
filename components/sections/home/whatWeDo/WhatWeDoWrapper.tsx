@@ -3,7 +3,6 @@ import WhatWeDoCards from './WhatWeDoCards';
 import WhatWeDoBackground from './WhatWeDoBackground';
 import WhatWeDoStickySideTitle from './WhatWeDoStickySideTitle';
 
-// types.ts (or you can keep this in the main file)
 export interface WhatWeDoCardData {
   id: number | string;
   bg: string;
@@ -27,9 +26,9 @@ export default function WhatWeDoSection({
   cards,
 }: WhatWeDoSectionProps) {
   return (
-    <section className="relative z-0 w-full overflow-clip bg-white min-h-[300vh]">
+    <section className="relative z-0 w-full overflow-clip  min-h-[300vh]">
       <WhatWeDoBackground />
-      <div className="relative z-10 flex w-full flex-col py-32 pb-[248px] gap-16 lg:gap-32">
+      <div className="relative z-10 flex w-full flex-col py-32 pb-56 gap-16 lg:gap-32">
         <WhatWeDoHeading
           title={headingTitle}
           description={headingDescription}

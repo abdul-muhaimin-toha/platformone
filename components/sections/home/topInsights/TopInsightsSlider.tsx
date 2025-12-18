@@ -1,7 +1,7 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -19,9 +19,10 @@ export default function TopInsightsSlider({
     <div className="flex w-full flex-col items-stretch justify-stretch">
       <div className="container-custom">
         <Swiper
-          modules={[Pagination, Autoplay, Navigation]}
+          modules={[Pagination, Navigation]}
           slidesPerView={1}
           spaceBetween={20}
+          loop
           pagination={{
             el: '.custom-pagination-insights',
             clickable: true,
@@ -30,7 +31,6 @@ export default function TopInsightsSlider({
             prevEl: '.custom-prev-insights',
             nextEl: '.custom-next-insights',
           }}
-          autoplay={{ pauseOnMouseEnter: true }}
           breakpoints={{
             360: { slidesPerView: 1 },
             640: { slidesPerView: 1.3 },

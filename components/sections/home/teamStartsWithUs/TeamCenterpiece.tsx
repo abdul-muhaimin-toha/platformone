@@ -11,7 +11,7 @@ export default function TeamCenterpiece({
 }) {
   return (
     <div
-      className="absolute top-1/2 left-1/2 z-5"
+      className="absolute top-1/2 left-1/2 z-5 mt-20 lg:mt-0"
       style={{
         transform: 'translate(-30%, -30%)',
         transformStyle: 'preserve-3d',

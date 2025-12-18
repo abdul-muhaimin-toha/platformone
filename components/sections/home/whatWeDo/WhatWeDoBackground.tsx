@@ -1,72 +1,132 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function WhatWeDoBackground() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
+  const pathsRef = useRef<SVGPathElement[]>([]);
 
-  useGSAP(
-    () => {
-      const path = pathRef.current;
-      const container = containerRef.current;
-      if (!path || !container) return;
+  const tempPaths = useRef<SVGPathElement[]>([]);
 
+  const addPathRef = (el: SVGPathElement | null) => {
+    if (el && !tempPaths.current.includes(el)) {
+      tempPaths.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    pathsRef.current = tempPaths.current;
+
+    if (pathsRef.current.length === 0) return;
+
+    pathsRef.current.forEach((path, index) => {
       const length = path.getTotalLength();
+      path.style.strokeDasharray = `${length}`;
+      path.style.opacity = '0';
 
-      gsap.fromTo(
-        path,
-        {
-          strokeDasharray: length,
-          // FIX 1: Add a buffer (+ 20) to hide the round cap completely
-          strokeDashoffset: length + 20,
-          // FIX 2: Immediately make it visible in JS (it's hidden in CSS to prevent flash)
-          opacity: 1,
+      const initialOffset = index === 2 ? -length : length;
+      path.style.strokeDashoffset = `${initialOffset}`;
+
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: path,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          scrub: true,
         },
-        {
-          strokeDashoffset: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: container,
-            start: 'top center',
-            end: 'bottom bottom',
-            scrub: 1,
-          },
-        }
-      );
-    },
-    { scope: containerRef }
-  );
+        duration: 1,
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 z-0 top-[600px] sm:top-[450px] lg:top-[300px] right-0 left-[200px] flex justify-center pointer-events-none"
-    >
-      <svg
-        className="h-full w-full max-w-[1516px]" // Removed opacity-100 (it's default)
-        width={1303}
-        height={2592}
-        viewBox="0 0 1303 2592"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-      >
-        <path
-          ref={pathRef}
-          // FIX 3: Start with opacity-0 to prevent the dot appearing before React hydrates
-          className="opacity-0"
-          d="M18.0461 2.00049C-19.2872 77.1748 0.0456543 309 167.546 378.5C335.046 448 454.547 260.5 910.546 319.5C1366.54 378.5 1385.12 1365.5 1159.33 1556C933.545 1746.5 299.345 1810.4 162.545 2042C25.7453 2273.6 105.545 2503.5 162.545 2589.5"
-          stroke="#D9225F"
-          strokeWidth={4}
-          strokeLinecap="round"
-        />
-      </svg>
-    </div>
+    <>
+      <div className="container-custom relative top-[550px] sm:top-[400px] md:top-[400px] lg:top-[270px]">
+        <svg
+          className="absolute left-54 md:left-56 lg:left-24"
+          width={160}
+          height={384}
+          viewBox="0 0 160 384"
+          fill="none"
+        >
+          <path
+            ref={addPathRef}
+            d="M2.15443 2C-0.750591 98.0269 36.8288 245.494 157.5 381.657"
+            stroke="url(#paint0_linear_2263_9935)"
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_2263_9935"
+              x1={2}
+              y1={-5}
+              x2={28}
+              y2={129}
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="white" />
+              <stop offset={1} stopColor="#D9225F" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div className="container-custom hidden xl:flex relative top-[600px]">
+        <svg
+          className="absolute right-2 2xl:-right-10"
+          width={422}
+          height={1241}
+          viewBox="0 0 422 1241"
+          fill="none"
+        >
+          <path
+            ref={addPathRef}
+            d="M2 2C570.552 69.1318 457.243 723.817 250.787 1238.5"
+            stroke="#D9225F"
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      <div className="container-custom">
+        <svg
+          className="absolute lg:bottom-0 sm:bottom-5 md:bottom-0 xl:left-56 left-16 bottom-0"
+          width={85}
+          height={547}
+          viewBox="0 0 85 547"
+          fill="none"
+        >
+          <path
+            ref={addPathRef}
+            d="M82.9564 544.123C-35.9184 399.026 -13.4679 205.487 82.9564 2.00049"
+            stroke="url(#paint0_linear_2263_9928)"
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_2263_9928"
+              x1="15.501"
+              y1="353.5"
+              x2="142.584"
+              y2="487.487"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#D9225F" />
+              <stop offset={1} stopColor="white" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </>
   );
 }
