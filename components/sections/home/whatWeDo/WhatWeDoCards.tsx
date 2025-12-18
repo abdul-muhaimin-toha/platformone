@@ -60,7 +60,7 @@ export default function WhatWeDoCards({ cards }: Props) {
               cardsRef.current[index] = el;
             }}
             className={`
-          card-container sticky top-[75px] md:top-20 lg:top-[100px] flex min-h-[400px] flex-col ${card.bg} will-change-transform 
+          card-container sticky top-[67px] md:top-[74px] lg:top-24 flex min-h-[400px] flex-col ${card.bg} will-change-transform 
           
         `}
             style={{
