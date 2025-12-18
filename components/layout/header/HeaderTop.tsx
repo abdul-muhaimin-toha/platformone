@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import HamburgerIcon from '@/components/icons/HamburgerIcon';
 import Button from '@/components/globals/Button';
 import { cn } from '@/lib/utils';
+import HeaderHamBurgerButton from './HeaderHamBurgerButton';
 
 interface HeaderTopProps {
   logoSrc: string;
@@ -27,11 +27,12 @@ export default function HeaderTop({
     <div className="fixed top-0 left-0 z-501 w-full">
       <div
         className={cn(
-          'flex w-full flex-row items-center justify-between shadow',
+          'flex w-full flex-row items-center justify-between ',
           'transition-[background-color,backdrop-filter] duration-700 ease-out',
           scrolled || open
             ? 'bg-white backdrop-blur-none'
-            : 'bg-black/8 backdrop-blur-3xl'
+            : 'bg-black/8 backdrop-blur-3xl',
+          !open && 'shadow'
         )}
       >
         <div className="container-custom">
@@ -93,17 +94,11 @@ export default function HeaderTop({
               </Button>
 
               {/* Mobile trigger */}
-              <button
-                onClick={onMenuClick}
-                className={cn(
-                  ' cursor-pointer  duration-300 p-2 lg:hidden',
-                  scrolled || open
-                    ? 'text-mulberry-900 hover:text-mulberry-950'
-                    : 'text-white hover:text-pulse-pink-100'
-                )}
-              >
-                <HamburgerIcon />
-              </button>
+              <HeaderHamBurgerButton
+                onMenuClick={onMenuClick}
+                open={open}
+                scrolled={scrolled}
+              />
             </div>
           </div>
         </div>

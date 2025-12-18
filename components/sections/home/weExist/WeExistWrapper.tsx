@@ -35,72 +35,39 @@ function WeExistWrapper({
     const svg = svgRef.current;
     const section = sectionRef.current;
 
-    const moveStrength = 12;
-    const rotateStrength = 3;
-
-    let idleTween: gsap.core.Tween | null = null;
-
-    // 🧹 ALWAYS start from a clean transform
     gsap.set(svg, {
       x: 0,
       y: 0,
       rotate: 0,
       scale: 1,
-      transformOrigin: '100% 100%',
+      transformOrigin: '50% 50%',
     });
 
-    // 🌟 Idle float animation
-    const startIdle = () => {
-      idleTween = gsap.to(svg, {
-        y: '+=8',
-        rotate: '+=2',
-        duration: 3.5,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      });
-    };
-
-    const stopIdle = () => idleTween?.kill();
-
-    startIdle();
-
-    // 🌟 Entry scroll animation (does not interfere with parallax)
     gsap.fromTo(
       svg,
+      { x: 300 },
       {
-        scale: 0.25,
-        x: 300,
-        y: 150,
-        autoAlpha: 0,
-      },
-      {
-        scale: 1,
         x: 0,
-        y: 0,
-        autoAlpha: 1,
+        duration: 1.5,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: section,
           start: 'top 80%',
-          end: 'top 30%',
-          scrub: 1.2,
         },
       }
     );
 
-    // 🟦 quickTo creates smooth, controlled motion (Fixes runaway transform)
-    const qx = gsap.quickTo(svg, 'x', { duration: 0.8, ease: 'power3.out' });
-    const qy = gsap.quickTo(svg, 'y', { duration: 0.8, ease: 'power3.out' });
+    const moveStrength = 18;
+    const rotateStrength = 4;
+
+    const qx = gsap.quickTo(svg, 'x', { duration: 0.6, ease: 'power3.out' });
+    const qy = gsap.quickTo(svg, 'y', { duration: 0.6, ease: 'power3.out' });
     const qrot = gsap.quickTo(svg, 'rotate', {
-      duration: 0.8,
+      duration: 0.6,
       ease: 'power3.out',
     });
 
-    // 🌟 Mouse parallax (RESET each move)
-    const handleMove = (e: MouseEvent) => {
-      stopIdle();
-
+    const handleMouseMove = (e: MouseEvent) => {
       const bounds = section.getBoundingClientRect();
       const x = e.clientX - bounds.left;
       const y = e.clientY - bounds.top;
@@ -108,23 +75,15 @@ function WeExistWrapper({
       const relX = (x / bounds.width - 0.5) * 2;
       const relY = (y / bounds.height - 0.5) * 2;
 
-      // Cap values to stop SVG from going too far out
       qx(relX * moveStrength);
       qy(relY * moveStrength);
       qrot(relX * rotateStrength);
-
-      clearTimeout((window as any)._idleTimer);
-      (window as any)._idleTimer = setTimeout(() => startIdle(), 1200);
     };
 
-    section.addEventListener('mousemove', handleMove);
+    const handleMouseLeave = () => {};
 
-    // ♻ Cleanup
-    return () => {
-      section.removeEventListener('mousemove', handleMove);
-      idleTween?.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    section.addEventListener('mousemove', handleMouseMove);
+    section.addEventListener('mouseleave', handleMouseLeave);
   }, []);
 
   return (

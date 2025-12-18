@@ -123,7 +123,7 @@ export default function HomePage() {
               'Platform One has been our Voice of Customer partner for nearly a decade, and their impact has been invaluable. They’ve helped us build and embed a program that delivers real-time insights, drives action, and continually improves our customer metrics. It’s not only strengthened customer loyalty and informed better decisions - it’s also supported our brand reputation and helped shape key business initiatives. Platform One is more than a provider - they’re a true partner, evolving with us and adding value every step of the way.',
             avatar: '/home/work-with-us/avatar.png',
             avatarAlt: 'Avatar',
-            name: 'Lee Chadwick',
+            name: 'Sarah Dixey',
             position: 'Chief Executive Officer',
           },
           {
@@ -193,7 +193,7 @@ export default function HomePage() {
         heading="It starts with us."
         subheading="People aren’t just what we understand - they’re who we are."
         description="Curious minds. Sharp thinkers. Good humans. We back each other, challenge each other, and grow together. Because great insight starts with great people - and that’s what makes the work matter. "
-        centerpieceImage="https://i.postimg.cc/5tFcF0dM/Layer-1.png"
+        centerpieceImage="/home/start-with-us/center.png"
         peopleImages={[
           'https://i.postimg.cc/Qdhrcg1Z/Ben-Sullivan.png',
           'https://i.postimg.cc/Qdhrcg1Z/Ben-Sullivan.png',

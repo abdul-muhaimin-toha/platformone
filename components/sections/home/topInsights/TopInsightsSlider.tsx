@@ -22,7 +22,6 @@ export default function TopInsightsSlider({
           modules={[Pagination, Autoplay, Navigation]}
           slidesPerView={1}
           spaceBetween={20}
-          loop
           pagination={{
             el: '.custom-pagination-insights',
             clickable: true,

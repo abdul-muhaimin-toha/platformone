@@ -11,7 +11,6 @@ import TestimonialCard from './TestimonialCard';
 
 interface Props {
   testimonials: Testimonial[];
-  autoplayDelay: number;
 }
 
 export interface Testimonial {
@@ -26,31 +25,31 @@ export interface Testimonial {
   position: string;
 }
 
-const TestimonialSlider: FC<Props> = ({ testimonials, autoplayDelay }) => (
+const TestimonialSlider: FC<Props> = ({ testimonials }) => (
   <div className="flex w-full flex-col items-stretch justify-stretch">
     <div className="slider-container">
       <Swiper
         modules={[Pagination, Autoplay, Navigation]}
-        slidesPerView={1}
+        slidesPerView="auto"
         spaceBetween={20}
-        loop
-        pagination={{ el: '.custom-pagination-client', clickable: true }}
-        navigation={{ prevEl: '.custom-prev', nextEl: '.custom-next' }}
-        autoplay={{ delay: autoplayDelay, pauseOnMouseEnter: true }}
         breakpoints={{
           360: { slidesPerView: 1 },
           640: { slidesPerView: 1.3 },
           768: { slidesPerView: 1.4, spaceBetween: 20 },
-          1024: { slidesPerView: 2.3, spaceBetween: 20 },
-          1280: { slidesPerView: 2.4, spaceBetween: 40 },
-          1536: { slidesPerView: 3.3, spaceBetween: 40 },
+          1024: { slidesPerView: 'auto', spaceBetween: 20 },
+          1280: { slidesPerView: 'auto', spaceBetween: 20 },
+          1400: { slidesPerView: 'auto', spaceBetween: 40 },
+          1536: { slidesPerView: 'auto', spaceBetween: 40 },
         }}
+        loop
+        pagination={{ el: '.custom-pagination-client', clickable: true }}
+        navigation={{ prevEl: '.custom-prev', nextEl: '.custom-next' }}
         className="w-full overflow-hidden"
       >
         {testimonials.map((item, idx) => (
           <SwiperSlide
             key={idx}
-            className="flex! h-auto! cursor-grab active:cursor-grabbing"
+            className="flex! h-auto! cursor-grab active:cursor-grabbing lg:w-[592px]!"
           >
             <TestimonialCard {...item} />
           </SwiperSlide>
