@@ -4,12 +4,14 @@ import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { cn } from '@/lib/utils';
 
 interface Props {
   text: string;
+  className?: string;
 }
 
-function TextRevealDescription({ text }: Props) {
+function TextRevealDescription({ text, className }: Props) {
   const descriptionRef = useRef<HTMLParagraphElement | null>(null);
 
   useGSAP(() => {
@@ -46,7 +48,10 @@ function TextRevealDescription({ text }: Props) {
   return (
     <p
       ref={descriptionRef}
-      className="text-2xl font-normal max-w-xl lg:w-full leading-[1.33] text-black"
+      className={cn(
+        'text-2xl font-normal max-w-xl lg:w-full leading-[1.33] text-black',
+        className
+      )}
     >
       {text}
     </p>

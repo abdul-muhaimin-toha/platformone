@@ -31,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ReactLenis root>
-        <body className={`${overusedGothek.variable} font-sans antialiased`}>
+        <body
+          className={`${overusedGothek.variable} font-sans overflow-x-hidden antialiased`}
+        >
           <AOSWrapper>
             <Header />
             <div className="min-h-screen">{children}</div>
