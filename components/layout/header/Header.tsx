@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import HeaderTop from './HeaderTop';
 import HeaderMobileNav from './HeaderMobileNav';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { label: 'Services', href: '/' },
@@ -17,16 +18,19 @@ const ctaButton = {
 };
 
 export default function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(pathname !== '/');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 200);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (pathname === '/') {
+      const handleScroll = () => {
+        setScrolled(window.scrollY > 200);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [pathname]);
 
   return (
     <header>

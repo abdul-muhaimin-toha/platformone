@@ -27,7 +27,7 @@ export default function HeaderTop({
     <div className="fixed top-0 left-0 z-501 w-full">
       <div
         className={cn(
-          'flex w-full flex-row items-center justify-between ',
+          'flex w-full flex-row items-center justify-between',
           'transition-[background-color,backdrop-filter] duration-700 ease-out',
           scrolled || open
             ? 'bg-white backdrop-blur-none'
