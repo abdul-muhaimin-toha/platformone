@@ -22,27 +22,38 @@ export default function WhatWeDoCards({ cards }: Props) {
 
   useGSAP(
     () => {
-      const cardElements = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-      cardElements.forEach((card, index) => {
-        if (index === cardElements.length - 1) return;
-        if (!card) return;
-        const content = card.querySelector(
-          '.card-content'
-        ) as HTMLElement | null;
-        if (!content) return;
-        gsap.to(content, {
-          y: -50,
-          opacity: 0.98,
-          filter: 'blur(12px)',
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top top+=100',
-            end: 'bottom top+=100',
-            scrub: 1,
-          },
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 1024px)', () => {
+        const cardElements = cardsRef.current.filter(
+          Boolean
+        ) as HTMLDivElement[];
+
+        cardElements.forEach((card, index) => {
+          if (index === cardElements.length - 1) return;
+
+          const content = card.querySelector(
+            '.card-content'
+          ) as HTMLElement | null;
+
+          if (!content) return;
+
+          gsap.to(content, {
+            y: -50,
+            opacity: 0.98,
+            filter: 'blur(12px)',
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top top+=100',
+              end: 'bottom top+=100',
+              scrub: 1,
+            },
+          });
         });
       });
+
+      return () => mm.revert();
     },
     { scope: containerRef, dependencies: [cards] }
   );
@@ -59,16 +70,13 @@ export default function WhatWeDoCards({ cards }: Props) {
             ref={(el) => {
               cardsRef.current[index] = el;
             }}
-            className={`
-          card-container sticky top-[67px] md:top-[74px] lg:top-24 flex min-h-[400px] flex-col ${card.bg} will-change-transform 
-          
-        `}
+            className={`card-container flex min-h-[400px] flex-col ${card.bg} lg:sticky lg:top-24 will-change-transform`}
             style={{
               zIndex: index + 1,
             }}
           >
             {/* Add wrapper for clipping blur */}
-            <div className="card-content w-full h-full overflow-hidden">
+            <div className="card-content w-full h-full lg:overflow-hidden">
               <div className="ml-auto flex h-full w-full max-w-[1352px] flex-col justify-center px-6 pt-16 xl:pr-[90px] xl:pt-24 lg:px-8 [@media(min-width:1512px)]:pl-0">
                 <div className="flex w-full flex-col justify-between gap-6 sm:gap-10 xl:gap-[50px] [@media(min-width:900px)]:flex-row [@media(min-width:900px)]:items-end [@media(min-width:900px)]:pb-0">
                   {/* Text Column */}
