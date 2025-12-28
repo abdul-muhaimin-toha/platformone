@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <ReactLenis root>
         <body
-          className={`${overusedGothek.variable} font-sans overflow-x-hidden antialiased`}
+          className={`${overusedGothek.variable} font-sans overflow-hidden overflow-y-auto  antialiased`}
         >
           <AOSWrapper>
             <Header />
