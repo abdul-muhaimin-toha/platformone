@@ -1,59 +1,52 @@
-import CaseStudiesHero from '@/components/sections/caseStudies/hero/CaseStudiesHero';
-import StoriesWrapper from '@/components/sections/caseStudies/stories/StoriesWrapper';
+import CounterWrapper from '@/components/sections/caseStudies/counterSection/CounterWrapper';
+import CaseStudiesDetailsHero from '@/components/sections/caseStudies/hero/CaseStudiesDetailsHero';
+import SideBySideWrapper from '@/components/sections/caseStudies/sideBySideCard/SideBySideWrapper';
 import TopClients from '@/components/sections/home/topClients/TopClients';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
 
-export default function CaseStudiesPage() {
+export default function CaseStudiesDetailsPage() {
   return (
     <>
-      <CaseStudiesHero
-        title="From words"
-        subtitle="to outcomes."
-        description="You’ve heard what it’s like to work with us – now see what that actually looks like in action."
+      <CaseStudiesDetailsHero
+        subtitle="Customer Experience"
+        title="Driving satisfaction beyond the score."
+        buttonText="Download case study"
+        buttonHref="/case-study.pdf"
         imageSrc="/services/customer-experience/customer-experience.png"
         imageAlt="Customer experience"
       />
-      <StoriesWrapper
-        title="Stories that speak for"
-        highlightedTitle="themselves."
-        description="Not a pitch. Just the kind of work that made a difference. These case studies dive into the bold moves, sharp thinking and unexpected turns that sparked real change."
-        stories={[
+      <CounterWrapper
+        title="Turning feedback into real-time action."
+        description="Nissan set out to redefine customer experience – focusing on meaningful outcomes instead of chasing scores. With Platform One, Nissan transformed feedback into immediate, actionable insights, empowering dealerships to respond faster, resolve issues efficiently, and strengthen customer loyalty."
+        counters={[
           {
-            imageSrc: '/home/insights/insight-1.png',
-            logoSrc: '/caseStudies/stories/brand-logo.svg',
-            title:
-              'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            counterNumber: 28,
+            suffix: '%',
+            counterDetails: 'Increase in satisfaction for service customers',
           },
           {
-            imageSrc: '/home/insights/insight-1.png',
-            logoSrc: '/caseStudies/stories/brand-logo.svg',
-            title:
-              'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            counterNumber: 9.5,
+            suffix: '%',
+            decimal: 1,
+            counterDetails:
+              'Increase on intention to return for service customers',
           },
           {
-            imageSrc: '/home/insights/insight-1.png',
-            logoSrc: '/caseStudies/stories/brand-logo.svg',
-            title:
-              'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
-          },
-          {
-            imageSrc: '/home/insights/insight-1.png',
-            logoSrc: '/caseStudies/stories/brand-logo.svg',
-            title:
-              'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
-          },
-          {
-            imageSrc: '/home/insights/insight-1.png',
-            logoSrc: '/caseStudies/stories/brand-logo.svg',
-            title:
-              'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            counterNumber: 87,
+            suffix: '%',
+            counterDetails:
+              'Previously dissatisfied customers reported higher satisfaction after resolution.',
           },
         ]}
+      />
+      <SideBySideWrapper
+        imageSrc="/services/customer-experience/customer-experience.png"
+        imageAlt="Testimonial"
+        description="The success of the Nissan Pulse Program is underpinned by the intuitive CX platform provided by Platform One. Feedback collection, analysis and case management is incredibly simple, which is the key to ensuring our whole Dealer network can enjoy the benefits of the program."
+        avatarSrc="/home/work-with-us/avatar.png"
+        avatarAlt="Sarah Wray-McCann"
+        name="Sarah Wray-McCann"
+        role="National Manager – Customer Experience at Nissan"
       />
       <WhatItLikeToWorkWithUsWrapper
         title="What it’s like to work with Platform One."
