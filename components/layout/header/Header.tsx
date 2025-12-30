@@ -6,9 +6,9 @@ import HeaderMobileNav from './HeaderMobileNav';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { label: 'Services', href: '/' },
-  { label: 'Case Studies', href: '/' },
-  { label: 'People', href: '/' },
+  { label: 'Services', href: '/services/cx' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'People', href: '/leadership' },
   { label: 'Insights', href: '/' },
 ];
 

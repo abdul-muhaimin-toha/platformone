@@ -16,7 +16,7 @@ const LeadershipHero: FC<LeadershipHeroProps> = ({
   mobileImages,
 }) => {
   return (
-    <section className="bg-white">
+    <section className="bg-background">
       <div className="bg-[#FF69B4] rounded-bl-[64px] overflow-hidden">
         <div
           className="w-full relative bg-[#3F1231] bg-no-repeat bg-cover"

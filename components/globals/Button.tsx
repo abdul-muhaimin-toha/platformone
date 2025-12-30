@@ -7,7 +7,7 @@ import clsx from 'clsx';
 type ButtonProps = {
   href?: string; // <- now optional
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'primary-arrow';
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
@@ -26,6 +26,8 @@ export default function Button({
 
   const variants: Record<string, string> = {
     primary:
+      'h-14 w-fit py-2 px-6 text-xl leading-normal font-semibold rounded-full text-white bg-pulse-pink-600 hover:bg-pulse-pink-700 duration-800',
+    'primary-arrow':
       'h-14 w-fit py-2 px-6 text-xl leading-normal font-semibold rounded-full text-white bg-pulse-pink-600 hover:bg-pulse-pink-700 duration-800',
     secondary:
       'group h-10 w-fit px-4 py-2 text-base font-semibold leading-normal gap-2 rounded-[40px] bg-mulberry-900 hover:bg-mulberry-950 text-white inline-flex',
@@ -49,6 +51,24 @@ export default function Button({
       )}
 
       <span>{children}</span>
+
+      {variant === 'primary-arrow' && (
+        <div className="inline-flex items-center justify-center">
+          <svg
+            className="shrink-0 ml-4"
+            width={13}
+            height={13}
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.6406 0H12.5781V0.9375V10.3125V11.25H10.7031V10.3125V3.20312L1.99219 11.9141L1.32812 12.5781L0 11.25L0.664062 10.5859L9.375 1.875H2.26562H1.32812V0H2.26562H11.6406Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      )}
     </>
   );
 

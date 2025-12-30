@@ -23,35 +23,35 @@ export default function CaseStudiesPage() {
             logoSrc: '/caseStudies/stories/brand-logo.svg',
             title:
               'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            href: '/case-studies/details',
           },
           {
             imageSrc: '/home/insights/insight-1.png',
             logoSrc: '/caseStudies/stories/brand-logo.svg',
             title:
               'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            href: '/case-studies/details',
           },
           {
             imageSrc: '/home/insights/insight-1.png',
             logoSrc: '/caseStudies/stories/brand-logo.svg',
             title:
               'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            href: '/case-studies/details',
           },
           {
             imageSrc: '/home/insights/insight-1.png',
             logoSrc: '/caseStudies/stories/brand-logo.svg',
             title:
               'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            href: '/case-studies/details',
           },
           {
             imageSrc: '/home/insights/insight-1.png',
             logoSrc: '/caseStudies/stories/brand-logo.svg',
             title:
               'Carsales uses insight communities to fine tune the seller experience.',
-            href: '/',
+            href: '/case-studies/details',
           },
         ]}
       />

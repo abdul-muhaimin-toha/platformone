@@ -112,7 +112,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             {/** Column 1 */}
-            <div className="hidden xl:flex w-[196px] overflow-hidden">
+            <div className="hidden xl:flex w-[150px] xl:w-[196px] overflow-hidden">
               <div ref={verticalRef1} className="flex flex-col gap-6">
                 {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                   desktopImages[0].map((img, idx) => (
@@ -122,7 +122,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       alt={img.alt}
                       width={196}
                       height={258}
-                      className="w-[196px] aspect-196/258 object-cover shrink-0"
+                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
                   ))
                 )}
@@ -130,7 +130,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
             </div>
 
             {/** Column 2 */}
-            <div className="w-[196px] overflow-hidden">
+            <div className="w-[150px] xl:w-[196px] overflow-hidden">
               <div ref={verticalRef2} className="flex flex-col gap-6">
                 {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                   desktopImages[1].map((img, idx) => (
@@ -140,7 +140,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       alt={img.alt}
                       width={196}
                       height={258}
-                      className="w-[196px] aspect-196/258 object-cover shrink-0"
+                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
                   ))
                 )}
@@ -148,7 +148,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
             </div>
 
             {/** Column 3 */}
-            <div className="w-[196px] overflow-hidden">
+            <div className="w-[150px] xl:w-[196px] overflow-hidden">
               <div ref={verticalRef3} className="flex flex-col gap-6">
                 {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                   desktopImages[2].map((img, idx) => (
@@ -158,7 +158,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       alt={img.alt}
                       width={196}
                       height={258}
-                      className="w-[196px] aspect-196/258 object-cover shrink-0"
+                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
                   ))
                 )}
@@ -188,7 +188,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                   alt={img.alt}
                   width={150}
                   height={174}
-                  className="w-[150px] sm:w-[150px] object-cover shrink-0"
+                  className="w-[150px] object-cover shrink-0"
                 />
               ))
             )}
@@ -213,7 +213,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                   alt={img.alt}
                   width={150}
                   height={174}
-                  className="w-[150px] sm:w-[150px] object-cover shrink-0"
+                  className="w-[150px] object-cover shrink-0"
                 />
               ))
             )}
