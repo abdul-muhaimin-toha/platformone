@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 interface CaseStudiesHeroProps {
-  version: 'v1' | 'v2';
+  version?: 'v1' | 'v2';
   title: string;
   subtitle: string;
   description?: string;
