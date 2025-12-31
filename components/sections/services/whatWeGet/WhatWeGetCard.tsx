@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 export interface WhatWeGetCardProps {
   icon: ReactNode;
   title: string;
-  description: string;
+  description?: string;
 }
 
 const WhatWeGetCard: FC<WhatWeGetCardProps> = ({
@@ -16,12 +16,14 @@ const WhatWeGetCard: FC<WhatWeGetCardProps> = ({
       <div className="size-[72px] flex items-center justify-center bg-[#E8006D14] rounded-full mb-10">
         {icon}
       </div>
-      <h3 className="text-[32px] leading-tight font-semibold text-black mb-4">
+      <h3 className="text-[32px] leading-tight font-semibold text-black">
         {title}
       </h3>
-      <p className="text-black text-xl font-normal leading-[1.30]">
-        {description}
-      </p>
+      {description && (
+        <p className="text-black text-xl font-normal leading-[1.30] mt-4">
+          {description}
+        </p>
+      )}
     </div>
   );
 };

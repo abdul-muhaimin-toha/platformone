@@ -6,11 +6,11 @@ const footerLinksData = [
   {
     title: 'Solutions',
     links: [
-      { label: 'Customer Experience', href: '/' },
-      { label: 'Insight Communities', href: '/' },
-      { label: 'On-Demand Market Research', href: '/' },
-      { label: 'Syndicated Research', href: '/' },
-      { label: 'Digital Journey Intelligence', href: '/' },
+      { label: 'Customer Experience', href: '/services/cx' },
+      { label: 'Insight Communities', href: '/services/ic' },
+      { label: 'On-Demand Market Research', href: '/services/cx' },
+      { label: 'Syndicated Research', href: '/services/ic' },
+      { label: 'Digital Journey Intelligence', href: '/services/cx' },
     ],
   },
   {
@@ -18,8 +18,8 @@ const footerLinksData = [
     links: [
       { label: 'Insights', href: '/' },
       { label: 'About Us', href: '/' },
-      { label: 'Our Purpose', href: '/' },
-      { label: 'Case Studies', href: '/' },
+      { label: 'Our Purpose', href: '/our-purpose' },
+      { label: 'Case Studies', href: '/case-studies' },
       { label: 'Contact', href: '/' },
     ],
   },

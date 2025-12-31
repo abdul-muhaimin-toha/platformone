@@ -12,7 +12,7 @@ const ReimagineAService: FC<ReimagineAServiceProps> = ({ description }) => {
         <div className="w-full flex flex-col py-14 pb-32 items-start">
           <div className="w-full flex flex-col max-w-[480px] md:max-w-max">
             <TextRevealDescription
-              className="text-xl z-20 lg:text-2xl font-normal leading-[1.33] text-black max-w-[848px]"
+              className="text-xl z-20 lg:text-2xl font-normal leading-[1.33] text-black max-w-[854px]"
               text={description}
             />
           </div>

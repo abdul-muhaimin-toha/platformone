@@ -42,10 +42,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '2',
@@ -53,10 +49,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '3',
@@ -64,10 +56,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '4',
@@ -75,10 +63,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '5',
@@ -86,10 +70,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '6',
@@ -97,10 +77,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '7',
@@ -108,10 +84,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '8',
@@ -119,10 +91,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
           {
             id: '9',
@@ -130,10 +98,6 @@ export default function LeadershipPage() {
             role: 'Chairman & Chief Executive Officer',
             image: '/leadership/peoples/people-1.png',
             linkedinUrl: '#',
-            gradient: {
-              from: '#E13FAB',
-              to: '#F02D30',
-            },
           },
         ]}
       />

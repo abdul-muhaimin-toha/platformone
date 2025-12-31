@@ -9,6 +9,7 @@ interface SideBySideProps {
   description: string;
   imageSrc: string;
   imageAlt: string;
+  className?: string;
 }
 
 const SideBySide: FC<SideBySideProps> = ({
@@ -18,12 +19,14 @@ const SideBySide: FC<SideBySideProps> = ({
   description,
   imageSrc,
   imageAlt,
+  className = '',
 }) => {
   return (
     <section className="relative overflow-hidden">
       <div className="container-custom">
         <div
           className={cn(
+            className,
             'w-full flex flex-col z-20 gap-16 md:gap-6 lg:gap-16 md:justify-between  pt-[168px]  items-start md:items-center justify-center',
             contentSide === 'right'
               ? 'flex-col-reverse md:flex-row-reverse pb-32'

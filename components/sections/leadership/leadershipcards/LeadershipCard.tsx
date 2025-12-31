@@ -8,22 +8,9 @@ export interface LeadershipPerson {
   role: string;
   image: string;
   linkedinUrl?: string;
-
-  gradient: {
-    from: string;
-    to: string;
-  };
 }
 
-function LeadershipCard({
-  name,
-  role,
-  image,
-  linkedinUrl,
-  gradient,
-}: LeadershipPerson) {
-  const { from, to } = gradient;
-
+function LeadershipCard({ name, role, image, linkedinUrl }: LeadershipPerson) {
   return (
     <div
       data-aos="fade-up"
@@ -51,7 +38,7 @@ function LeadershipCard({
         {/* Default gradient border */}
         <div
           className={cn(
-            `absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[${from}] to-[${to}] group-hover:from-[${to}] group-hover:to-[${from}] duration-500`
+            `absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[#E13FAB] to-[#F02D30] group-hover:from-[#F02D30] group-hover:to-[#E13FAB] duration-500`
           )}
         />
 
