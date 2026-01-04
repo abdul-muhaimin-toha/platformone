@@ -3,7 +3,27 @@ import { cn } from '@/lib/utils';
 import { SearchIcon } from 'lucide-react';
 import Link from 'next/link';
 
-function Sidebar({ version = 'v1', page = 'insights', visible = true }) {
+export interface LinkItem {
+  label: string;
+  href: string;
+  isActive?: boolean;
+}
+
+interface SidebarProps {
+  version?: 'v1' | 'v2' | 'v3';
+  page?: 'insights' | 'details' | string;
+  visible?: boolean;
+  exploreLinks?: LinkItem[];
+  topicLinks?: LinkItem[];
+}
+
+function Sidebar({
+  version = 'v1',
+  page = 'insights',
+  visible = true,
+  exploreLinks = [],
+  topicLinks = [],
+}: SidebarProps) {
   return (
     <div
       className={cn(
@@ -36,24 +56,18 @@ function Sidebar({ version = 'v1', page = 'insights', visible = true }) {
             Explore
           </h6>
           <ul className="flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] gap-4 md:gap-8 lg:gap-2 font-normal text-black">
-            <Link
-              href="/"
-              className="hover:text-pulse-pink-600 text-pulse-pink-600 duration-300"
-            >
-              <li className="text-nowrap">All</li>
-            </Link>
-            <Link href="/" className="hover:text-pulse-pink-600 duration-300">
-              <li className="text-nowrap">Blogs</li>
-            </Link>
-            <Link href="/" className="hover:text-pulse-pink-600 duration-300">
-              <li className="text-nowrap">Press Releases</li>
-            </Link>
-            <Link href="/" className="hover:text-pulse-pink-600 duration-300">
-              <li className="text-nowrap">Podcasts</li>
-            </Link>
-            <Link href="/" className="hover:text-pulse-pink-600 duration-300">
-              <li className="text-nowrap">Whitepapers</li>
-            </Link>
+            {exploreLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className={cn(
+                  'hover:text-pulse-pink-600 duration-300',
+                  link.isActive && 'text-pulse-pink-600'
+                )}
+              >
+                <li className="text-nowrap">{link.label}</li>
+              </Link>
+            ))}
           </ul>
         </div>
       )}
@@ -64,42 +78,18 @@ function Sidebar({ version = 'v1', page = 'insights', visible = true }) {
           </h6>
         )}
         <ul className="flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] gap-2 md:gap-8 lg:gap-2 font-normal text-black">
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">All</li>
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">Customer Experience</li>
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">Employee Experience</li>
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">Insight Communities</li>
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">Data Visualisation</li>
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-pulse-pink-600 duration-300 py-2 md:py-0"
-          >
-            <li className="text-nowrap">Data Visualisation</li>
-          </Link>
+          {topicLinks.map((link, index) => (
+            <Link
+              key={index}
+              href={link.href}
+              className={cn(
+                'hover:text-pulse-pink-600 duration-300 py-2 md:py-0',
+                link.isActive && 'text-pulse-pink-600'
+              )}
+            >
+              <li className="text-nowrap">{link.label}</li>
+            </Link>
+          ))}
         </ul>
       </div>
     </div>

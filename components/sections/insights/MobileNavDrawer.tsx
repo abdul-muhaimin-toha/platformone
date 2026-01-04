@@ -1,17 +1,58 @@
 'use client';
 
-import { useState } from 'react';
-import Sidebar from './sidebar/Sidebar';
+import { useState, useRef, useEffect } from 'react';
+import Sidebar, { LinkItem } from './sidebar/Sidebar';
 
-function MobileNavDrawer({ page = 'insights' }) {
+interface MobileNavDrawerProps {
+  page?: string;
+  exploreLinks?: LinkItem[];
+  topicLinks?: LinkItem[];
+}
+
+function MobileNavDrawer({
+  page = 'insights',
+  exploreLinks,
+  topicLinks,
+}: MobileNavDrawerProps) {
   const [open, setOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        drawerRef.current &&
+        !drawerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background md:hidden">
-      <Sidebar version="v3" visible={open} page={page} />
+    <div
+      ref={drawerRef}
+      className="fixed bottom-0 left-0 right-0 bg-background md:hidden"
+    >
+      <Sidebar
+        version="v3"
+        visible={open}
+        page={page}
+        exploreLinks={exploreLinks}
+        topicLinks={topicLinks}
+      />
       <button
         onClick={() => setOpen(!open)}
-        className="p-6 flex items-center w-full flex-row border-t border-t-[#EDEDEE] bg-white  text-xl font-normal gap-4"
+        className="p-6 flex items-center w-full flex-row border-t border-t-[#EDEDEE] bg-white text-xl font-normal gap-4"
       >
         <svg
           className="shrink-0"

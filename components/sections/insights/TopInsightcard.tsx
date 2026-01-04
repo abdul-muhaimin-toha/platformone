@@ -2,8 +2,14 @@ import Button from '@/components/globals/Button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Insight } from './insightGrid/InsightCard';
 
-function TopInsightcard({ version = 'v1' }) {
+interface TopInsightCardProps {
+  version?: 'v1' | 'v2';
+  insight: Insight;
+}
+
+function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
   return (
     <div
       className={cn(
@@ -27,17 +33,21 @@ function TopInsightcard({ version = 'v1' }) {
         )}
       >
         <h2 className="text-[32px] font-semibold md:font-normal xl:font-semibold md:text-2xl xl:text-[32px] leading-tight text-black mb-6 md:mb-2 xl:mb-6">
-          From Feedback to Action: How to Turn Insights Into Measurable Growth
+          {insight.title}
         </h2>
         <div className="flex flex-row items-center gap-1 text-base font-semibold leading-[1.37] text-pulse-pink-600">
           <Link
-            href="/"
+            href={insight.category.href}
             className="hover:text-black duration-300 hover:underline"
           >
-            Blog
+            {insight.category.label}
           </Link>
-          <p> • </p>
-          <p>Insight Communities</p>
+          {insight.secondaryCategory && (
+            <>
+              <p> • </p>
+              <p>{insight.secondaryCategory}</p>
+            </>
+          )}
         </div>
         <div
           className={cn(
@@ -45,22 +55,26 @@ function TopInsightcard({ version = 'v1' }) {
             version === 'v1' ? '' : 'md:mt-8 md:mb-8 xl:my-10'
           )}
         >
-          <div className="flex items-center justify-center rounded-full">
-            <Image
-              src="/home/work-with-us/avatar.png"
-              width={56}
-              height={56}
-              className="aspect-square rounded-full w-14 md:w-12 xl:w-14"
-              alt="User"
-            />
-          </div>
+          {insight.authorImage && (
+            <div className="flex items-center justify-center rounded-full">
+              <Image
+                src={insight.authorImage}
+                width={56}
+                height={56}
+                className="aspect-square rounded-full w-14 md:w-12 xl:w-14"
+                alt={insight.author}
+              />
+            </div>
+          )}
           <div className="flex flex-col gap-1 text-black">
             <p className="text-xl md:text-base xl:text-xl font-medium leading-[1.30]">
-              Andrew Dye
+              {insight.author}
             </p>
-            <p className="text-base md:text-sm xl:text-base font-normal leading-[1.37] text-[#737373]">
-              August 13, 2025
-            </p>
+            {insight.date && (
+              <p className="text-base md:text-sm xl:text-base font-normal leading-[1.37] text-[#737373]">
+                {insight.date}
+              </p>
+            )}
           </div>
         </div>
         {version === 'v2' && (
@@ -138,8 +152,8 @@ function TopInsightcard({ version = 'v1' }) {
         )}
       >
         <Image
-          src="/insights/top-card.png"
-          alt="Insight"
+          src={insight.image}
+          alt={insight.title}
           className=" object-cover w-full h-full group-hover:scale-105 duration-300"
           fill
         />
