@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronLeft } from 'lucide-react';
 import clsx from 'clsx';
 
 type ButtonProps = {
-  href?: string; // <- now optional
+  href?: string;
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'primary-arrow';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'primary-arrow' | 'back';
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
@@ -33,6 +33,8 @@ export default function Button({
       'group h-10 w-fit px-4 py-2 text-base font-semibold leading-normal gap-2 rounded-[40px] bg-mulberry-900 hover:bg-mulberry-950 text-white inline-flex',
     tertiary:
       'group text-base font-normal w-fit leading-normal inline-flex items-center gap-2 text-black',
+
+    back: 'group h-10 bg-transparent w-fit py-2 pl-2 pr-3 text-base leading-normal font-normal rounded-full text-[#000000] hover:text-white hover:bg-pulse-pink-700 duration-800 border border border-border',
   };
 
   const content = (
@@ -47,6 +49,12 @@ export default function Button({
       {variant === 'tertiary' && (
         <div className="inline-flex items-center justify-center h-6 w-6 bg-[#E8006D29] rounded-full group-hover:bg-pulse-pink-700 duration-300">
           <ArrowRight className="text-pulse-pink-700 w-4 h-4 group-hover:text-white shrink-0 duration-300" />
+        </div>
+      )}
+
+      {variant === 'back' && (
+        <div className="inline-flex items-center justify-center h-6 w-6 duration-300 text-inherit">
+          <ChevronLeft className="text-inherit size-5 shrink-0 duration-800" />
         </div>
       )}
 

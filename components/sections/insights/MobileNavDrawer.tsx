@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import Sidebar from './sidebar/Sidebar';
 
-function MobileNavDrawer() {
+function MobileNavDrawer({ page = 'insights' }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background md:hidden">
-      <Sidebar version="v3" visible={open} />
+      <Sidebar version="v3" visible={open} page={page} />
       <button
         onClick={() => setOpen(!open)}
         className="p-6 flex items-center w-full flex-row border-t border-t-[#EDEDEE] bg-white  text-xl font-normal gap-4"
@@ -26,7 +26,7 @@ function MobileNavDrawer() {
             fill="#B3ADAE"
           />
         </svg>
-        <span>Explore</span>
+        <span>Table of contents</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={24}
