@@ -94,7 +94,7 @@ export default function WhatWeDoCards({ cards }: Props) {
                     <p className="mb-8 text-2xl font-semibold leading-[1.33] text-pulse-pink-700 xl:text-[38px] xl:leading-[1.47]">
                       {card.subtitle}
                     </p>
-                    <p className="mb-8 text-base font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">
+                    <p className="mb-8 text-base text-[#4D2B42] font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">
                       {card.description}
                     </p>
                     <Button variant="tertiary">{card.buttonText}</Button>
