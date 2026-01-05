@@ -21,7 +21,7 @@ export default function TeamHeading({
         </h3>
       </div>
 
-      <p className="text-xl font-normal leading-[1.33] xl:leading-normal lg:max-w-xl lg:w-1/2 text-pulse-pink-200">
+      <p className="text-xl font-normal leading-[1.33] xl:leading-[100%] lg:max-w-xl lg:w-1/2 text-pulse-pink-200">
         {description}
       </p>
     </div>
