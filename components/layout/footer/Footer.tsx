@@ -1,35 +1,35 @@
-import LogoSocials from './LogoSocials';
-import FooterLinks from './FooterLinks';
-import FooterBottom from './FooterBottom';
+import LogoSocials from "./LogoSocials";
+import FooterLinks from "./FooterLinks";
+import FooterBottom from "./FooterBottom";
 
 const footerLinksData = [
   {
-    title: 'Solutions',
+    title: "Services",
     links: [
-      { label: 'Customer Experience', href: '/services/cx' },
-      { label: 'Insight Communities', href: '/services/ic' },
-      { label: 'On-Demand Market Research', href: '/services/cx' },
-      { label: 'Syndicated Research', href: '/services/ic' },
-      { label: 'Digital Journey Intelligence', href: '/services/cx' },
+      { label: "Customer Experience", href: "/services/cx" },
+      { label: "Insight Communities", href: "/services/ic" },
+      { label: "On-Demand Market Research", href: "/services/cx" },
+      { label: "Syndicated Research", href: "/services/ic" },
+      { label: "Digital Journey Intelligence", href: "/services/cx" },
     ],
   },
   {
-    title: 'Discover',
+    title: "Discover",
     links: [
-      { label: 'Insights', href: '/' },
-      { label: 'About Us', href: '/' },
-      { label: 'Our Purpose', href: '/our-purpose' },
-      { label: 'Case Studies', href: '/case-studies' },
-      { label: 'Contact', href: '/' },
+      { label: "Insights", href: "/" },
+      { label: "About Us", href: "/" },
+      { label: "Our Purpose", href: "/our-purpose" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Contact", href: "/" },
     ],
   },
 ];
 
 const footerBottomLinks = [
-  { label: 'Privacy and legal policies', href: '/' },
-  { label: 'Terms and conditions', href: '/' },
-  { label: 'Auto survey winners', href: '/' },
-  { label: 'Sitemap', href: '/' },
+  { label: "Privacy and legal policies", href: "/" },
+  { label: "Terms and conditions", href: "/" },
+  { label: "Auto survey winners", href: "/" },
+  { label: "Sitemap", href: "/" },
 ];
 
 export default function Footer() {
