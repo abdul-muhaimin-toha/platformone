@@ -41,7 +41,7 @@ const TestimonialCard: FC<Testimonial> = ({
 
     {/* Avatar */}
     <div className="flex w-full items-center gap-2.5">
-      <div className="flex items-center justify-center p-1.5 border-black/25 border rounded-full">
+      <div className="flex items-center justify-center p-1.5 border-black/25 border-2 rounded-full">
         <Image
           src={avatar}
           width={64}
