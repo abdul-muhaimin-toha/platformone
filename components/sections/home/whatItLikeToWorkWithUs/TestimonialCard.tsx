@@ -44,8 +44,8 @@ const TestimonialCard: FC<Testimonial> = ({
       <div className="flex items-center justify-center p-1.5 border-black/25 border rounded-full">
         <Image
           src={avatar}
-          width={52}
-          height={52}
+          width={64}
+          height={64}
           className="aspect-square rounded-full"
           alt={avatarAlt}
         />
