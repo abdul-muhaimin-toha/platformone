@@ -32,7 +32,7 @@ export default function HeaderTop({
           scrolled || open
             ? "bg-white backdrop-blur-none"
             : "bg-black/8 backdrop-blur-xl",
-          !open && "shadow"
+          !open && "shadow-[0_4px_16px_0_rgba(0,0,0,0.08)]"
         )}
       >
         <div className="container-custom">
