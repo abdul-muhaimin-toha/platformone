@@ -91,7 +91,7 @@ export default function WhatWeDoCards({ cards }: Props) {
                     <h3 className="mb-2 text-[38px] font-bold leading-[1.47] text-black">
                       {card.title}
                     </h3>
-                    <p className="mb-8 text-2xl font-semibold leading-[1.33] text-[#D9225F] xl:text-[38px] xl:leading-[1.47]">
+                    <p className="mb-8 text-2xl font-semibold leading-[1.33] text-pulse-pink-700 xl:text-[38px] xl:leading-[1.47]">
                       {card.subtitle}
                     </p>
                     <p className="mb-8 text-base font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">

@@ -1,4 +1,4 @@
-import TextRevealDescription from './TextRevealDescription';
+import TextRevealDescription from "./TextRevealDescription";
 
 interface Props {
   title: string;
