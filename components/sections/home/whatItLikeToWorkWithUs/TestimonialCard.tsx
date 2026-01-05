@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
-import { Testimonial } from './TestimonialSlider';
+import { FC } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { Testimonial } from "./TestimonialSlider";
 
 const TestimonialCard: FC<Testimonial> = ({
   logo,
@@ -27,7 +27,7 @@ const TestimonialCard: FC<Testimonial> = ({
       />
       <Link
         href={linkHref}
-        className="inline-flex justify-center items-center gap-2 text-base font-normal leading-normal text-white hover:text-pulse-pink-200 duration-300"
+        className="inline-flex justify-center items-center gap-2 text-base font-normal leading-[100%] text-white hover:text-pulse-pink-200 duration-300"
       >
         <span>{linkLabel}</span>
         <ArrowUpRight className="w-5 h-5 shrink-0" />
