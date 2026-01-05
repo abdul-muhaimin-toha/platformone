@@ -223,7 +223,10 @@ export default function HeroClient({
           </div>
 
           <div ref={buttonRef} className="opacity-0 translate-y-8">
-            <Button variant="secondary" className="mt-[50px] md:mt-[60px]">
+            <Button
+              variant="secondary"
+              className="mt-[50px] md:mt-[60px] -ml-4"
+            >
               {buttonLabel}
             </Button>
           </div>
