@@ -14,7 +14,7 @@ const HeadingBlock: FC<Props> = ({ title, description }) => (
       <h2 className="text-[38px] xl:text-[56px] xl:leading-[1.28] lg:w-1/2 font-bold leading-[1.26] text-black">
         {title}
       </h2>
-      <p className="text-xl font-normal leading-[1.33] xl:leading-normal lg:w-1/2 text-black">
+      <p className="text-xl font-normal leading-[100%l lg:w-1/2 text-black">
         {description}
       </p>
     </div>
