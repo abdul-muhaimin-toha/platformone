@@ -28,7 +28,7 @@ export default function Button({
     primary:
       "h-14 w-fit py-2 px-6 text-xl leading-normal font-semibold rounded-full text-white bg-pulse-pink-600 hover:bg-pulse-pink-800 duration-800",
     "primary-arrow":
-      "h-14 w-fit py-2 px-6 text-xl leading-normal font-semibold rounded-full text-white bg-pulse-pink-600 hover:bg-pulse-pink-700 duration-800",
+      "h-14 w-fit py-2 px-6 text-xl leading-normal font-semibold rounded-full text-white bg-pulse-pink-600 hover:bg-pulse-pink-800 duration-800",
     secondary:
       "group h-10 w-fit px-4 py-2 text-base font-semibold leading-[22px] gap-2 rounded-[40px] bg-mulberry-900 hover:bg-mulberry-950 text-white inline-flex",
     tertiary:
