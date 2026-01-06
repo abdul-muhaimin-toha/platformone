@@ -25,7 +25,7 @@ function PoliciesCard({ title, date, buttonText, className = '' }: PolicyCard) {
         {date}
       </p>
 
-      <Button variant="tertiary" className="mt-auto">
+      <Button href="/policies/details" variant="tertiary" className="mt-auto">
         {buttonText}
       </Button>
     </div>

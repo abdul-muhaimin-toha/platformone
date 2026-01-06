@@ -2,6 +2,7 @@ import Button from '@/components/globals/Button';
 import BlogsContent from '@/components/sections/insights/BlogsContent';
 import MobileNavDrawer from '@/components/sections/insights/MobileNavDrawer';
 import Sidebar from '@/components/sections/insights/sidebar/Sidebar';
+import PoliciesRichText from '@/components/sections/policies/PoliciesRichText';
 
 export default function PoliciesPage() {
   return (
@@ -62,7 +63,7 @@ export default function PoliciesPage() {
                 ]}
               />
               <div className="flex flex-col w-full gap-10 xl:gap-20">
-                <BlogsContent />
+                <PoliciesRichText />
               </div>
             </div>
             <MobileNavDrawer

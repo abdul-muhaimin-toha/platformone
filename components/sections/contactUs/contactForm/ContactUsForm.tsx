@@ -10,7 +10,6 @@ import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-/* ---------------- Zod Schema ---------------- */
 const contactUsSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
@@ -18,8 +17,8 @@ const contactUsSchema = z.object({
   company: z.string().min(1, 'Company is required'),
   purpose: z.string().min(1, 'Purpose is required'),
   message: z.string().min(1, 'Message is required'),
-  terms: z.literal(true, {
-    errorMap: () => ({ message: 'You must accept the privacy policy' }),
+  terms: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the privacy policy',
   }),
 });
 
