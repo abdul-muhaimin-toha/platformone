@@ -24,7 +24,7 @@ export default function InsightsPage() {
               }}
             />
           </div>
-          <div className="flex flex-col lg:flex-row gap-6 py-32 pt-[120px] lg:py-20 lg:pb-32">
+          <div className="flex flex-col lg:flex-row gap-6 py-32 pt-20 lg:py-20 lg:pb-32">
             <Sidebar
               version="v1"
               page="details"
