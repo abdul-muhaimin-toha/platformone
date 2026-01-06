@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import { FC } from 'react';
+import Image from "next/image";
+import { FC } from "react";
 
 interface CustomerExperienceProps {
   title: string;
@@ -32,7 +32,9 @@ const CustomerExperience: FC<CustomerExperienceProps> = ({
               <h1 className="text-[38px] font-bold leading-[1.26] lg:text-[56px] lg:leading-[1.28] text-black mb-10">
                 {subtitle}
               </h1>
-              <p className="text-xl font-normal text-black">{description}</p>
+              <p className="text-xl font-normal text-black leading-[100%]">
+                {description}
+              </p>
             </div>
 
             {/* Image + SVG */}
