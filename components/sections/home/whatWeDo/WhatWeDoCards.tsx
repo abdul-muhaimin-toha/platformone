@@ -124,7 +124,7 @@ export default function WhatWeDoCards({ cards }: Props) {
             {index == cards.length - 1 && (
               <Link
                 href="/"
-                className="card-container absolute bottom-0 left-0 right-0 translate-y-full flex flex-col w-full bg-linear-90 from-[#E13FAB] to-[#F02D30] rounded-br-full h-24 xl:h-[120px]"
+                className="card-container absolute bottom-0 left-0 right-0 translate-y-full flex flex-col w-full bg-linear-90 from-[#E13FAB] to-[#F02D30] rounded-br-[64px] h-24 xl:h-[120px]"
               >
                 <div className="ml-auto my-auto  flex w-full max-w-[1352px] px-6  xl:pr-[90px] lg:px-8 [@media(min-width:1512px)]:pl-0">
                   <div className="text-2xl inline-flex items-center justify-between w-full leading-[1.33] xl:text-[32px] font-semibold xl:leading-[1.28px] text-white pr-6 xl:pr-0">
