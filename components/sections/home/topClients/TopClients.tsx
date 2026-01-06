@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { JSX, useEffect, useRef } from 'react';
 
@@ -8,7 +9,11 @@ type ClientItem = {
   img: string;
 };
 
-function TopClients(): JSX.Element {
+interface TopClientsProps {
+  bg?: string;
+}
+
+function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const positionRef = useRef<number>(0);
@@ -58,7 +63,7 @@ function TopClients(): JSX.Element {
   }, []);
 
   return (
-    <section className="w-full overflow-hidden bg-white">
+    <section className={cn('w-full overflow-hidden', bg)}>
       <div className="container-custom">
         <div
           className="flex items-center gap-24 py-[26px] w-full"
