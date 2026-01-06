@@ -1,8 +1,8 @@
-import MobileNavDrawer from '@/components/sections/insights/MobileNavDrawer';
-import Sidebar from '@/components/sections/insights/sidebar/Sidebar';
-import TopInsightcard from '@/components/sections/insights/TopInsightcard';
+import MobileNavDrawer from "@/components/sections/insights/MobileNavDrawer";
+import Sidebar from "@/components/sections/insights/sidebar/Sidebar";
+import TopInsightcard from "@/components/sections/insights/TopInsightcard";
 
-import BlogsContent from '@/components/sections/insights/BlogsContent';
+import BlogsContent from "@/components/sections/insights/BlogsContent";
 
 export default function InsightsPage() {
   return (
@@ -14,13 +14,13 @@ export default function InsightsPage() {
               version="v2"
               insight={{
                 title:
-                  'From Feedback to Action: How to Turn Insights Into Measurable Growth',
-                image: '/insights/top-card.png',
-                category: { label: 'Blog', href: '/' },
-                secondaryCategory: 'Insight Communities',
-                author: 'Andrew Dye',
-                authorImage: '/home/work-with-us/avatar.png',
-                date: 'August 13, 2025',
+                  "From Feedback to Action: How to Turn Insights Into Measurable Growth",
+                image: "/insights/top-card.png",
+                category: { label: "Blog", href: "/" },
+                secondaryCategory: "Insight Communities",
+                author: "Andrew Dye",
+                authorImage: "/home/work-with-us/avatar.png",
+                date: "August 13, 2025",
               }}
             />
           </div>
@@ -29,19 +29,19 @@ export default function InsightsPage() {
               version="v1"
               page="details"
               exploreLinks={[
-                { label: 'All', href: '/', isActive: true },
-                { label: 'Blogs', href: '/' },
-                { label: 'Press Releases', href: '/' },
-                { label: 'Podcasts', href: '/' },
-                { label: 'Whitepapers', href: '/' },
+                { label: "All", href: "/", isActive: true },
+                { label: "Blogs", href: "/" },
+                { label: "Press Releases", href: "/" },
+                { label: "Podcasts", href: "/" },
+                { label: "Whitepapers", href: "/" },
               ]}
               topicLinks={[
-                { label: 'All', href: '/', isActive: true },
-                { label: 'Customer Experience', href: '/' },
-                { label: 'Employee Experience', href: '/' },
-                { label: 'Insight Communities', href: '/' },
-                { label: 'Data Visualisation', href: '/' },
-                { label: 'Data Visualisation', href: '/' },
+                { label: "All", href: "/", isActive: true },
+                { label: "Customer Experience", href: "/" },
+                { label: "Employee Experience", href: "/" },
+                { label: "Insight Communities", href: "/" },
+                { label: "Data Visualisation", href: "/" },
+                { label: "Data Visualisation", href: "/" },
               ]}
             />
             <div className="flex-1 flex flex-col gap-14 md:gap-10 xl:gap-20">
@@ -49,19 +49,19 @@ export default function InsightsPage() {
                 version="v2"
                 page="details"
                 exploreLinks={[
-                  { label: 'All', href: '/', isActive: true },
-                  { label: 'Blogs', href: '/' },
-                  { label: 'Press Releases', href: '/' },
-                  { label: 'Podcasts', href: '/' },
-                  { label: 'Whitepapers', href: '/' },
+                  { label: "All", href: "/", isActive: true },
+                  { label: "Blogs", href: "/" },
+                  { label: "Press Releases", href: "/" },
+                  { label: "Podcasts", href: "/" },
+                  { label: "Whitepapers", href: "/" },
                 ]}
                 topicLinks={[
-                  { label: 'All', href: '/', isActive: true },
-                  { label: 'Customer Experience', href: '/' },
-                  { label: 'Employee Experience', href: '/' },
-                  { label: 'Insight Communities', href: '/' },
-                  { label: 'Data Visualisation', href: '/' },
-                  { label: 'Data Visualisation', href: '/' },
+                  { label: "All", href: "/", isActive: true },
+                  { label: "Customer Experience", href: "/" },
+                  { label: "Employee Experience", href: "/" },
+                  { label: "Insight Communities", href: "/" },
+                  { label: "Data Visualisation", href: "/" },
+                  { label: "Data Visualisation", href: "/" },
                 ]}
               />
               <div className="flex flex-col w-full gap-10 xl:gap-20">
@@ -71,18 +71,18 @@ export default function InsightsPage() {
             <MobileNavDrawer
               page="details"
               exploreLinks={[
-                { label: 'All', href: '/', isActive: true },
-                { label: 'Blogs', href: '/' },
-                { label: 'Press Releases', href: '/' },
-                { label: 'Podcasts', href: '/' },
-                { label: 'Whitepapers', href: '/' },
+                { label: "All", href: "/", isActive: true },
+                { label: "Blogs", href: "/" },
+                { label: "Press Releases", href: "/" },
+                { label: "Podcasts", href: "/" },
+                { label: "Whitepapers", href: "/" },
               ]}
               topicLinks={[
-                { label: 'All', href: '/', isActive: true },
-                { label: 'Blogs', href: '/' },
-                { label: 'Press Releases', href: '/' },
-                { label: 'Podcasts', href: '/' },
-                { label: 'Whitepapers', href: '/' },
+                { label: "All", href: "/", isActive: true },
+                { label: "Blogs", href: "/" },
+                { label: "Press Releases", href: "/" },
+                { label: "Podcasts", href: "/" },
+                { label: "Whitepapers", href: "/" },
               ]}
             />
           </div>

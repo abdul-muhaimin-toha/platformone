@@ -3,7 +3,7 @@ import Image from "next/image";
 function BlogsContent() {
   return (
     <div className="w-full block">
-      <p className="text-xl leading-normal font-normal text-black my-8">
+      <p className="text-xl leading-normal font-normal text-black my-2">
         Feedback is the heartbeat of any customer experience strategy. It&apos;s
         the unfiltered truth about how people perceive your brand, your
         products, and your service. Yet, in many organizations, feedback is
