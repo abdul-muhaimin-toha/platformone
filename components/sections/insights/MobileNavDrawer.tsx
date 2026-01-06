@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import Sidebar, { LinkItem } from './sidebar/Sidebar';
+import { useState, useRef, useEffect } from "react";
+import Sidebar, { LinkItem } from "./sidebar/Sidebar";
 
 interface MobileNavDrawerProps {
   page?: string;
@@ -10,7 +10,7 @@ interface MobileNavDrawerProps {
 }
 
 function MobileNavDrawer({
-  page = 'insights',
+  page = "insights",
   exploreLinks,
   topicLinks,
 }: MobileNavDrawerProps) {
@@ -28,20 +28,20 @@ function MobileNavDrawer({
     }
 
     if (open) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open]);
 
   return (
     <div
       ref={drawerRef}
-      className="fixed bottom-0 left-0 right-0 bg-background md:hidden"
+      className="fixed bottom-0 left-0 right-0 bg-[#EDEDEE] md:hidden"
     >
       <Sidebar
         version="v3"
