@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { JSX } from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import { JSX } from "react";
 
 export interface Insight {
   title: string;
@@ -28,7 +28,7 @@ function InsightCard({ insight }: { insight: Insight }): JSX.Element {
         />
       </div>
 
-      <div className="flex flex-row items-center gap-1 text-base font-semibold leading-[1.37] text-pulse-pink-600">
+      <div className="flex flex-row items-center gap-1 text-base font-semibold leading-[1.37] text-pulse-pink-700">
         <Link
           href={insight.category.href}
           className="hover:text-black duration-300 hover:underline"
