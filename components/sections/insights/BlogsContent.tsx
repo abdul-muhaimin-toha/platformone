@@ -46,7 +46,7 @@ function BlogsContent() {
         valuable fragment of the bigger picture. When feedback is siloed by
         department or channel, you risk missing critical connections.
       </p>
-      <blockquote className="w-full bg-pulse-pink-50 flex flex-col p-6 gap-6 mt-8 mb-16">
+      <blockquote className="w-full bg-pulse-pink-50 flex flex-col p-6 gap-6 mt-8 mb-16 rounded-2xl">
         <p className="text-2xl font-normal leading-[1.33] text-mulberry-900">
           “Before Platform One, our feedback process felt like shouting into the
           void. Now, we can see exactly where we&apos;re improving and where to
