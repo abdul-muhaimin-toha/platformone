@@ -48,7 +48,7 @@ export default function Button({
 
       {variant === "tertiary" && (
         <div className="inline-flex items-center justify-center h-6 w-6 bg-[#E8006D29] rounded-full group-hover:bg-pulse-pink-700 duration-300">
-          <ArrowRight className="text-pulse-pink-700 w-4 h-4 group-hover:text-white shrink-0 duration-300" />
+          <ArrowRight className="text-pulse-pink-700 w-4 h-4 group-hover:text-white  shrink-0 duration-300" />
         </div>
       )}
 
