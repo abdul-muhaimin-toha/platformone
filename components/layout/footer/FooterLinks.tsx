@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 interface FooterLinkColumn {
   title: string;
@@ -24,7 +24,7 @@ export default function FooterLinks({ columns }: FooterLinksProps) {
             <Link
               key={i}
               href={link.href}
-              className="hover:text-pulse-pink-100 duration-300 hover:underline"
+              className="hover:text-pulse-pink-50 duration-300 hover:underline"
             >
               {link.label}
             </Link>
