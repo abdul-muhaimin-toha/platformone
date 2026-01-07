@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import Image from 'next/image';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-import Button from '@/components/globals/Button';
-import { WhatWeDoCardData } from './WhatWeDoWrapper';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { useRef } from "react";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import Button from "@/components/globals/Button";
+import { WhatWeDoCardData } from "./WhatWeDoWrapper";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,7 @@ export default function WhatWeDoCards({ cards }: Props) {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add('(min-width: 1024px)', () => {
+      mm.add("(min-width: 1024px)", () => {
         const cardElements = cardsRef.current.filter(
           Boolean
         ) as HTMLDivElement[];
@@ -33,7 +33,7 @@ export default function WhatWeDoCards({ cards }: Props) {
           if (index === cardElements.length - 1) return;
 
           const content = card.querySelector(
-            '.card-content'
+            ".card-content"
           ) as HTMLElement | null;
 
           if (!content) return;
@@ -41,12 +41,12 @@ export default function WhatWeDoCards({ cards }: Props) {
           gsap.to(content, {
             y: -50,
             opacity: 0.98,
-            filter: 'blur(12px)',
-            ease: 'power2.inOut',
+            filter: "blur(12px)",
+            ease: "power2.inOut",
             scrollTrigger: {
               trigger: card,
-              start: 'top top+=100',
-              end: 'bottom top+=100',
+              start: "top top+=100",
+              end: "bottom top+=100",
               scrub: 1,
             },
           });
@@ -70,13 +70,17 @@ export default function WhatWeDoCards({ cards }: Props) {
             ref={(el) => {
               cardsRef.current[index] = el;
             }}
-            className={`card-container flex min-h-[400px] flex-col ${card.bg} lg:sticky lg:top-24 will-change-transform`}
+            className={`card-container flex min-h-[400px] flex-col ${
+              card.bg
+            } lg:sticky lg:top-24 will-change-transform ${
+              index == 0 ? "rounded-tr-[64px]" : ""
+            } `}
             style={{
               zIndex: index + 1,
             }}
           >
             {/* Add wrapper for clipping blur */}
-            <div className="card-content w-full h-full lg:overflow-hidden">
+            <div className="card-content w-full h-full lg:overflow-hidden  ">
               <div className="ml-auto flex h-full w-full max-w-[1352px] flex-col justify-center px-6 pt-16 xl:pr-[90px] xl:pt-24 lg:px-8 [@media(min-width:1512px)]:pl-0">
                 <div className="flex w-full flex-col justify-between gap-6 sm:gap-10 xl:gap-[50px] [@media(min-width:900px)]:flex-row [@media(min-width:900px)]:items-end [@media(min-width:900px)]:pb-0">
                   {/* Text Column */}
@@ -87,10 +91,10 @@ export default function WhatWeDoCards({ cards }: Props) {
                     <h3 className="mb-2 text-[38px] font-bold leading-[1.47] text-black">
                       {card.title}
                     </h3>
-                    <p className="mb-8 text-2xl font-semibold leading-[1.33] text-[#D9225F] xl:text-[38px] xl:leading-[1.47]">
+                    <p className="mb-8 text-2xl font-semibold leading-[1.33] text-pulse-pink-700 xl:text-[38px] xl:leading-[1.47]">
                       {card.subtitle}
                     </p>
-                    <p className="mb-8 text-base font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">
+                    <p className="mb-8 text-base text-[#4D2B42] font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">
                       {card.description}
                     </p>
                     <Button variant="tertiary">{card.buttonText}</Button>
@@ -120,7 +124,7 @@ export default function WhatWeDoCards({ cards }: Props) {
             {index == cards.length - 1 && (
               <Link
                 href="/"
-                className="card-container absolute bottom-0 left-0 right-0 translate-y-full flex flex-col w-full bg-linear-90 from-[#E13FAB] to-[#F02D30] rounded-br-full h-24 xl:h-[120px]"
+                className="card-container absolute bottom-0 left-0 right-0 translate-y-full flex flex-col w-full bg-linear-90 from-[#E13FAB] to-[#F02D30] rounded-br-[64px] h-24 xl:h-[120px]"
               >
                 <div className="ml-auto my-auto  flex w-full max-w-[1352px] px-6  xl:pr-[90px] lg:px-8 [@media(min-width:1512px)]:pl-0">
                   <div className="text-2xl inline-flex items-center justify-between w-full leading-[1.33] xl:text-[32px] font-semibold xl:leading-[1.28px] text-white pr-6 xl:pr-0">

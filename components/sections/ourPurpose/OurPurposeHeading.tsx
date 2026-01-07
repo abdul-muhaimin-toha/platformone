@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface OurPurposeHeadingProps {
   heading: {
     line1: string;

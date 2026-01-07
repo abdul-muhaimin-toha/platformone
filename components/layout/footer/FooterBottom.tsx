@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 interface FooterBottomProps {
   copyright: string;
@@ -8,10 +8,10 @@ interface FooterBottomProps {
 export default function FooterBottom({ copyright, links }: FooterBottomProps) {
   return (
     <div className="w-full flex lg:flex-row lg:justify-between lg:items-start pt-16 gap-2.5 border-t border-t-white/16 flex-col">
-      <p className="text-base font-normal grow shrink-0 leading-[1.37] text-pulse-pink-50">
+      <p className="text-base font-normal grow shrink-0 leading-[1.37] xl:leading-[100%] text-pulse-pink-50">
         {copyright}
       </p>
-      <div className="w-full flex flex-row grow flex-wrap lg:justify-end gap-x-4 text-pulse-pink-300 gap-y-2 text-sm font-normal leading-normal">
+      <div className="w-full flex flex-row grow flex-wrap lg:justify-end gap-x-4 text-pulse-pink-300 gap-y-2 text-sm xl:text-base font-normal leading-[100%]">
         {links.map((link, idx) => (
           <Link
             key={idx}

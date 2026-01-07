@@ -21,6 +21,7 @@ function BlogsContent() {
         <li>They&apos;re the result of asking the right questions.</li>
         <li>Connecting data from multiple touchpoints.</li>
         <li>Prioritizing improvements, and then executing with intention.</li>
+        <li>Prioritizing improvements, and then executing with intention.</li>
       </ol>
       <h3 className="text-[32px] leading-tight font-semibold text-black mt-16 mb-8 first:mt-0 last:mb-0">
         Start with the Right Questions
@@ -33,6 +34,7 @@ function BlogsContent() {
       </p>
       <ul className="text-xl leading-[1.3] text-black font-normal mt-8 mb-16 list-disc flex flex-col gap-3 ml-6 first:mt-0 last:mb-0">
         <li>Every impactful insight starts with a purposeful question.</li>
+        <li>Too often, organisations default to generic survey templates.</li>
         <li>Too often, organisations default to generic survey templates.</li>
         <li>You need to go deeper with open-ended prompts.</li>
       </ul>

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { FC, useRef } from 'react';
-import WhatWeGetCard, { WhatWeGetCardProps } from './WhatWeGetCard';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { cn } from '@/lib/utils';
+import { FC, useRef } from "react";
+import WhatWeGetCard, { WhatWeGetCardProps } from "./WhatWeGetCard";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { cn } from "@/lib/utils";
 
 interface HighlightLineWidth {
   base: string;
@@ -12,7 +12,7 @@ interface HighlightLineWidth {
 }
 
 interface WhatWeGetProps {
-  version?: 'v1' | 'v2';
+  version?: "v1" | "v2";
   title: string;
   highlightLineWidth?: HighlightLineWidth;
   cards: WhatWeGetCardProps[];
@@ -21,7 +21,7 @@ interface WhatWeGetProps {
 }
 
 const WhatWeGet: FC<WhatWeGetProps> = ({
-  version = 'v1',
+  version = "v1",
   title,
   highlightLineWidth,
   cards,
@@ -37,21 +37,21 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
     if (spanRef.current) {
       gsap.fromTo(
         spanRef.current,
-        { scaleX: 0, transformOrigin: 'left' },
+        { scaleX: 0, transformOrigin: "left" },
         {
           scaleX: 1,
           duration: 1.2,
-          ease: 'power3.out',
+          ease: "power3.out",
           scrollTrigger: {
             trigger: spanRef.current,
-            start: 'top 80%',
+            start: "top 80%",
           },
         }
       );
     }
 
     // Mouse-parallax for SVG (v1 only)
-    if (version === 'v1' && svgRef.current && sectionRef.current) {
+    if (version === "v1" && svgRef.current && sectionRef.current) {
       const svg = svgRef.current;
       const section = sectionRef.current;
 
@@ -59,17 +59,17 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
         x: 0,
         y: 0,
         rotate: 0,
-        transformOrigin: '50% 50%',
+        transformOrigin: "50% 50%",
       });
 
       const moveStrength = 18; // px
       const rotateStrength = 4; // deg
 
-      const qx = gsap.quickTo(svg, 'x', { duration: 0.6, ease: 'power3.out' });
-      const qy = gsap.quickTo(svg, 'y', { duration: 0.6, ease: 'power3.out' });
-      const qrot = gsap.quickTo(svg, 'rotate', {
+      const qx = gsap.quickTo(svg, "x", { duration: 0.6, ease: "power3.out" });
+      const qy = gsap.quickTo(svg, "y", { duration: 0.6, ease: "power3.out" });
+      const qrot = gsap.quickTo(svg, "rotate", {
         duration: 0.6,
-        ease: 'power3.out',
+        ease: "power3.out",
       });
 
       const handleMouseMove = (e: MouseEvent) => {
@@ -82,8 +82,8 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
         qrot(relX * rotateStrength);
       };
 
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
+      section.addEventListener("mousemove", handleMouseMove);
+      return () => section.removeEventListener("mousemove", handleMouseMove);
     }
   });
 
@@ -97,7 +97,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
             <span
               ref={spanRef}
               className={cn(
-                'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700',
+                "inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700",
                 highlightLineWidth?.base && `w-[${highlightLineWidth.base}]`,
                 highlightLineWidth?.md && `md:w-[${highlightLineWidth.md}]`
               )}
@@ -115,21 +115,21 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
           <h2
             data-aos="fade-up"
             className={cn(
-              'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
-              version === 'v2' && 'max-w-[800px] lg:max-w-[950px]'
+              "text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]",
+              version === "v2" && "max-w-[800px] lg:max-w-[950px]"
             )}
           >
-            {closingText}{' '}
+            {closingText}{" "}
             <span className="text-pulse-pink-600">{closingHighlight}</span>
           </h2>
         </div>
       </div>
 
       {/* V1 SVG */}
-      {version === 'v1' && (
+      {version === "v1" && (
         <svg
           ref={svgRef}
-          className="absolute z-10 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px]  -right-[200px] xl:-top-56 xl:-right-[478px]"
+          className="absolute z-20 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px]  -right-[200px] xl:-top-56 xl:-right-[478px]"
           width={641}
           height={630}
           viewBox="0 0 641 630"

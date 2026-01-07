@@ -1,5 +1,5 @@
-import Button from '@/components/globals/Button';
-import Link from 'next/link';
+import Button from "@/components/globals/Button";
+import Link from "next/link";
 
 interface HeaderMobileNavProps {
   links: { label: string; href: string }[];
@@ -33,7 +33,7 @@ export default function HeaderMobileNav({
             <Button
               href={cta.href}
               variant="primary"
-              className="w-full font-semibold! text-xl!"
+              className="w-full font-semibold! text-xl! leading-[26px]!"
             >
               {cta.label}
             </Button>
