@@ -41,7 +41,7 @@ function MobileNavDrawer({
   return (
     <div
       ref={drawerRef}
-      className="fixed bottom-0 left-0 right-0 bg-[#EDEDEE] md:hidden"
+      className="fixed bottom-0 left-0 right-0 bg-[#F6F6F6] md:hidden"
     >
       <Sidebar
         version="v3"
