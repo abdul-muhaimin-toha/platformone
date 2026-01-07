@@ -17,7 +17,7 @@ function BlogsContent() {
         this article, we&apos;ll explore how organizations can move from simply
         listening to truly acting-and in doing so, drive measurable growth.
       </p>
-      <ol className="text-xl leading-[1.3] text-black font-normal mt-8 mb-16 list-decimal flex flex-col gap-3 ml-6 first:mt-0 last:mb-0">
+      <ol className="text-xl marker:text-pulse-pink-600 leading-[1.3] text-black font-normal mt-8 mb-16 list-decimal flex flex-col gap-3 ml-6 first:mt-0 last:mb-0">
         <li>They&apos;re the result of asking the right questions.</li>
         <li>Connecting data from multiple touchpoints.</li>
         <li>Prioritizing improvements, and then executing with intention.</li>
@@ -32,7 +32,7 @@ function BlogsContent() {
         this article, we&apos;ll explore how organizations can move from simply
         listening to truly acting-and in doing so, drive measurable growth.
       </p>
-      <ul className="text-xl leading-[1.3] text-black font-normal mt-8 mb-16 list-disc flex flex-col gap-3 ml-6 first:mt-0 last:mb-0">
+      <ul className="text-xl marker:text-pulse-pink-600 leading-[1.3] text-black font-normal mt-8 mb-16 list-disc flex flex-col gap-3 ml-6 first:mt-0 last:mb-0">
         <li>Every impactful insight starts with a purposeful question.</li>
         <li>Too often, organisations default to generic survey templates.</li>
         <li>Too often, organisations default to generic survey templates.</li>
