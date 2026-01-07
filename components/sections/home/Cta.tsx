@@ -17,7 +17,7 @@ const Cta: React.FC<CtaProps> = ({
   buttonHref,
 }) => {
   return (
-    <section className="bg-linear-[90deg] from-[#E9C4DD00]/0 to-[#E9C4DD99]/60">
+    <section className="bg-linear-90 from-[#E9C4DD00]/0 to-[#E9C4DD99]/60">
       <div className="container-custom">
         <div
           data-aos="fade-up"
