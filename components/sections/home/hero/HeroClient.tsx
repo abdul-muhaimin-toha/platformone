@@ -140,7 +140,7 @@ export default function HeroClient({
   return (
     <div
       ref={heroRef}
-      className="h-[95dvh] min-h-[872px]  md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
+      className="h-[95dvh] max-h-[872px]  md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="container-custom">
