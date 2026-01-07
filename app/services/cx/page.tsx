@@ -8,7 +8,7 @@ import WhatWeGet from '@/components/sections/services/whatWeGet/WhatWeGet';
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className="overflow-hidden">
       <CustomerExperience
         title="Customer Experience"
         subtitle="From feedback to foresight."
@@ -176,6 +176,6 @@ export default function ServicesPage() {
         ]}
       />
       <TopClients />
-    </>
+    </div>
   );
 }

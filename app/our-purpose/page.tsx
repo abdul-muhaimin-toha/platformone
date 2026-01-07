@@ -35,7 +35,7 @@ export default function OurPurposePage() {
       />
       <ReimagineAService description="This is what drives us. It’s what makes our work meaningful. And it’s why our people, and our clients, are proud to be part of it. " />
       <WhatWeGet
-        version="v2"
+        version="v1"
         title="Why people like working with us"
         cards={[
           {
