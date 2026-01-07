@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/globals/Button';
 import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';
 
@@ -10,6 +11,10 @@ interface LeadershipHeroInnerProps {
   };
   desktopImages: { src: string; alt: string }[][];
   mobileImages: { src: string; alt: string }[][];
+  button?: {
+    label: string;
+    href: string;
+  };
 }
 
 const REPEAT_COUNT = 4;
@@ -19,6 +24,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
   heading,
   desktopImages,
   mobileImages,
+  button,
 }) => {
   const topRowRef = useRef<HTMLDivElement>(null);
   const bottomRowRef = useRef<HTMLDivElement>(null);
@@ -96,14 +102,18 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
       {/* Heading */}
       <div className="container-custom">
         <div className="flex items-center justify-between w-full">
-          <h1
-            data-aos="fade-up"
-            className="text-white font-bold text-[48px] sm:text-[56px] lg:text-[64px] lg:leading-tight leading-[1.28]"
-          >
-            <span>{heading.title}</span>
-            <br />
-            <span className="text-pulse-pink-600">{heading.subtitle}</span>
-          </h1>
+          <div data-aos="fade-up" className="flex flex-col gap-14 md:gap-10">
+            <h1 className="text-white font-bold text-[48px] sm:text-[56px] lg:text-[64px] lg:leading-tight leading-[1.28]">
+              <span>{heading.title}</span>
+              <br />
+              <span className="text-pulse-pink-600">{heading.subtitle}</span>
+            </h1>
+            {button && (
+              <Button href={button.href} variant="secondary">
+                {button.label}
+              </Button>
+            )}
+          </div>
 
           {/* Desktop Columns */}
           <div

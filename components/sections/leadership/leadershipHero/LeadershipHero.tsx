@@ -8,12 +8,17 @@ interface LeadershipHeroProps {
   };
   desktopImages: { src: string; alt: string }[][];
   mobileImages: { src: string; alt: string }[][];
+  button?: {
+    label: string;
+    href: string;
+  };
 }
 
 const LeadershipHero: FC<LeadershipHeroProps> = ({
   heading,
   desktopImages,
   mobileImages,
+  button,
 }) => {
   return (
     <section className="bg-background">
@@ -22,11 +27,11 @@ const LeadershipHero: FC<LeadershipHeroProps> = ({
           className="w-full relative bg-[#3F1231] bg-no-repeat bg-cover"
           style={{ backgroundImage: `url('/home/hero/bg.svg')` }}
         >
-          {/* Client Component */}
           <LeadershipHeroInner
             heading={heading}
             desktopImages={desktopImages}
             mobileImages={mobileImages}
+            button={button}
           />
         </div>
       </div>
