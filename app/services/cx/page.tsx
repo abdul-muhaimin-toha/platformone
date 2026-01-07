@@ -29,7 +29,7 @@ export default function ServicesPage() {
         heading="Knowing is power,"
         highlightedText="change is progress."
         description="Our insight doesn’t live in a deck. It lives in your actions – helping teams make confident decisions. Because great CX isn’t about listening harder. It’s about building a business wired for what matters."
-        imageSrc="/services/knowing-is-power/knowing-is-power.svg"
+        imageSrc="/services/knowing-is-power/knowing-is-power.png"
         imageAlt="Knowing is power"
       />
       <ReimagineAService description="Whether you're refining a product, reimagining a service, or reshaping a journey, we make sure the voice of your customer drives what comes next." />

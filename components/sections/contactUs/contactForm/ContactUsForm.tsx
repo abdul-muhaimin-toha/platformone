@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import Button from "@/components/globals/Button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { z } from "zod";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import Button from '@/components/globals/Button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+import { z } from 'zod';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const contactUsSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address"),
-  company: z.string().min(1, "Company is required"),
-  purpose: z.string().min(1, "Purpose is required"),
-  message: z.string().min(1, "Message is required"),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  email: z.string().email('Invalid email address'),
+  company: z.string().min(1, 'Company is required'),
+  purpose: z.string().min(1, 'Purpose is required'),
+  message: z.string().min(1, 'Message is required'),
   terms: z.boolean().refine((val) => val === true, {
-    message: "You must accept the privacy policy",
+    message: 'You must accept the privacy policy',
   }),
 });
 
@@ -36,7 +36,7 @@ export default function ContactUsForm() {
   });
 
   const onSubmit = (data: ContactUsFormValues) => {
-    console.log("Form Data:", data);
+    console.log('Form Data:', data);
   };
 
   return (
@@ -51,10 +51,10 @@ export default function ContactUsForm() {
         </Label>
         <Input
           type="text"
-          {...register("firstName")}
+          {...register('firstName')}
           className={cn(
-            "file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -69,10 +69,10 @@ export default function ContactUsForm() {
         </Label>
         <Input
           type="text"
-          {...register("lastName")}
+          {...register('lastName')}
           className={cn(
-            "file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -87,10 +87,10 @@ export default function ContactUsForm() {
         </Label>
         <Input
           type="email"
-          {...register("email")}
+          {...register('email')}
           className={cn(
-            "file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -105,10 +105,10 @@ export default function ContactUsForm() {
         </Label>
         <Input
           type="text"
-          {...register("company")}
+          {...register('company')}
           className={cn(
-            "file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -123,10 +123,10 @@ export default function ContactUsForm() {
         </Label>
         <Input
           type="text"
-          {...register("purpose")}
+          {...register('purpose')}
           className={cn(
-            "file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -140,10 +140,10 @@ export default function ContactUsForm() {
           Message
         </Label>
         <Textarea
-          {...register("message")}
+          {...register('message')}
           className={cn(
-            "h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-xl shadow-none md:text-sm",
-            "focus-visible:border focus-visible:ring-0"
+            'h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-xl shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0'
           )}
         />
         <span className="text-red-500 text-xs ml-1">
@@ -170,7 +170,7 @@ export default function ContactUsForm() {
             htmlFor="terms"
             className="text-black text-base leading-none font-normal"
           >
-            You agree with our{" "}
+            You agree with our{' '}
             <span className="underline">privacy policy.</span>
           </Label>
         </div>

@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { FC } from "react";
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { FC } from 'react';
 
 interface SideBySideProps {
-  contentSide?: "left" | "right";
+  contentSide?: 'left' | 'right';
   heading: string;
   highlightedText?: string;
   description: string;
@@ -13,13 +13,13 @@ interface SideBySideProps {
 }
 
 const SideBySide: FC<SideBySideProps> = ({
-  contentSide = "left",
+  contentSide = 'left',
   heading,
   highlightedText,
   description,
   imageSrc,
   imageAlt,
-  className = "",
+  className = '',
 }) => {
   return (
     <section className="relative overflow-hidden">
@@ -27,28 +27,28 @@ const SideBySide: FC<SideBySideProps> = ({
         <div
           className={cn(
             className,
-            "w-full flex flex-col z-20 gap-16 md:gap-6 lg:gap-16 md:justify-between  pt-[168px] pb-14  items-start md:items-center justify-center",
-            contentSide === "right"
-              ? "flex-col-reverse md:flex-row-reverse pb-32"
-              : "flex-col md:flex-row pb-14"
+            'w-full flex flex-col z-20 gap-16 md:gap-6 lg:gap-16 md:justify-between  pt-[168px] pb-14  items-start md:items-center justify-center',
+            contentSide === 'right'
+              ? 'flex-col-reverse md:flex-row-reverse pb-32 xl:pt-32'
+              : 'flex-col md:flex-row pb-14'
           )}
         >
           {/* Text Content */}
           <div className="w-full flex flex-col max-w-[480px] md:max-w-max">
             <h1 className="text-[38px] font-bold leading-[1.26] text-black mb-10">
-              {heading}{" "}
+              {heading}{' '}
               {highlightedText && (
                 <span className="text-pulse-pink-600">{highlightedText}</span>
               )}
             </h1>
-            <p className="text-xl font-normal text-black max-w-[578px] leading-[100%]">
+            <p className="text-xl font-normal text-black max-w-[578px] leading-[1.3]">
               {description}
             </p>
           </div>
 
           {/* Image */}
           <div
-            data-aos={contentSide === "right" && "fade-right"}
+            data-aos={contentSide === 'right' && 'fade-right'}
             className="w-full relative aspect-380/236 md:aspect-644/400 lg:max-w-[644px]"
           >
             <Image
@@ -60,9 +60,9 @@ const SideBySide: FC<SideBySideProps> = ({
           </div>
         </div>
       </div>
-      {contentSide == "right" && (
+      {contentSide == 'right' && (
         <svg
-          data-aos={contentSide === "right" && "fade-left"}
+          data-aos={contentSide === 'right' && 'fade-left'}
           data-aos-delay="1500"
           className="absolute top-20 z-10 -left-[200px] aspect-423/415 h-auto w-[350px] md:w-[423px] md:-left-[300px] md:top-1/2 md:-translate-y-1/2 xl:w-[640px] xl:-left-[460px]"
           width={641}

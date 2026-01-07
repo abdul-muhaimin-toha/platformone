@@ -12,7 +12,7 @@ interface LocationCardWrapperProps {
 
 function LocationCardWrapper({ locations }: LocationCardWrapperProps) {
   return (
-    <section className="bg-background">
+    <section className="z-10">
       <div className="container-custom max-w-[1176px]">
         <div className="w-full flex flex-col pt-20 pb-40 gap-10 md:gap-14">
           <LocationHeader />

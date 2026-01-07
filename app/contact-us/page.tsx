@@ -4,7 +4,7 @@ import TopClients from '@/components/sections/home/topClients/TopClients';
 
 export default function ContactUsPage() {
   return (
-    <>
+    <div className="relative bg-linear-to-bl from-[#FFEBF5] to-white">
       <ContactFormWrapper
         header={{
           title: ['Let’s start a', 'conversation.'],
@@ -37,6 +37,6 @@ export default function ContactUsPage() {
           { title: 'Tokyo, Japan', address: '1-2-3 Shibuya, Tokyo 150-0002' },
         ]}
       />
-    </>
+    </div>
   );
 }

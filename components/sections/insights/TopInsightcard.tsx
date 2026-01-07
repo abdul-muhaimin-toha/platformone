@@ -1,35 +1,35 @@
-import Button from "@/components/globals/Button";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import Link from "next/link";
-import { Insight } from "./insightGrid/InsightCard";
+import Button from '@/components/globals/Button';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Insight } from './insightGrid/InsightCard';
 
 interface TopInsightCardProps {
-  version?: "v1" | "v2";
+  version?: 'v1' | 'v2';
   insight: Insight;
 }
 
-function TopInsightcard({ version = "v1", insight }: TopInsightCardProps) {
+function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
   return (
     <div
       className={cn(
-        "group w-full  md:flex-row gap-6 pb-10 xl:pb-20 border-b border-b-border",
-        version === "v1"
-          ? "flex flex-col-reverse pb-10 xl:pb-20"
-          : "grid grid-cols-1  pb-20 md:grid-cols-2 lg:flex lg:flex-row"
+        'group w-full  md:flex-row gap-6 pb-10 xl:pb-20 border-b border-b-border',
+        version === 'v1'
+          ? 'flex flex-col-reverse pb-10 xl:pb-20'
+          : 'grid grid-cols-1  pb-20 md:grid-cols-2 lg:flex lg:flex-row'
       )}
     >
-      {version === "v2" && (
+      {version === 'v2' && (
         <div className="w-full flex flex-col md:col-span-2 lg:max-w-[211px] border-r border-transparent md:pr-2 xl:max-w-[248px] xl:pr-6">
           <Button variant="back">Back</Button>
         </div>
       )}
       <div
         className={cn(
-          "flex flex-col",
-          version === "v1"
-            ? ""
-            : "row-start-3 md:col-start-1 md:row-start-2 xl:max-w-[456px]"
+          'flex flex-col',
+          version === 'v1'
+            ? ''
+            : 'row-start-3 md:col-start-1 md:row-start-2 xl:max-w-[456px]'
         )}
       >
         <h2 className="text-[32px] font-semibold md:font-normal xl:font-normal md:text-2xl xl:text-[32px] leading-tight text-black mb-6 md:mb-2 xl:mb-6">
@@ -51,8 +51,8 @@ function TopInsightcard({ version = "v1", insight }: TopInsightCardProps) {
         </div>
         <div
           className={cn(
-            "flex w-full items-center gap-4 mt-10 md:mt-auto",
-            version === "v1" ? "" : "md:mt-8 md:mb-8 xl:my-10"
+            'flex w-full items-center gap-4 mt-10 md:mt-auto',
+            version === 'v1' ? '' : 'md:mt-8 md:mb-8 xl:my-10'
           )}
         >
           {insight.authorImage && (
@@ -77,7 +77,7 @@ function TopInsightcard({ version = "v1", insight }: TopInsightCardProps) {
             )}
           </div>
         </div>
-        {version === "v2" && (
+        {version === 'v2' && (
           <div className="w-full flex flex-row items-center text-base font-normal leading-[1.37] text-[#000000] gap-2.5 mt-20 md:mt-auto">
             <p>Share this article on:</p>
             <button className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
@@ -145,16 +145,16 @@ function TopInsightcard({ version = "v1", insight }: TopInsightCardProps) {
       </div>
       <div
         className={cn(
-          "w-full md:w-1/2 xl:max-w-[536px] relative aspect-380/305 md:aspect-536/310 rounded-2xl shrink-0 overflow-hidden",
-          version === "v1"
-            ? ""
-            : "md:col-start-2 md:w-full md:h-full lg:h-auto lg:w-2/5 xl:max-w-[440px] xl:aspect-440/367"
+          'w-full md:w-1/2 xl:max-w-[536px] relative aspect-380/305 md:aspect-536/310 rounded-2xl shrink-0 overflow-hidden',
+          version === 'v1'
+            ? ''
+            : 'md:col-start-2 md:w-full md:h-full lg:h-auto lg:w-2/5 xl:max-w-[440px] xl:aspect-440/367'
         )}
       >
         <Image
           src={insight.image}
           alt={insight.title}
-          className=" object-cover w-full h-full group-hover:scale-105 duration-300"
+          className=" object-cover w-full h-full hover:scale-105 duration-300"
           fill
         />
       </div>

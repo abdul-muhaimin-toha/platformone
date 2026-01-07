@@ -64,7 +64,7 @@ function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
 
   return (
     <section className={cn('w-full overflow-hidden', bg)}>
-      <div className="container-custom">
+      <div className="container-custom z-10">
         <div
           className="flex items-center gap-24 py-[26px] w-full"
           ref={marqueeRef}
