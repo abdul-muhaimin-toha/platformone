@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
-import AOSWrapper from '@/lib/aos-wrapper';
+import AOSWrapper from '@/utils/aos-wrapper';
 import ReactLenis from 'lenis/react';
 
 const overusedGothek = localFont({

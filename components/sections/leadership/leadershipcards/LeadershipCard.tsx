@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Button from '@/components/globals/Button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 
 export interface LeadershipPerson {
   id: string;

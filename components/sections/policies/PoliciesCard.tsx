@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/globals/Button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 
 export interface PolicyCard {
   title: string;

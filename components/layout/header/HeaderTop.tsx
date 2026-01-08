@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import Button from "@/components/globals/Button";
-import { cn } from "@/lib/utils";
-import HeaderHamBurgerButton from "./HeaderHamBurgerButton";
+import Image from 'next/image';
+import Link from 'next/link';
+import Button from '@/components/globals/Button';
+import { cn } from '@/utils/utils';
+import HeaderHamBurgerButton from './HeaderHamBurgerButton';
 
 interface HeaderTopProps {
   logoSrc: string;
@@ -27,12 +27,12 @@ export default function HeaderTop({
     <div className="fixed top-0 left-0 z-501 w-full">
       <div
         className={cn(
-          "flex w-full flex-row items-center justify-between",
-          "transition-[background-color,backdrop-filter] duration-700 ease-out",
+          'flex w-full flex-row items-center justify-between',
+          'transition-[background-color,backdrop-filter] duration-700 ease-out',
           scrolled || open
-            ? "bg-white backdrop-blur-none"
-            : "bg-black/8 backdrop-blur-xl",
-          !open && "shadow-[0_4px_16px_0_rgba(0,0,0,0.08)]"
+            ? 'bg-white backdrop-blur-none'
+            : 'bg-black/8 backdrop-blur-xl',
+          !open && 'shadow-[0_4px_16px_0_rgba(0,0,0,0.08)]'
         )}
       >
         <div className="container-custom">
@@ -43,8 +43,8 @@ export default function HeaderTop({
                 width={208}
                 height={34}
                 className={cn(
-                  "aspect-208/34 max-w-[168px] md:max-w-max",
-                  scrolled || open ? "block" : "hidden"
+                  'aspect-208/34 max-w-[168px] md:max-w-max',
+                  scrolled || open ? 'block' : 'hidden'
                 )}
                 alt="Platformone logo"
               />
@@ -53,8 +53,8 @@ export default function HeaderTop({
                 width={208}
                 height={34}
                 className={cn(
-                  "aspect-208/34 max-w-[168px] md:max-w-max",
-                  scrolled || open ? "hidden" : "block"
+                  'aspect-208/34 max-w-[168px] md:max-w-max',
+                  scrolled || open ? 'hidden' : 'block'
                 )}
                 alt="Platformone logo"
               />
@@ -64,8 +64,8 @@ export default function HeaderTop({
               {/* Desktop links */}
               <div
                 className={cn(
-                  "lg:flex hidden flex-row  items-center justify-end gap-12",
-                  scrolled || open ? "text-black" : "text-white"
+                  'lg:flex hidden flex-row  items-center justify-end gap-12',
+                  scrolled || open ? 'text-black' : 'text-white'
                 )}
               >
                 {desktopLinks.map((link, i) => (
@@ -73,10 +73,10 @@ export default function HeaderTop({
                     key={i}
                     href={link.href}
                     className={cn(
-                      "duration-300",
+                      'duration-300',
                       scrolled || open
-                        ? "hover:text-pulse-pink-900"
-                        : "hover:text-pulse-pink-100"
+                        ? 'hover:text-pulse-pink-900'
+                        : 'hover:text-pulse-pink-100'
                     )}
                   >
                     {link.label}

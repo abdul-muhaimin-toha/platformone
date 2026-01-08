@@ -4,7 +4,7 @@ import {
   HamburgerCrossIcon,
   HamburgerIcon,
 } from '@/components/icons/HamburgerIcon';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 import gsap from 'gsap';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';

@@ -1,5 +1,5 @@
 import Button from '@/components/globals/Button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Insight } from './insightGrid/InsightCard';

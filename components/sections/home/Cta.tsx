@@ -1,8 +1,8 @@
-import Button from "@/components/globals/Button";
-import { cn } from "@/lib/utils";
+import Button from '@/components/globals/Button';
+import { cn } from '@/utils/utils';
 
 interface CtaProps {
-  version?: "v1" | "v2";
+  version?: 'v1' | 'v2';
   headingPrimary: string;
   headingSecondary: string;
   buttonText: string;
@@ -10,7 +10,7 @@ interface CtaProps {
 }
 
 const Cta: React.FC<CtaProps> = ({
-  version = "v1",
+  version = 'v1',
   headingPrimary,
   headingSecondary,
   buttonText,
@@ -25,8 +25,8 @@ const Cta: React.FC<CtaProps> = ({
         >
           <h2
             className={cn(
-              "text-[56px] flex w-full flex-col font-bold leading-[1.33]",
-              version == "v1" ? "text-[56px]" : "text-4xl sm:text-[56px]"
+              'text-[56px] flex w-full flex-col font-bold leading-[1.33]',
+              version == 'v1' ? 'text-[56px]' : 'text-4xl sm:text-[56px]'
             )}
           >
             <span className="text-[#4D2B42]">{headingPrimary}</span>
