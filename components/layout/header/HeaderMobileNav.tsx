@@ -1,16 +1,18 @@
-import Button from "@/components/globals/Button";
-import Link from "next/link";
+import Button from '@/components/globals/Button';
+import Link from 'next/link';
 
 interface HeaderMobileNavProps {
   links: { label: string; href: string }[];
   cta: { label: string; href: string };
   isOpen: boolean;
+  setOpen: (state: boolean) => void;
 }
 
 export default function HeaderMobileNav({
   links,
   cta,
   isOpen,
+  setOpen,
 }: HeaderMobileNavProps) {
   if (!isOpen) return null;
 
@@ -22,6 +24,7 @@ export default function HeaderMobileNav({
             <div className="w-full flex flex-col justify-start text-black gap-6 text-2xl font-semibold leading-[1.33]">
               {links.map((link, i) => (
                 <Link
+                  onClick={() => setOpen(false)}
                   key={i}
                   href={link.href}
                   className="py-2 hover:text-pulse-pink-900 duration-300"
@@ -30,13 +33,15 @@ export default function HeaderMobileNav({
                 </Link>
               ))}
             </div>
-            <Button
-              href={cta.href}
-              variant="primary"
-              className="w-full font-semibold! text-xl! leading-[26px]!"
-            >
-              {cta.label}
-            </Button>
+            <Link href={cta.href}>
+              <Button
+                onClick={() => setOpen(false)}
+                variant="primary"
+                className="w-full font-semibold! text-xl! leading-[26px]!"
+              >
+                {cta.label}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

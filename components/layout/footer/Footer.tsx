@@ -16,17 +16,17 @@ const footerLinksData = [
   {
     title: 'Discover',
     links: [
-      { label: 'Insights', href: '/' },
+      { label: 'Insights', href: '/insights' },
       { label: 'About Us', href: '/' },
       { label: 'Our Purpose', href: '/our-purpose' },
       { label: 'Case Studies', href: '/case-studies' },
-      { label: 'Contact', href: '/' },
+      { label: 'Contact', href: '/contact-us' },
     ],
   },
 ];
 
 const footerBottomLinks = [
-  { label: 'Privacy, Security and Legal Policies', href: '/' },
+  { label: 'Privacy, Security and Legal Policies', href: '/policies' },
   { label: 'Terms and conditions', href: '/' },
   { label: 'Auto survey winners', href: '/' },
   { label: 'Sitemap', href: '/' },

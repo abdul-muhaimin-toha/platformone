@@ -2,6 +2,7 @@ import BulbIcon from '@/components/icons/BulbIcon';
 import TopClients from '@/components/sections/home/topClients/TopClients';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
 import CustomerExperience from '@/components/sections/services/CustomerExperience';
+import FaqWrapper from '@/components/sections/services/faqWrapper/FaqWrapper';
 import ReimagineAService from '@/components/sections/services/ReimagineAService';
 import SideBySide from '@/components/sections/services/SideBySide';
 import WhatWeGet from '@/components/sections/services/whatWeGet/WhatWeGet';
@@ -75,6 +76,7 @@ export default function ServicesPage() {
         closingText="Because when you stay in the conversation, "
         closingHighlight="you stay ahead."
       />
+      <FaqWrapper />
       <WhatItLikeToWorkWithUsWrapper
         testimonials={[
           {

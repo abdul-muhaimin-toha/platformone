@@ -11,7 +11,8 @@ interface TopInsightCardProps {
 
 function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
   return (
-    <div
+    <Link
+      href="insights/details"
       className={cn(
         'group w-full  md:flex-row gap-6 pb-10 xl:pb-20 border-b border-b-border',
         version === 'v1'
@@ -158,7 +159,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
           fill
         />
       </div>
-    </div>
+    </Link>
   );
 }
 
