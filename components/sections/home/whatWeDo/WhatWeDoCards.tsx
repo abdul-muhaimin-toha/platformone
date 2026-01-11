@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import Button from "@/components/globals/Button";
-import { WhatWeDoCardData } from "./WhatWeDoWrapper";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useRef } from 'react';
+import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import Button from '@/components/globals/Button';
+import { WhatWeDoCardData } from './WhatWeDoWrapper';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,7 @@ export default function WhatWeDoCards({ cards }: Props) {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add('(min-width: 1024px)', () => {
         const cardElements = cardsRef.current.filter(
           Boolean
         ) as HTMLDivElement[];
@@ -33,7 +33,7 @@ export default function WhatWeDoCards({ cards }: Props) {
           if (index === cardElements.length - 1) return;
 
           const content = card.querySelector(
-            ".card-content"
+            '.card-content'
           ) as HTMLElement | null;
 
           if (!content) return;
@@ -41,12 +41,12 @@ export default function WhatWeDoCards({ cards }: Props) {
           gsap.to(content, {
             y: -50,
             opacity: 0.98,
-            filter: "blur(12px)",
-            ease: "power2.inOut",
+            filter: 'blur(12px)',
+            ease: 'power2.inOut',
             scrollTrigger: {
               trigger: card,
-              start: "top top+=100",
-              end: "bottom top+=100",
+              start: 'top top+=100',
+              end: 'bottom top+=100',
               scrub: 1,
             },
           });
@@ -73,7 +73,7 @@ export default function WhatWeDoCards({ cards }: Props) {
             className={`card-container flex min-h-[400px] flex-col ${
               card.bg
             } lg:sticky lg:top-24 will-change-transform ${
-              index == 0 ? "rounded-tr-[64px]" : ""
+              index == 0 ? 'rounded-tr-[64px]' : ''
             } `}
             style={{
               zIndex: index + 1,

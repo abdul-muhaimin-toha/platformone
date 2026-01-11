@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const sitemapQuery = gql`
+export const sitemapQuery: DocumentNode = gql`
    query SitemapQuery {
       pages(first: 1000) {
          edges {

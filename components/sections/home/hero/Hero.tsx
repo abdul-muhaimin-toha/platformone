@@ -8,11 +8,12 @@ export interface HeroProps {
   buttonLabel: string;
 }
 
-export default function Hero(props: HeroProps) {
+export default function Hero({ data }) {
+  console.log(data);
   return (
     <section>
       <div className="bg-[#3E122F] rounded-bl-[64px]">
-        <HeroClient {...props} />
+        {/* <HeroClient {...props} /> */}
       </div>
     </section>
   );

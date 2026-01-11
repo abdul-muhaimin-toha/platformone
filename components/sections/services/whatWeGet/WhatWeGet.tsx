@@ -4,36 +4,40 @@ import { FC, useRef } from 'react';
 import WhatWeGetCard, { WhatWeGetCardProps } from './WhatWeGetCard';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { cn } from '@/utils/utils';
+import { cn, extractBottomText } from '@/utils/utils';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-interface HighlightLineWidth {
-  base: string;
-  md: string;
+gsap.registerPlugin(ScrollTrigger);
+
+interface WhatWeGetData {
+  version?: 'v1' | 'v2';
+  title?: string;
+  promo_cards?: WhatWeGetCardProps[];
+  bottom_description?: string;
 }
 
 interface WhatWeGetProps {
-  version?: 'v1' | 'v2';
-  title: string;
-  highlightLineWidth?: HighlightLineWidth;
-  cards: WhatWeGetCardProps[];
-  closingText: string;
-  closingHighlight: string;
+  data?: {
+    data?: WhatWeGetData;
+  };
 }
 
-const WhatWeGet: FC<WhatWeGetProps> = ({
-  version = 'v1',
-  title,
-  highlightLineWidth,
-  cards,
-  closingText,
-  closingHighlight,
-}) => {
+const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
+  const content = data?.data ?? {};
+  const {
+    version = 'v1',
+    title,
+    promo_cards = [],
+    bottom_description,
+  } = content;
+
+  const { description, highlight } = extractBottomText(bottom_description);
+
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useGSAP(() => {
-    // Animate span underline
     if (spanRef.current) {
       gsap.fromTo(
         spanRef.current,
@@ -50,20 +54,14 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
       );
     }
 
-    // Mouse-parallax for SVG (v1 only)
     if (version === 'v1' && svgRef.current && sectionRef.current) {
       const svg = svgRef.current;
       const section = sectionRef.current;
 
-      gsap.set(svg, {
-        x: 0,
-        y: 0,
-        rotate: 0,
-        transformOrigin: '50% 50%',
-      });
+      gsap.set(svg, { x: 0, y: 0, rotate: 0, transformOrigin: '50% 50%' });
 
-      const moveStrength = 18; // px
-      const rotateStrength = 4; // deg
+      const moveStrength = 18;
+      const rotateStrength = 4;
 
       const qx = gsap.quickTo(svg, 'x', { duration: 0.6, ease: 'power3.out' });
       const qy = gsap.quickTo(svg, 'y', { duration: 0.6, ease: 'power3.out' });
@@ -74,7 +72,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
 
       const handleMouseMove = (e: MouseEvent) => {
         const bounds = section.getBoundingClientRect();
-        const relX = ((e.clientX - bounds.left) / bounds.width - 0.5) * 2; // -1 to 1
+        const relX = ((e.clientX - bounds.left) / bounds.width - 0.5) * 2;
         const relY = ((e.clientY - bounds.top) / bounds.height - 0.5) * 2;
 
         qx(relX * moveStrength);
@@ -91,45 +89,49 @@ const WhatWeGet: FC<WhatWeGetProps> = ({
     <section ref={sectionRef} className="bg-mulberry-950 relative">
       <div className="container-custom">
         <div className="w-full z-20 flex flex-col gap-16 py-32 items-center justify-center">
-          {/* Title with animated underline */}
-          <h2 className="text-white w-full md:gap-3 flex-row flex items-center text-[38px] md:text-[56px] md:leading-[1.28] font-bold gap-2 leading-[1.26]">
-            <span>{title}</span>
-            <span
-              ref={spanRef}
+          {title && (
+            <h2 className="text-white w-full md:gap-3 flex-row flex items-center text-[38px] md:text-[56px] md:leading-[1.28] font-bold gap-2 leading-[1.26]">
+              <span>{title}</span>
+              <span
+                ref={spanRef}
+                className={cn(
+                  'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 xl:h-3 xl:w-[230px]'
+                )}
+              />
+            </h2>
+          )}
+
+          {promo_cards.length > 0 && (
+            <div className="grid w-full gap-6 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
+              {promo_cards.map((card) => (
+                <WhatWeGetCard key={card._id} {...card} />
+              ))}
+            </div>
+          )}
+
+          {bottom_description && (
+            <h2
+              data-aos="fade-up"
               className={cn(
-                'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700',
-                highlightLineWidth?.base && `w-[${highlightLineWidth.base}]`,
-                highlightLineWidth?.md && `md:w-[${highlightLineWidth.md}]`
+                'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
+                version === 'v2' && 'max-w-[800px] lg:max-w-[950px]'
               )}
-            />
-          </h2>
-
-          {/* Cards */}
-          <div className="grid w-full gap-6 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
-            {cards.map((card, index) => (
-              <WhatWeGetCard key={index} {...card} />
-            ))}
-          </div>
-
-          {/* Closing text */}
-          <h2
-            data-aos="fade-up"
-            className={cn(
-              'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
-              version === 'v2' && 'max-w-[800px] lg:max-w-[950px]'
-            )}
-          >
-            {closingText}{' '}
-            <span className="text-pulse-pink-600">{closingHighlight}</span>
-          </h2>
+            >
+              <span>{description}</span>{' '}
+              {highlight && (
+                <span className="text-pulse-pink-600 wrap-break-word">
+                  {highlight}
+                </span>
+              )}
+            </h2>
+          )}
         </div>
       </div>
 
-      {/* V1 SVG */}
       {version === 'v1' && (
         <svg
           ref={svgRef}
-          className="absolute z-20 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px]  -right-[200px] xl:-top-56 xl:-right-[478px]"
+          className="absolute z-20 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px] -right-[200px] xl:-top-56 xl:-right-[478px]"
           width={641}
           height={630}
           viewBox="0 0 641 630"

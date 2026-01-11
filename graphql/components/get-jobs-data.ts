@@ -3,10 +3,16 @@ import {
    paginatedCareersQuery,
    singleCareerQuery,
 } from '../queries/jobs-data-query';
+import { WPConnection, WPNode } from '../types';
+
+interface CareersData {
+   careers: WPConnection<WPNode>;
+   careerBy?: WPNode;
+}
 
 export const getPaginatedCareersData = async () => {
    try {
-      const data = await getGqlData(paginatedCareersQuery);
+      const data = await getGqlData<CareersData>(paginatedCareersQuery);
 
       if (!data?.careers?.edges?.length) {
          console.warn('No careers found');
@@ -22,14 +28,14 @@ export const getPaginatedCareersData = async () => {
    }
 };
 
-export const getCareerBySlug = async (slug) => {
+export const getCareerBySlug = async (slug: string) => {
    try {
       if (!slug) {
          console.warn('No slug provided');
          return null;
       }
 
-      const data = await getGqlData(singleCareerQuery, { slug });
+      const data = await getGqlData<CareersData>(singleCareerQuery, { slug });
 
       if (!data?.careerBy) {
          console.warn(`Career not found for slug: ${slug}`);
@@ -42,3 +48,4 @@ export const getCareerBySlug = async (slug) => {
       return null;
    }
 };
+

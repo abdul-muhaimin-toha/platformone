@@ -21,7 +21,13 @@ export default function TeamFigure({
         transformStyle: 'preserve-3d',
       }}
     >
-      <Image src={src} alt={`Team ${index}`} fill className="object-cover" />
+      <Image
+        src={src}
+        alt={`Team ${index}`}
+        fill
+        className="object-cover object-bottom"
+        sizes="(max-width: 640px) 100vw, 20rem"
+      />
     </figure>
   );
 }

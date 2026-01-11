@@ -1,14 +1,24 @@
-import BulbIcon from '@/components/icons/BulbIcon';
-import TopClients from '@/components/sections/home/topClients/TopClients';
-import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
-import CustomerExperience from '@/components/sections/services/CustomerExperience';
-import ReimagineAService from '@/components/sections/services/ReimagineAService';
-import SideBySide from '@/components/sections/services/SideBySide';
-import WhatWeGet from '@/components/sections/services/whatWeGet/WhatWeGet';
+import { getServiceData } from '@/graphql/components/get-service-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function ServicesPage() {
+interface ServicesPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function ServicesPage({ params }: ServicesPageProps) {
+  const { slug } = await params;
+
+  const serviceData = await getServiceData(slug);
+
   return (
     <div className="overflow-hidden">
+      <RenderBlocksHelper blocks={serviceData} />
+    </div>
+  );
+}
+
+{
+  /* <div className="overflow-hidden">
       <CustomerExperience
         title="Customer Experience"
         subtitle="From feedback to foresight."
@@ -176,6 +186,5 @@ export default function ServicesPage() {
         ]}
       />
       <TopClients />
-    </div>
-  );
+    </div> */
 }

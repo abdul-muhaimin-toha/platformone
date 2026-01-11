@@ -2,10 +2,17 @@ import CaseStudiesHero from '@/components/sections/caseStudies/hero/CaseStudiesH
 import StoriesWrapper from '@/components/sections/caseStudies/stories/StoriesWrapper';
 import TopClients from '@/components/sections/home/topClients/TopClients';
 import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
+import { getPageData } from '@/graphql/components/get-page-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function CaseStudiesPage() {
-  return (
-    <>
+export default async function CaseStudiesPage() {
+  const homePageData = await getPageData('case-studies');
+
+  return <RenderBlocksHelper blocks={homePageData} />;
+}
+
+{
+  /* <>
       <CaseStudiesHero
         title="From words"
         subtitle="to outcomes."
@@ -158,6 +165,5 @@ export default function CaseStudiesPage() {
         ]}
       />
       <TopClients />
-    </>
-  );
+    </> */
 }

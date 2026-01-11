@@ -2,10 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 const ApolloClientLib = new ApolloClient({
    link: new HttpLink({
-      uri: `${process.env.NEXT_PUBLIC_BACKEND_API}/graphql`,
-      fetchOptions: {
-         timeout: 90000,
-      },
+      uri: `${process.env.NEXT_PUBLIC_BACKEND_API || ''}/graphql`,
    }),
    cache: new InMemoryCache(),
    defaultOptions: {

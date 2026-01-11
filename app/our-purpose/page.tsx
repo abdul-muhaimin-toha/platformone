@@ -1,15 +1,14 @@
-import BulbIcon from '@/components/icons/BulbIcon';
-import CaseStudiesHero from '@/components/sections/caseStudies/hero/CaseStudiesHero';
-import TopClients from '@/components/sections/home/topClients/TopClients';
-import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
-import OurPurposeHeading from '@/components/sections/ourPurpose/OurPurposeHeading';
-import ReimagineAService from '@/components/sections/services/ReimagineAService';
-import SideBySide from '@/components/sections/services/SideBySide';
-import WhatWeGet from '@/components/sections/services/whatWeGet/WhatWeGet';
+import { getPageData } from '@/graphql/components/get-page-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function OurPurposePage() {
-  return (
-    <>
+export default async function OurPurposePage() {
+  const homePageData = await getPageData('our-purpose');
+
+  return <RenderBlocksHelper blocks={homePageData} />;
+}
+
+{
+  /* <>
       <CaseStudiesHero
         version="v2"
         title="We’re here to make"
@@ -173,6 +172,5 @@ export default function OurPurposePage() {
         ]}
       />
       <TopClients />
-    </>
-  );
+    </> */
 }

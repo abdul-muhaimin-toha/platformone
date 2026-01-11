@@ -2,32 +2,39 @@
 
 import { cn } from '@/utils/utils';
 import Image from 'next/image';
-import { JSX, useEffect, useRef } from 'react';
+import { JSX, useEffect, useRef, useMemo } from 'react';
 
-type ClientItem = {
-  href: string;
-  img: string;
-};
-
-interface TopClientsProps {
-  bg?: string;
+export interface ClientItem {
+  company_logo?: string;
+  _id?: string;
 }
 
-function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
+interface TopClientsProps {
+  data?: {
+    data?: {
+      brand_logos?: ClientItem[];
+      bg?: string;
+    };
+  };
+}
+
+function TopClients({ data }: TopClientsProps): JSX.Element | null {
+  const content = data?.data ?? {};
+
+  const brandLogos = useMemo(
+    () => content.brand_logos ?? [],
+    [content.brand_logos]
+  );
+  const bg = content.bg;
+
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const positionRef = useRef<number>(0);
   const speed = 0.7;
 
-  const images: ClientItem[] = Array.from({ length: 8 }, (_, i) => ({
-    href: '#',
-    img: `/home/top-clients/client-${i + 1}.png`,
-  }));
-
-  const repeatCount = 4;
-  const items: ClientItem[] = Array(repeatCount).fill(images).flat();
-
   useEffect(() => {
+    if (brandLogos.length === 0) return;
+
     const marquee = marqueeRef.current;
     if (!marquee) return;
 
@@ -36,16 +43,15 @@ function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
     const animate = () => {
       positionRef.current -= speed;
       if (Math.abs(positionRef.current) >= totalWidth) {
-        positionRef.current = 0;
+        positionRef.current += totalWidth; // Smooth loop
       }
       marquee.style.transform = `translateX(${positionRef.current}px)`;
       animationRef.current = requestAnimationFrame(animate);
     };
 
     const startAnimation = () => {
-      if (!animationRef.current) {
+      if (!animationRef.current)
         animationRef.current = requestAnimationFrame(animate);
-      }
     };
 
     const stopAnimation = () => {
@@ -57,10 +63,13 @@ function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
 
     startAnimation();
 
-    return () => {
-      stopAnimation();
-    };
-  }, []);
+    return () => stopAnimation();
+  }, [brandLogos, speed]);
+
+  if (brandLogos.length === 0) return null;
+
+  const repeatCount = 4;
+  const items: ClientItem[] = Array(repeatCount).fill(brandLogos).flat();
 
   return (
     <section className={cn('w-full overflow-hidden', bg)}>
@@ -79,30 +88,32 @@ function TopClients({ bg = 'bg-white' }: TopClientsProps): JSX.Element {
                 animationRef.current = null;
               }}
               onMouseLeave={() => {
-                if (!animationRef.current)
-                  animationRef.current = requestAnimationFrame(() => {
-                    const marquee = marqueeRef.current;
-                    if (!marquee) return;
-                    const totalWidth = marquee.scrollWidth / 2;
+                if (!animationRef.current) {
+                  const marquee = marqueeRef.current;
+                  if (!marquee) return;
+                  const totalWidth = marquee.scrollWidth / 2;
 
-                    const animate = () => {
-                      positionRef.current -= speed;
-                      if (Math.abs(positionRef.current) >= totalWidth)
-                        positionRef.current = 0;
-                      marquee.style.transform = `translateX(${positionRef.current}px)`;
-                      animationRef.current = requestAnimationFrame(animate);
-                    };
-                    animate();
-                  });
+                  const animate = () => {
+                    positionRef.current -= speed;
+                    if (Math.abs(positionRef.current) >= totalWidth) {
+                      positionRef.current += totalWidth;
+                    }
+                    marquee.style.transform = `translateX(${positionRef.current}px)`;
+                    animationRef.current = requestAnimationFrame(animate);
+                  };
+                  animate();
+                }
               }}
             >
-              <Image
-                src={item.img}
-                width={90}
-                height={90}
-                alt="Client Logo"
-                className="object-contain aspect-square w-full"
-              />
+              {item.company_logo && (
+                <Image
+                  src={item.company_logo}
+                  width={90}
+                  height={90}
+                  alt="Client Logo"
+                  className="object-contain aspect-square w-full"
+                />
+              )}
             </div>
           ))}
         </div>

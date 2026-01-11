@@ -1,19 +1,33 @@
+'use client';
+
 import TeamCylinder from './TeamCylinder';
 import TeamHeading from './TeamHeading';
 
-export default function TeamStartsWithUs({
-  heading,
-  subheading,
-  description,
-  centerpieceImage,
-  peopleImages,
-}: {
-  heading: string;
-  subheading: string;
-  description: string;
-  centerpieceImage: string;
-  peopleImages: string[];
-}) {
+export interface TeamStartsWithUsData {
+  title: string;
+  subtitle: string;
+  short_description: string;
+  teams: { team_member: string; _id: string }[];
+}
+
+interface TeamStartsWithUsProps {
+  data?: {
+    data?: TeamStartsWithUsData;
+  };
+}
+
+export default function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
+  const content: TeamStartsWithUsData = data?.data ?? {
+    title: '',
+    subtitle: '',
+    short_description: '',
+    teams: [],
+  };
+
+  const { title, subtitle, short_description, teams } = content;
+
+  const peopleImages = teams.map((t) => t.team_member);
+
   return (
     <section className="bg-white">
       <div
@@ -24,15 +38,14 @@ export default function TeamStartsWithUs({
       >
         <div className="container-custom">
           <TeamHeading
-            heading={heading}
-            subheading={subheading}
-            description={description}
+            title={title}
+            subtitle={subtitle}
+            short_description={short_description}
           />
         </div>
-
         <TeamCylinder
           peopleImages={peopleImages}
-          centerpieceImage={centerpieceImage}
+          centerpieceImage="/home/start-with-us/center.png"
         />
       </div>
     </section>

@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const multiProjectQuery = gql`
+export const multiProjectQuery: DocumentNode = gql`
    query MultiProjectQuery($ids: [ID!]!) {
       projects(where: { in: $ids }) {
          nodes {
@@ -33,7 +33,7 @@ export const multiProjectQuery = gql`
    }
 `;
 
-export const projectBySlugQuery = gql`
+export const projectBySlugQuery: DocumentNode = gql`
    query ProjectBySlugQuery($slug: String!) {
       projectBy(slug: $slug) {
          id
@@ -69,7 +69,7 @@ export const projectBySlugQuery = gql`
    }
 `;
 
-export const projectsWithLimitQuery = gql`
+export const projectsWithLimitQuery: DocumentNode = gql`
    query ProjectsQuery($limit: Int!) {
       projects(first: $limit) {
          nodes {
@@ -90,7 +90,7 @@ export const projectsWithLimitQuery = gql`
    }
 `;
 
-export const projectsWithPaginationQuery = gql`
+export const projectsWithPaginationQuery: DocumentNode = gql`
    query ProjectsQuery(
       $limit: Int!
       $after: String

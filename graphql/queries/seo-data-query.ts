@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const seoDataQuery = gql`
+export const seoDataQuery: DocumentNode = gql`
    query SeoDataQuery($uri: String!) {
       pageBy(uri: $uri) {
          id
@@ -23,7 +23,7 @@ export const seoDataQuery = gql`
    }
 `;
 
-export const seoProjectDataQuery = gql`
+export const seoProjectDataQuery: DocumentNode = gql`
    query SeoProjectDataQuery($slug: String!) {
       projectBy(slug: $slug) {
          id
@@ -46,7 +46,7 @@ export const seoProjectDataQuery = gql`
    }
 `;
 
-export const seoCareerDataQuery = gql`
+export const seoCareerDataQuery: DocumentNode = gql`
    query SeoCareerDataQuery($slug: String!) {
       careerBy(slug: $slug) {
          id
@@ -69,7 +69,7 @@ export const seoCareerDataQuery = gql`
    }
 `;
 
-export const seoInsightDataQuery = gql`
+export const seoInsightDataQuery: DocumentNode = gql`
    query SeoInsightQuery($slug: String!) {
       postBy(slug: $slug) {
          id

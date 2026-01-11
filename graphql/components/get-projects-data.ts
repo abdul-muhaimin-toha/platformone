@@ -5,15 +5,21 @@ import {
    projectsWithLimitQuery,
    projectsWithPaginationQuery,
 } from '../queries/project-data-query';
+import { WPConnection, WPNode } from '../types';
 
-export const getProjectData = async (ids) => {
+interface ProjectsData {
+   projects: WPConnection<WPNode>;
+   projectBy?: WPNode;
+}
+
+export const getProjectData = async (ids: string[] | number[]) => {
    if (!Array.isArray(ids) || ids.length === 0) {
       console.warn('No IDs provided for project fetch');
       return [];
    }
 
    try {
-      const projectData = await getGqlData(multiProjectQuery, { ids });
+      const projectData = await getGqlData<ProjectsData>(multiProjectQuery, { ids });
 
       if (!projectData?.projects?.nodes?.length) {
          console.warn(`No projects found for IDs: ${ids.join(', ')}`);
@@ -27,14 +33,14 @@ export const getProjectData = async (ids) => {
    }
 };
 
-export const getProjectBySlug = async (slug) => {
+export const getProjectBySlug = async (slug: string) => {
    if (!slug) {
       console.warn('No slug provided for project fetch');
       return null;
    }
 
    try {
-      const projectData = await getGqlData(projectBySlugQuery, { slug });
+      const projectData = await getGqlData<ProjectsData>(projectBySlugQuery, { slug });
 
       if (!projectData?.projectBy) {
          console.warn(`No project found for slug: ${slug}`);
@@ -48,9 +54,9 @@ export const getProjectBySlug = async (slug) => {
    }
 };
 
-export const getProjectsWithLimit = async (limit = 5) => {
+export const getProjectsWithLimit = async (limit: number = 5) => {
    try {
-      const projectData = await getGqlData(projectsWithLimitQuery, { limit });
+      const projectData = await getGqlData<ProjectsData>(projectsWithLimitQuery, { limit });
 
       if (!projectData?.projects?.nodes?.length) {
          console.warn(`No projects found with limit: ${limit}`);
@@ -64,22 +70,28 @@ export const getProjectsWithLimit = async (limit = 5) => {
    }
 };
 
+interface PaginationParams {
+   limit?: number;
+   after?: string | null;
+   location?: string | null;
+   search?: string | null;
+}
+
 export const getProjectsWithPagination = async ({
    limit = 5,
    after = null,
    location = null,
    search = null,
-} = {}) => {
+}: PaginationParams = {}) => {
    try {
       const variables = {
          limit,
          after,
-
          location,
          search,
       };
 
-      const data = await getGqlData(projectsWithPaginationQuery, variables);
+      const data = await getGqlData<ProjectsData>(projectsWithPaginationQuery, variables);
 
       if (!data?.projects?.nodes?.length) {
          console.warn('No projects found with variables:', variables);
@@ -88,10 +100,11 @@ export const getProjectsWithPagination = async ({
 
       return {
          projects: data.projects.nodes, // nodes is already array
-         pageInfo: data.projects.pageInfo,
+         pageInfo: data.projects.pageInfo, // Access pageInfo from projects connection
       };
    } catch (error) {
       console.error('Error fetching projects with pagination:', error);
       return { projects: [], pageInfo: null };
    }
 };
+

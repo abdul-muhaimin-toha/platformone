@@ -5,10 +5,11 @@ import {
    seoInsightDataQuery,
    seoProjectDataQuery,
 } from '../queries/seo-data-query';
+import { PageData, WPNode } from '../types';
 
-export const getSeoData = async (uri) => {
+export const getSeoData = async (uri: string) => {
    try {
-      const response = await getGqlData(seoDataQuery, { uri });
+      const response = await getGqlData<PageData>(seoDataQuery, { uri });
 
       if (!response?.pageBy) {
          console.warn(`No SEO data found for URI: ${uri}`);
@@ -28,9 +29,15 @@ export const getSeoData = async (uri) => {
    }
 };
 
-export const getSeoProjectData = async (slug) => {
+interface ProjectOrCareerData {
+   projectBy?: WPNode;
+   careerBy?: WPNode;
+   postBy?: WPNode;
+}
+
+export const getSeoProjectData = async (slug: string) => {
    try {
-      const response = await getGqlData(seoProjectDataQuery, { slug });
+      const response = await getGqlData<ProjectOrCareerData>(seoProjectDataQuery, { slug });
 
       if (!response?.projectBy) {
          console.warn(`No project SEO data found for slug: ${slug}`);
@@ -50,9 +57,9 @@ export const getSeoProjectData = async (slug) => {
    }
 };
 
-export const getSeoCareerData = async (slug) => {
+export const getSeoCareerData = async (slug: string) => {
    try {
-      const response = await getGqlData(seoCareerDataQuery, { slug });
+      const response = await getGqlData<ProjectOrCareerData>(seoCareerDataQuery, { slug });
 
       if (!response?.careerBy) {
          console.warn(`No career SEO data found for slug: ${slug}`);
@@ -72,9 +79,9 @@ export const getSeoCareerData = async (slug) => {
    }
 };
 
-export const getSeoInsightData = async (slug) => {
+export const getSeoInsightData = async (slug: string) => {
    try {
-      const response = await getGqlData(seoInsightDataQuery, { slug });
+      const response = await getGqlData<ProjectOrCareerData>(seoInsightDataQuery, { slug });
 
       if (!response?.postBy) {
          console.warn(`No insight SEO data found for slug: ${slug}`);
@@ -93,3 +100,4 @@ export const getSeoInsightData = async (slug) => {
       return null;
    }
 };
+

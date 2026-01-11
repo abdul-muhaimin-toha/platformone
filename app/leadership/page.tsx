@@ -1,10 +1,14 @@
-import Cta from '@/components/sections/home/Cta';
-import LeadershipWrapper from '@/components/sections/leadership/leadershipcards/LeadershipWrapper';
-import LeadershipHero from '@/components/sections/leadership/leadershipHero/LeadershipHero';
+import { getPageData } from '@/graphql/components/get-page-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function LeadershipPage() {
-  return (
-    <>
+export default async function LeadershipPage() {
+  const homePageData = await getPageData('leadership');
+
+  return <RenderBlocksHelper blocks={homePageData} />;
+}
+
+{
+  /* <>
       <LeadershipHero
         heading={{ title: 'Meet the team', subtitle: 'leading the way.' }}
         desktopImages={[
@@ -108,6 +112,5 @@ export default function LeadershipPage() {
         buttonText="View open roles"
         buttonHref="/contact"
       />
-    </>
-  );
+    </> */
 }

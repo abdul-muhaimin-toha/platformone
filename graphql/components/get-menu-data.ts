@@ -1,14 +1,15 @@
 import getGqlData from '@/lib/get-gql-data';
 import { footerQuery, headerQuery } from '../queries/menu-data-query';
+import { MenuData } from '../types';
 
-export const getHeaderData = async (menuId) => {
+export const getHeaderData = async (menuId: string | number) => {
    if (!menuId) {
       console.warn('No menu ID provided');
       return { menuItems: [], crbThemeOptions: {} };
    }
 
    try {
-      const data = await getGqlData(headerQuery, { id: menuId });
+      const data = await getGqlData<MenuData>(headerQuery, { id: menuId });
 
       const menuItems = Array.isArray(data?.menu?.menuItems?.nodes)
          ? data.menu.menuItems.nodes
@@ -23,7 +24,14 @@ export const getHeaderData = async (menuId) => {
    }
 };
 
-export const getFooterData = async (firstId, secondId, thirdId) => {
+interface FooterData {
+   firstMenu: MenuData['menu'];
+   secondMenu: MenuData['menu'];
+   thirdMenu: MenuData['menu'];
+   crbThemeOptions: any;
+}
+
+export const getFooterData = async (firstId: string | number, secondId: string | number, thirdId: string | number) => {
    if (!firstId || !secondId || !thirdId) {
       console.warn('Menu IDs missing');
       return {
@@ -35,7 +43,7 @@ export const getFooterData = async (firstId, secondId, thirdId) => {
    }
 
    try {
-      const data = await getGqlData(footerQuery, {
+      const data = await getGqlData<FooterData>(footerQuery, {
          firstId,
          secondId,
          thirdId,
@@ -57,3 +65,4 @@ export const getFooterData = async (firstId, secondId, thirdId) => {
       };
    }
 };
+

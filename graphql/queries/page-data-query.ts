@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const pageDataQuery = gql`
+export const pageDataQuery: DocumentNode = gql`
    query PageDataQuery($uri: String!) {
       pageBy(uri: $uri) {
          id

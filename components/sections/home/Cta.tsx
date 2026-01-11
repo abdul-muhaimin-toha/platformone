@@ -1,21 +1,35 @@
+'use client';
+
 import Button from '@/components/globals/Button';
 import { cn } from '@/utils/utils';
 
-interface CtaProps {
+export interface CtaData {
+  btn_text?: string;
+  btn_url?: string;
+  open_in_new_tab?: boolean;
+  subtitle?: string;
+  title?: string;
   version?: 'v1' | 'v2';
-  headingPrimary: string;
-  headingSecondary: string;
-  buttonText: string;
-  buttonHref: string;
 }
 
-const Cta: React.FC<CtaProps> = ({
-  version = 'v1',
-  headingPrimary,
-  headingSecondary,
-  buttonText,
-  buttonHref,
-}) => {
+interface CtaProps {
+  data?: {
+    data?: CtaData;
+  };
+}
+
+const Cta: React.FC<CtaProps> = ({ data }) => {
+  const content = data?.data ?? {};
+
+  const {
+    btn_text = '',
+    btn_url = '',
+    open_in_new_tab = false,
+    subtitle = '',
+    title = '',
+    version = 'v1',
+  } = content;
+
   return (
     <section className="bg-linear-90 from-[#E9C4DD00]/0 to-[#E9C4DD99]/60">
       <div className="container-custom">
@@ -26,15 +40,24 @@ const Cta: React.FC<CtaProps> = ({
           <h2
             className={cn(
               'text-[56px] flex w-full flex-col font-bold leading-[1.33]',
-              version == 'v1' ? 'text-[56px]' : 'text-4xl sm:text-[56px]'
+              version === 'v1' ? 'text-[56px]' : 'text-4xl sm:text-[56px]'
             )}
           >
-            <span className="text-[#4D2B42]">{headingPrimary}</span>
-            <span className="text-pulse-pink-600">{headingSecondary}</span>
+            {title && <span className="text-[#4D2B42]">{title}</span>}
+            {subtitle && (
+              <span className="text-pulse-pink-600">{subtitle}</span>
+            )}
           </h2>
-          <Button href={buttonHref} variant="primary-arrow">
-            {buttonText}
-          </Button>
+
+          {btn_text && btn_url && (
+            <Button
+              href={btn_url}
+              variant="primary-arrow"
+              target={open_in_new_tab ? '_blank' : undefined}
+            >
+              {btn_text}
+            </Button>
+          )}
         </div>
       </div>
     </section>

@@ -1,8 +1,13 @@
+import { DocumentNode } from '@apollo/client';
 import ApolloClientLib from './apollo-client-lib';
 
-const getGqlData = async (query, variables = {}, retries = 3) => {
+const getGqlData = async <T>(
+   query: DocumentNode,
+   variables: Record<string, unknown> = {},
+   retries: number = 3
+): Promise<T | null> => {
    try {
-      const { data } = await ApolloClientLib.query({
+      const { data } = await ApolloClientLib.query<T>({
          query,
          variables,
          fetchPolicy: 'network-only',
@@ -16,10 +21,10 @@ const getGqlData = async (query, variables = {}, retries = 3) => {
          },
       });
 
-      return data;
+      return data ?? null;
    } catch (error) {
       if (retries > 0) {
-         return getGqlData(query, variables, retries - 1);
+         return getGqlData<T>(query, variables, retries - 1);
       } else {
          console.error('GraphQL request failed:', error);
          return null;

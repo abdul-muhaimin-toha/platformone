@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const paginatedCareersQuery = gql`
+export const paginatedCareersQuery: DocumentNode = gql`
    query PaginatedCareersQuery {
       careers(first: 100) {
          edges {
@@ -17,7 +17,7 @@ export const paginatedCareersQuery = gql`
    }
 `;
 
-export const singleCareerQuery = gql`
+export const singleCareerQuery: DocumentNode = gql`
    query SingleCareer($slug: String!) {
       careerBy(slug: $slug) {
          id

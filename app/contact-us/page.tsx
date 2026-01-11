@@ -1,10 +1,17 @@
 import ContactFormWrapper from '@/components/sections/contactUs/contactForm/ContactFormWrapper';
 import LocationCardWrapper from '@/components/sections/contactUs/locationCards/LocationCardWrapper';
 import TopClients from '@/components/sections/home/topClients/TopClients';
+import { getPageData } from '@/graphql/components/get-page-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function ContactUsPage() {
-  return (
-    <div className="relative bg-linear-to-bl from-[#FFEBF5] to-white">
+export default async function ContactUsPage() {
+  const homePageData = await getPageData('contact-us');
+
+  return <RenderBlocksHelper blocks={homePageData} />;
+}
+
+{
+  /* <div className="relative bg-linear-to-bl from-[#FFEBF5] to-white">
       <ContactFormWrapper
         header={{
           title: ['Let’s start a', 'conversation.'],
@@ -37,6 +44,5 @@ export default function ContactUsPage() {
           { title: 'Tokyo, Japan', address: '1-2-3 Shibuya, Tokyo 150-0002' },
         ]}
       />
-    </div>
-  );
+    </div> */
 }

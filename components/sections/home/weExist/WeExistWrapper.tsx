@@ -7,23 +7,23 @@ import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-export interface WeExistProps {
-  title: string;
-  subtitle: string;
-  description: string;
-  linkHref: string;
-  linkLabel: string;
-  imageSrc: string;
+export interface WeExistData {
+  btn_text?: string;
+  btn_url?: string;
+  feature_image?: string;
+  open_in_new_tab?: boolean;
+  short_description?: string;
+  subtitle?: string;
+  title?: string;
 }
 
-function WeExistWrapper({
-  title,
-  subtitle,
-  description,
-  linkHref,
-  linkLabel,
-  imageSrc,
-}: WeExistProps) {
+interface WeExistWrapperProps {
+  data?: {
+    data?: WeExistData;
+  };
+}
+
+function WeExistWrapper({ data }: WeExistWrapperProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -86,37 +86,63 @@ function WeExistWrapper({
     section.addEventListener('mouseleave', handleMouseLeave);
   }, []);
 
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    btn_text,
+    btn_url,
+    feature_image,
+    open_in_new_tab,
+    short_description,
+    subtitle,
+    title,
+  } = content;
+
   return (
     <section ref={sectionRef} className="relative bg-white overflow-hidden">
       <div className="container-custom">
         <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 pb-32 xl:pb-[200px] xl:grid-cols-[632px_1fr]">
-          <div
-            data-aos="fade-up"
-            className="flex flex-col justify-center xl:pr-14"
-          >
-            <h3 className="text-[38px] font-bold xl:text-[56px] text-black mb-2">
-              {title}
-            </h3>
-            <h4 className="text-2xl font-semibold text-pulse-pink-600 mb-10">
-              {subtitle}
-            </h4>
-            <p className="text-xl text-black mb-8">{description}</p>
-            <Button href={linkHref} variant="tertiary">
-              {linkLabel}
-            </Button>
+          <div className="flex flex-col justify-center xl:pr-14">
+            {title && (
+              <h3 className="text-[38px] font-bold xl:text-[56px] text-black mb-2">
+                {title}
+              </h3>
+            )}
+
+            {subtitle && (
+              <h4 className="text-2xl font-semibold text-pulse-pink-600 mb-10">
+                {subtitle}
+              </h4>
+            )}
+
+            {short_description && (
+              <p className="text-xl text-black mb-8">{short_description}</p>
+            )}
+
+            {btn_text && btn_url && (
+              <Button
+                href={btn_url}
+                variant="tertiary"
+                target={open_in_new_tab ? '_blank' : undefined}
+              >
+                {btn_text}
+              </Button>
+            )}
           </div>
 
-          <div
-            data-aos="fade-up"
-            className="relative rounded-3xl my-auto overflow-hidden aspect-380/240 md:w-full xl:aspect-680/428"
-          >
-            <Image
-              src={imageSrc}
-              fill
-              className="object-cover"
-              alt="We exist image"
-            />
-          </div>
+          {feature_image && (
+            <div className="relative rounded-3xl my-auto overflow-hidden aspect-380/240 md:w-full xl:aspect-680/428">
+              <Image
+                src={feature_image}
+                fill
+                className="object-cover"
+                alt={title || 'We exist image'}
+                priority={false}
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 680px"
+              />
+            </div>
+          )}
         </div>
       </div>
 

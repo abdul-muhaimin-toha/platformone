@@ -1,17 +1,14 @@
-import Cta from '@/components/sections/home/Cta';
-import TopClients from '@/components/sections/home/topClients/TopClients';
-import WhatItLikeToWorkWithUsWrapper from '@/components/sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
-import LeadershipHero from '@/components/sections/leadership/leadershipHero/LeadershipHero';
-import CertificationShowcase from '@/components/sections/people/CertificationShowcase';
-import CultureShowcaseWrapper from '@/components/sections/people/cultureShowcase/CultureShowcaseWrapper';
-import HowWeDoItWrapper from '@/components/sections/people/howWeDoIt/HowWeDoItWrapper';
-import OpenRoleCta from '@/components/sections/people/OpenRoleCta';
-import OurValuesWrapper from '@/components/sections/people/ourValues/OurValuesWrapper';
-import StayUpToDateWrapper from '@/components/sections/people/stayUpToDate/StayUpToDateWrapper';
+import { getPageData } from '@/graphql/components/get-page-data';
+import RenderBlocksHelper from '@/utils/render-blocks-helper';
 
-export default function PeoplePage() {
-  return (
-    <div className="overflow-hidden">
+export default async function PeoplePage() {
+  const homePageData = await getPageData('people');
+
+  return <RenderBlocksHelper blocks={homePageData} />;
+}
+
+{
+  /* <div className="overflow-hidden">
       <LeadershipHero
         heading={{ title: 'Meet the team', subtitle: 'makes us, us' }}
         desktopImages={[
@@ -275,6 +272,5 @@ export default function PeoplePage() {
         buttonText="View open roles"
         buttonHref="/contact"
       />
-    </div>
-  );
+    </div> */
 }

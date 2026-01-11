@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const multiInsightQuery = gql`
+export const multiInsightQuery: DocumentNode = gql`
    query MultiInsightQuery($ids: [ID!]!) {
       posts(where: { in: $ids }) {
          nodes {
@@ -18,7 +18,7 @@ export const multiInsightQuery = gql`
    }
 `;
 
-export const allInsightsQuery = gql`
+export const allInsightsQuery: DocumentNode = gql`
    query AllInsightsQuery($limit: Int = 10) {
       posts(first: $limit) {
          edges {
@@ -39,7 +39,7 @@ export const allInsightsQuery = gql`
    }
 `;
 
-export const singleInsightQuery = gql`
+export const singleInsightQuery: DocumentNode = gql`
    query singleInsight($slug: String!) {
       postBy(slug: $slug) {
          id
@@ -64,7 +64,7 @@ export const singleInsightQuery = gql`
    }
 `;
 
-export const relatedInsightsQuery = gql`
+export const relatedInsightsQuery: DocumentNode = gql`
    query relatedInsightsQuery(
       $categoryId: Int!
       $limit: Int = 10

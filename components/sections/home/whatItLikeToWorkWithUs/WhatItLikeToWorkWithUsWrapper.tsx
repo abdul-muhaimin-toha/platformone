@@ -1,26 +1,37 @@
 import { FC } from 'react';
 import HeadingBlock from './HeadingBlock';
-import TestimonialSlider, { Testimonial } from './TestimonialSlider';
+import TestimonialSlider, { TestimonialData } from './TestimonialSlider';
 
-export interface WhatItLikeToWorkWithUsProps {
+export interface WhatItLikeToWorkWithUsData {
   title?: string;
-  description?: string;
-  testimonials: Testimonial[];
+  short_description?: string;
+  testimonials?: TestimonialData[];
 }
 
-const WhatItLikeToWorkWithUsWrapper: FC<WhatItLikeToWorkWithUsProps> = ({
-  title,
-  description,
-  testimonials,
-}) => (
-  <section className="bg-white bg-linear-[90deg] from-[#E9C4DD99]/0 to-[#E9C4DD99]">
-    <div className="flex flex-col w-full pt-32 lg:pb-20 pb-[88px] gap-24 ">
-      {title && description && (
-        <HeadingBlock title={title} description={description} />
-      )}
-      <TestimonialSlider testimonials={testimonials} />
-    </div>
-  </section>
-);
+interface WhatItLikeToWorkWithUsWrapperProps {
+  data?: {
+    data?: WhatItLikeToWorkWithUsData;
+  };
+}
+
+const WhatItLikeToWorkWithUsWrapper: FC<WhatItLikeToWorkWithUsWrapperProps> = ({
+  data,
+}) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const { title, short_description, testimonials = [] } = content;
+
+  return (
+    <section className="bg-white bg-linear-[90deg] from-[#E9C4DD99]/0 to-[#E9C4DD99]">
+      <div className="flex flex-col w-full pt-32 lg:pb-20 pb-[88px] gap-24">
+        {title && short_description && (
+          <HeadingBlock title={title} description={short_description} />
+        )}
+        <TestimonialSlider testimonials={testimonials} />
+      </div>
+    </section>
+  );
+};
 
 export default WhatItLikeToWorkWithUsWrapper;

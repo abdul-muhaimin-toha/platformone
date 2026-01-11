@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'i.postimg.cc',
+        hostname: 'staging.hellonotionhive.com',
         port: '',
         pathname: '/**',
       },

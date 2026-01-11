@@ -5,15 +5,21 @@ import {
    relatedInsightsQuery,
    singleInsightQuery,
 } from '../queries/insights-data-query';
+import { WPConnection, WPNode } from '../types';
 
-export const getInsightsData = async (ids) => {
+interface InsightsData {
+   posts: WPConnection<WPNode> & { nodes?: WPNode[] };
+   postBy?: WPNode;
+}
+
+export const getInsightsData = async (ids: string[] | number[]) => {
    if (!Array.isArray(ids) || ids.length === 0) {
       console.warn('No IDs provided for Insights fetch');
       return [];
    }
 
    try {
-      const insightsData = await getGqlData(multiInsightQuery, { ids });
+      const insightsData = await getGqlData<InsightsData>(multiInsightQuery, { ids });
 
       if (!insightsData?.posts?.nodes?.length) {
          console.warn(`No Insight found for IDs: ${ids.join(', ')}`);
@@ -27,9 +33,9 @@ export const getInsightsData = async (ids) => {
    }
 };
 
-export const getAllInsights = async (limit = 10) => {
+export const getAllInsights = async (limit: number = 10) => {
    try {
-      const data = await getGqlData(allInsightsQuery, { limit });
+      const data = await getGqlData<InsightsData>(allInsightsQuery, { limit });
       return data?.posts?.edges || [];
    } catch (error) {
       console.error('Error fetching insights:', error);
@@ -37,14 +43,14 @@ export const getAllInsights = async (limit = 10) => {
    }
 };
 
-export const getInsightBySlug = async (slug) => {
+export const getInsightBySlug = async (slug: string) => {
    try {
       if (!slug) {
          console.warn('No slug provided');
          return null;
       }
 
-      const data = await getGqlData(singleInsightQuery, { slug });
+      const data = await getGqlData<InsightsData>(singleInsightQuery, { slug });
 
       if (!data?.postBy) {
          console.warn(`Insight not found for slug: ${slug}`);
@@ -59,9 +65,9 @@ export const getInsightBySlug = async (slug) => {
 };
 
 export const getRelatedInsights = async (
-   categoryId,
-   limit = 10,
-   excludePostId = null
+   categoryId: number,
+   limit: number = 10,
+   excludePostId: string | number | null = null
 ) => {
    if (!categoryId) return [];
 
@@ -69,7 +75,7 @@ export const getRelatedInsights = async (
    const excludeArray = excludePostId ? [excludePostId] : [];
 
    try {
-      const data = await getGqlData(relatedInsightsQuery, {
+      const data = await getGqlData<InsightsData>(relatedInsightsQuery, {
          categoryId,
          limit,
          exclude: excludeArray,
@@ -81,3 +87,4 @@ export const getRelatedInsights = async (
       return [];
    }
 };
+

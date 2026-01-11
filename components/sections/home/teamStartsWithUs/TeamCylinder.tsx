@@ -6,13 +6,15 @@ import gsap from 'gsap';
 import TeamCenterpiece from './TeamCenterpiece';
 import TeamFigure from './TeamFigure';
 
+interface TeamCylinderProps {
+  peopleImages: string[];
+  centerpieceImage: string;
+}
+
 export default function TeamCylinder({
   peopleImages,
   centerpieceImage,
-}: {
-  peopleImages: string[];
-  centerpieceImage: string;
-}) {
+}: TeamCylinderProps) {
   const cylinderRef = useRef<HTMLDivElement | null>(null);
   const centerpieceRef = useRef<HTMLDivElement | null>(null);
   const figureRefs = useRef<HTMLElement[]>([]);
@@ -21,7 +23,6 @@ export default function TeamCylinder({
     if (el) figureRefs.current[index] = el;
   };
 
-  // Rotating Cylinder
   useGSAP(() => {
     const elements = figureRefs.current;
     if (!elements.length) return;
@@ -56,7 +57,6 @@ export default function TeamCylinder({
     return () => gsap.ticker.remove(tick);
   }, []);
 
-  // Mouse movement effect
   useEffect(() => {
     const cylinderEl = cylinderRef.current;
     const centerpieceEl = centerpieceRef.current;

@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, DocumentNode } from '@apollo/client';
 
-export const headerQuery = gql`
+export const headerQuery: DocumentNode = gql`
    query GetMenu($id: ID!) {
       menu(id: $id) {
          menuItems(first: 20) {
@@ -43,7 +43,7 @@ export const headerQuery = gql`
    }
 `;
 
-export const footerQuery = gql`
+export const footerQuery: DocumentNode = gql`
    query GetMenus($firstId: ID!, $secondId: ID!, $thirdId: ID!) {
       firstMenu: menu(id: $firstId) {
          id
