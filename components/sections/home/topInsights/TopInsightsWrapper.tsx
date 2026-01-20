@@ -1,22 +1,46 @@
-'use client';
-
-import TopInsightsHeader from './TopInsightHeader';
+import { getInsightsData } from '@/graphql/components/get-insights-data';
 import TopInsightsSlider from './TopInsightsSlider';
-import { Insight as InsightType } from './InsightCard';
+import { WPNode } from '@/graphql/types';
+import TopInsightsHeader from './TopInsightHeader';
+import { BlockData, ButtonProps, HeadingProps } from '../types';
 
-interface TopInsightsWrapperProps {
-  insights: InsightType[];
-  title: string;
-  subtitle: string;
-  viewAllHref: string;
+export interface TopInsightsItem {
+  id: string | number;
 }
 
-export default function TopInsightsWrapper({
-  insights,
-  title,
-  subtitle,
-  viewAllHref,
+export interface TopInsightsData extends ButtonProps, HeadingProps {
+  selected_blogs: TopInsightsItem[];
+}
+
+export type TopInsightsWrapperProps = BlockData<TopInsightsData>;
+
+export default async function TopInsightsWrapper({
+  data,
 }: TopInsightsWrapperProps) {
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    btn_text = 'View all insights', // Default value if missing
+    btn_url = '#',
+    open_in_new_tab = false,
+    selected_blogs = [],
+    subtitle = '',
+    title = '',
+  } = content;
+
+  // Extract IDs safely and ensure they are valid
+  const ids = selected_blogs.map((blog) => blog.id).filter(Boolean);
+
+  let insights: WPNode[] = [];
+  if (ids.length > 0) {
+    insights = await getInsightsData(ids);
+  }
+  
+  // Cast WPNode to Insight if structure matches, or filter out invalid nodes
+  // Here we assume getInsightsData returns valid nodes compatible with Insight aside from optional id
+  const validInsights = insights.filter((node) => node.id) as any[]; 
+
   return (
     <section
       style={{
@@ -26,13 +50,14 @@ export default function TopInsightsWrapper({
       <div className="w-full flex flex-col gap-14 py-20 bg-white rounded-tl-[80px] lg:rounded-tl-[120px]">
         <div className="container-custom">
           <TopInsightsHeader
-            title={title}
+            btn_url={btn_url}
+            btn_text={btn_text}
+            open_in_new_tab={open_in_new_tab}
             subtitle={subtitle}
-            viewAllHref={viewAllHref}
+            title={title}
           />
         </div>
-
-        <TopInsightsSlider insights={insights} />
+        <TopInsightsSlider insights={validInsights} />
       </div>
     </section>
   );

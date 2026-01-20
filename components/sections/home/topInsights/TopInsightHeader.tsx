@@ -1,19 +1,19 @@
-'use client';
-
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import Button from '@/components/globals/Button';
 
 interface TopInsightsHeaderProps {
   title: string;
   subtitle: string;
-  viewAllHref: string;
+  btn_text?: string;
+  btn_url?: string;
+  open_in_new_tab?: boolean;
 }
 
 export default function TopInsightsHeader({
   title,
   subtitle,
-  viewAllHref,
+  btn_text,
+  btn_url,
+  open_in_new_tab,
 }: TopInsightsHeaderProps) {
   return (
     <div
@@ -28,8 +28,13 @@ export default function TopInsightsHeader({
           {subtitle}
         </h3>
       </div>
-      <Button href={viewAllHref} variant="secondary">
-        View all insights
+
+      <Button
+        href={btn_url}
+        variant="secondary"
+        target={open_in_new_tab ? '_blank' : undefined}
+      >
+        {btn_text || 'View all insights'}
       </Button>
     </div>
   );

@@ -20,14 +20,14 @@ function CultureImageGrid({ images }: CultureImageGridProps) {
           index === 1
             ? 'hidden md:block md:mt-20'
             : index === 2
-            ? 'hidden lg:block md:mt-40'
-            : '';
+              ? 'hidden lg:block md:mt-40'
+              : '';
 
         return (
           <Image
             key={index}
             src={image.src}
-            alt={image.alt}
+            alt={image.alt || ''}
             width={380}
             height={338}
             className={`${baseClass} ${positionClass}`}

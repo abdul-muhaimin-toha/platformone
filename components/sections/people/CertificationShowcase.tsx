@@ -1,19 +1,18 @@
 import Image from 'next/image';
+import { FC } from 'react';
+import { BlockData, HeadingProps } from '../home/types';
 
-export interface CertificationShowcaseProps {
-  title: string;
-  subtitle: string;
-  image: {
-    src: string;
-    alt: string;
-  };
+export interface CertificationShowcaseData extends HeadingProps {
+  feature_image?: string;
 }
 
-function CertificationShowcase({
-  title,
-  subtitle,
-  image,
-}: CertificationShowcaseProps) {
+export type CertificationShowcaseProps = BlockData<CertificationShowcaseData>;
+
+const CertificationShowcase: FC<CertificationShowcaseProps> = ({ data }) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const { title = '', subtitle = '', feature_image = '' } = content;
   return (
     <section className="bg-mulberry-950">
       <div className="container-custom">
@@ -27,13 +26,15 @@ function CertificationShowcase({
                 {subtitle}
               </p>
             </div>
-            <Image
-              className="aspect-268/112 w-[200px] md:w-[268px] object-contain"
-              alt={image.alt}
-              src={image.src}
-              width={268}
-              height={112}
-            />
+            {feature_image && (
+              <Image
+                className="aspect-268/112 w-[200px] md:w-[268px] object-contain"
+                alt={title}
+                src={feature_image}
+                width={268}
+                height={112}
+              />
+            )}
           </div>
         </div>
       </div>

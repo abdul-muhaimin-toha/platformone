@@ -3,20 +3,13 @@
 import Button from '@/components/globals/Button';
 import { cn } from '@/utils/utils';
 
-export interface CtaData {
-  btn_text?: string;
-  btn_url?: string;
-  open_in_new_tab?: boolean;
-  subtitle?: string;
-  title?: string;
+import { BlockData, ButtonProps, HeadingProps } from './types';
+
+export interface CtaData extends ButtonProps, HeadingProps {
   version?: 'v1' | 'v2';
 }
 
-interface CtaProps {
-  data?: {
-    data?: CtaData;
-  };
-}
+export type CtaProps = BlockData<CtaData>;
 
 const Cta: React.FC<CtaProps> = ({ data }) => {
   const content = data?.data ?? {};

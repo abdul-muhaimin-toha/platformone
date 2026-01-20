@@ -4,19 +4,19 @@ import { cn } from '@/utils/utils';
 import Image from 'next/image';
 import { JSX, useEffect, useRef, useMemo } from 'react';
 
+import { BlockData } from '../types';
+
 export interface ClientItem {
   company_logo?: string;
   _id?: string;
 }
 
-interface TopClientsProps {
-  data?: {
-    data?: {
-      brand_logos?: ClientItem[];
-      bg?: string;
-    };
-  };
+export interface TopClientsData {
+  brand_logos?: ClientItem[];
+  bg?: string;
 }
+
+export type TopClientsProps = BlockData<TopClientsData>;
 
 function TopClients({ data }: TopClientsProps): JSX.Element | null {
   const content = data?.data ?? {};

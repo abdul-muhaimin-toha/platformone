@@ -1,11 +1,19 @@
 import { FC } from 'react';
 import TextRevealDescription from '../home/whatWeDo/TextRevealDescription';
+import { BlockData, HeadingProps } from '../home/types';
 
-interface ReimagineAServiceProps {
-  description: string;
+export interface ReimagineAServiceData extends HeadingProps {
+  description?: string;
 }
 
-const ReimagineAService: FC<ReimagineAServiceProps> = ({ description }) => {
+export type ReimagineAServiceProps = BlockData<ReimagineAServiceData>;
+
+const ReimagineAService: FC<ReimagineAServiceProps> = ({ data }) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const { short_description = '' } = content;
+
   return (
     <section>
       <div className="container-custom">
@@ -13,7 +21,7 @@ const ReimagineAService: FC<ReimagineAServiceProps> = ({ description }) => {
           <div className="w-full flex flex-col max-w-[480px] md:max-w-max">
             <TextRevealDescription
               className="text-xl z-20 lg:text-2xl font-normal leading-[1.33] text-black max-w-[854px]"
-              text={description}
+              text={short_description}
             />
           </div>
         </div>

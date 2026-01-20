@@ -1,27 +1,33 @@
 'use client';
 
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import HowWeDoItCard from './HowWeDoItCard';
+import { BlockData, HeadingProps } from '../../home/types';
 
-export interface HowWeDoItWrapperProps {
-  title: string;
-  highlight: string;
-  paragraphs: string[];
-  image: {
-    src: string;
-    alt: string;
-  };
+export interface HowWeDoItData extends HeadingProps {
+  highlight_text?: string;
+  feature_image?: string;
+  short_description_two?: string;
 }
 
-function HowWeDoItWrapper({
-  title,
-  highlight,
-  paragraphs,
-  image,
-}: HowWeDoItWrapperProps) {
+export type HowWeDoItWrapperProps = BlockData<HowWeDoItData>;
+
+const HowWeDoItWrapper: FC<HowWeDoItWrapperProps> = ({ data }) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    title = '',
+    highlight_text = '',
+    short_description = '',
+    short_description_two = '',
+    feature_image = '',
+  } = content;
+
+  const paragraphs = [short_description, short_description_two].filter(Boolean);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -95,9 +101,9 @@ function HowWeDoItWrapper({
       <div className="container-custom">
         <HowWeDoItCard
           title={title}
-          highlight={highlight}
+          highlight={highlight_text || ''}
           paragraphs={paragraphs}
-          image={image}
+          image={{ src: feature_image, alt: title }}
         />
       </div>
       <svg

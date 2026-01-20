@@ -1,19 +1,28 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap, { ScrollTrigger } from "gsap/all";
-import Button from "@/components/globals/Button";
-import { HeroProps } from "./Hero";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap, { ScrollTrigger } from 'gsap/all';
+import Button from '@/components/globals/Button';
+
+export interface HeroClientProps {
+  title_one?: string[];
+  short_description_one?: string;
+  short_description_two?: string;
+  btn_text?: string;
+  btn_url?: string;
+  open_in_new_tab?: boolean;
+}
 
 export default function HeroClient({
-  titleSpans,
-  description,
-  subDescription,
-  buttonLabel,
-  bgImage,
-}: HeroProps) {
-  const heroRef = useRef<HTMLHeadingElement | null>(null);
+  title_one = [],
+  short_description_one = '',
+  short_description_two = '',
+  btn_text = '',
+  btn_url = '#',
+  open_in_new_tab = false,
+}: HeroClientProps) {
+  const heroRef = useRef<HTMLDivElement | null>(null);
   const h1Ref = useRef<HTMLHeadingElement | null>(null);
   const squareRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const descriptionRef = useRef<HTMLDivElement | null>(null);
@@ -24,52 +33,52 @@ export default function HeroClient({
     if (!h1Ref.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    const words = h1Ref.current.querySelectorAll("span.word");
+    const words = h1Ref.current.querySelectorAll('span.word');
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: h1Ref.current,
-        start: "top 80%",
+        start: 'top 80%',
       },
     });
 
     if (svgRef.current) {
       tl.fromTo(
         svgRef.current,
-        { autoAlpha: 0, scale: 1.3, filter: "blur(12px)" },
+        { autoAlpha: 0, scale: 1.3, filter: 'blur(12px)' },
         {
           autoAlpha: 1,
           scale: 1,
-          filter: "blur(0px)",
+          filter: 'blur(0px)',
           duration: 1.5,
-          ease: "power3.out",
+          ease: 'power3.out',
         },
-        "<"
+        '<',
       );
     }
 
     tl.fromTo(
       words,
-      { autoAlpha: 0, y: 30, scale: 1.2, filter: "blur(8px)" },
+      { autoAlpha: 0, y: 30, scale: 1.2, filter: 'blur(8px)' },
       {
         autoAlpha: 1,
         y: 0,
         scale: 1,
-        filter: "blur(0px)",
+        filter: 'blur(0px)',
         duration: 1.2,
         stagger: 0.18,
-        ease: "power3.out",
+        ease: 'power3.out',
       },
-      "<"
+      '<',
     );
 
     squareRefs.current.forEach((el) => {
       if (!el) return;
       tl.fromTo(
         el,
-        { scaleX: 0, transformOrigin: "left" },
-        { scaleX: 1, duration: 0.9, ease: "power3.out" },
-        "-=1.0"
+        { scaleX: 0, transformOrigin: 'left' },
+        { scaleX: 1, duration: 0.9, ease: 'power3.out' },
+        '-=1.0',
       );
     });
 
@@ -77,16 +86,16 @@ export default function HeroClient({
       tl.fromTo(
         descriptionRef.current,
         { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" },
-        "-=0.6"
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+        '-=0.6',
       );
     }
 
     if (buttonRef.current) {
       tl.to(
         buttonRef.current,
-        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" },
-        ">"
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+        '>',
       );
     }
 
@@ -99,25 +108,23 @@ export default function HeroClient({
       x: 0,
       y: 0,
       rotate: 0,
-      transformOrigin: "50% 50%",
+      transformOrigin: '50% 50%',
     });
 
     const moveStrength = 18;
     const rotateStrength = 4;
 
-    const qx = gsap.quickTo(svg, "x", { duration: 0.6, ease: "power3.out" });
-    const qy = gsap.quickTo(svg, "y", { duration: 0.6, ease: "power3.out" });
-    const qrot = gsap.quickTo(svg, "rotate", {
+    const qx = gsap.quickTo(svg, 'x', { duration: 0.6, ease: 'power3.out' });
+    const qy = gsap.quickTo(svg, 'y', { duration: 0.6, ease: 'power3.out' });
+    const qrot = gsap.quickTo(svg, 'rotate', {
       duration: 0.6,
-      ease: "power3.out",
+      ease: 'power3.out',
     });
 
     const handleMouseMove = (e: MouseEvent) => {
       const bounds = container.getBoundingClientRect();
-
       const x = e.clientX - bounds.left;
       const y = e.clientY - bounds.top;
-
       const relX = (x / bounds.width - 0.5) * 2;
       const relY = (y / bounds.height - 0.5) * 2;
 
@@ -128,20 +135,20 @@ export default function HeroClient({
 
     const handleMouseLeave = () => {};
 
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', handleMouseLeave);
     };
   });
 
   return (
     <div
       ref={heroRef}
-      className="h-[95dvh] min-h-[872px]  md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      className="h-[95dvh] min-h-[872px] md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
+      style={{ backgroundImage: '/home/hero/bg.svg' }}
     >
       <div className="container-custom">
         <div className="w-full z-50 flex flex-col mt-[72px] md:mt-[74px] lg:mt-24">
@@ -149,15 +156,15 @@ export default function HeroClient({
             ref={h1Ref}
             className="text-[64px] max-w-[550px] lg:max-w-[800px] xl:text-[90px] [@media(min-width:1400px)]:text-[120px] xl:max-w-full [@media(min-width:1400px)]:leading-[1.31] md:max-w-full md:text-[70px] lg:text-[80px] md:mb-12 mb-[92px] gap-x-4 flex flex-row items-center md:gap-x-8 flex-wrap font-bold leading-tight text-white z-20"
           >
-            {titleSpans.map((word, idx) => {
-              if (word === "your") {
+            {title_one.map((word, idx) => {
+              if (word === 'your') {
                 return (
                   <div key={idx} className="flex flex-row items-center gap-x-4">
                     <span
                       className="word opacity-0"
                       style={{
-                        transform: "translateY(30px) scale(2)",
-                        filter: "blur(8px)",
+                        transform: 'translateY(30px) scale(2)',
+                        filter: 'blur(8px)',
                       }}
                     >
                       {word}
@@ -170,7 +177,7 @@ export default function HeroClient({
                     />
                   </div>
                 );
-              } else if (word === "customers") {
+              } else if (word === 'customers') {
                 return (
                   <div
                     key={idx}
@@ -185,8 +192,8 @@ export default function HeroClient({
                     <span
                       className="word opacity-0"
                       style={{
-                        transform: "translateY(30px) scale(2)",
-                        filter: "blur(8px)",
+                        transform: 'translateY(30px) scale(2)',
+                        filter: 'blur(8px)',
                       }}
                     >
                       {word}
@@ -199,8 +206,8 @@ export default function HeroClient({
                     key={idx}
                     className="word opacity-0"
                     style={{
-                      transform: "translateY(30px) scale(1.1)",
-                      filter: "blur(8px)",
+                      transform: 'translateY(30px) scale(1.1)',
+                      filter: 'blur(8px)',
                     }}
                   >
                     {word}
@@ -215,19 +222,21 @@ export default function HeroClient({
             className="flex flex-col gap-6 max-w-[480px] md:max-w-[550px] opacity-0 translate-y-8"
           >
             <p className="text-xl md:text-2xl md:leading-[1.33] font-normal text-white leading-[1.30]">
-              {description}
+              {short_description_one}
             </p>
             <p className="text-base md:text-xl md:leading-[1.30] font-normal text-pulse-pink-200 leading-[1.37]">
-              {subDescription}
+              {short_description_two}
             </p>
           </div>
 
           <div ref={buttonRef} className="opacity-0 translate-y-8">
             <Button
+              href={btn_url}
+              arget={open_in_new_tab ? '_blank' : undefined}
               variant="secondary"
               className="mt-[50px] md:mt-[60px] -ml-4"
             >
-              {buttonLabel}
+              {btn_text}
             </Button>
           </div>
 

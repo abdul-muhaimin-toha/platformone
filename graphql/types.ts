@@ -8,8 +8,10 @@ export interface WPNode {
   modified?: string;
   content?: string;
   excerpt?: string;
+  logoFile?: string; // Added for Case Studies
   featuredImage?: {
     node: {
+      id?: string; // Added for Case Studies
       mediaItemUrl: string;
       link?: string;
     };
@@ -23,6 +25,16 @@ export interface WPNode {
       mediaItemUrl: string;
     };
     fullHead?: string;
+  };
+}
+
+export interface CaseStudyNode extends WPNode {
+  logoFile: string;
+  featuredImage: {
+    node: {
+      id: string;
+      mediaItemUrl: string;
+    };
   };
 }
 
@@ -70,7 +82,7 @@ export interface MenuData {
 
 export interface PageBlock {
   name: string;
-  attributesJSON: string;
+  attributesJSON: string | Record<string, any>;
   order: number;
   dynamicContent?: string;
   originalContent?: string;
@@ -88,7 +100,7 @@ export interface PageData {
 
 export interface ServiceBlock {
   name: string;
-  attributesJSON: string;
+  attributesJSON: string | Record<string, any>;
   order: number;
   dynamicContent?: string;
   originalContent?: string;

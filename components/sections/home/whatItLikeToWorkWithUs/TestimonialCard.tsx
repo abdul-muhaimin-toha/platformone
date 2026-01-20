@@ -54,7 +54,7 @@ const TestimonialCard: FC<Props> = ({ data }) => {
       )}
 
       {customer_image && (user_name || user_designation) && (
-        <div className="flex w-full items-center gap-2.5">
+        <div className="flex mt-auto w-full items-center gap-2.5">
           <div className="flex items-center justify-center p-1.5 border-black/25 border-2 rounded-full">
             <Image
               src={customer_image}

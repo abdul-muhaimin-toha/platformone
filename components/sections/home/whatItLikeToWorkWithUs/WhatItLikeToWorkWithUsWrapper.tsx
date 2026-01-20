@@ -2,17 +2,13 @@ import { FC } from 'react';
 import HeadingBlock from './HeadingBlock';
 import TestimonialSlider, { TestimonialData } from './TestimonialSlider';
 
-export interface WhatItLikeToWorkWithUsData {
-  title?: string;
-  short_description?: string;
+import { BlockData, HeadingProps } from '../types';
+
+export interface WhatItLikeToWorkWithUsData extends HeadingProps {
   testimonials?: TestimonialData[];
 }
 
-interface WhatItLikeToWorkWithUsWrapperProps {
-  data?: {
-    data?: WhatItLikeToWorkWithUsData;
-  };
-}
+export type WhatItLikeToWorkWithUsWrapperProps = BlockData<WhatItLikeToWorkWithUsData>;
 
 const WhatItLikeToWorkWithUsWrapper: FC<WhatItLikeToWorkWithUsWrapperProps> = ({
   data,

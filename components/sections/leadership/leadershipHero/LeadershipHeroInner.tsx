@@ -6,8 +6,8 @@ import { FC, useEffect, useRef } from 'react';
 
 interface LeadershipHeroInnerProps {
   heading: {
-    title: string;
-    subtitle: string;
+    description: string;
+    highlight: string;
   };
   desktopImages: { src: string; alt: string }[][];
   mobileImages: { src: string; alt: string }[][];
@@ -38,7 +38,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
     const setupHorizontalInfinite = (
       row: HTMLDivElement,
       reverse = false,
-      speed = 0.4
+      speed = 0.4,
     ) => {
       const children = Array.from(row.children);
       children.forEach((child) => row.appendChild(child.cloneNode(true)));
@@ -60,7 +60,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
     const setupVerticalInfinite = (
       column: HTMLDivElement,
       direction: 'down' | 'up',
-      speed = 0.4
+      speed = 0.4,
     ) => {
       const children = Array.from(column.children);
       children.forEach((child) => column.appendChild(child.cloneNode(true)));
@@ -104,9 +104,9 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
         <div className="flex items-center justify-between w-full">
           <div data-aos="fade-up" className="flex flex-col gap-14 md:gap-10">
             <h1 className="text-white font-bold text-[48px] sm:text-[56px] lg:text-[64px] lg:leading-tight leading-[1.28]">
-              <span>{heading.title}</span>
+              <span>{heading.description}</span>
               <br />
-              <span className="text-pulse-pink-600">{heading.subtitle}</span>
+              <span className="text-pulse-pink-600">{heading.highlight}</span>
             </h1>
             {button && (
               <Button href={button.href} variant="secondary">
@@ -134,7 +134,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       height={258}
                       className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
-                  ))
+                  )),
                 )}
               </div>
             </div>
@@ -152,7 +152,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       height={258}
                       className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
-                  ))
+                  )),
                 )}
               </div>
             </div>
@@ -170,7 +170,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                       height={258}
                       className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
                     />
-                  ))
+                  )),
                 )}
               </div>
             </div>
@@ -200,7 +200,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                   height={174}
                   className="w-[150px] object-cover shrink-0"
                 />
-              ))
+              )),
             )}
           </div>
         </div>
@@ -225,7 +225,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
                   height={174}
                   className="w-[150px] object-cover shrink-0"
                 />
-              ))
+              )),
             )}
           </div>
         </div>

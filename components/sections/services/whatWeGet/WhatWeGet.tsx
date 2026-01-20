@@ -6,29 +6,26 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { cn, extractBottomText } from '@/utils/utils';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BlockData, HeadingProps } from '../../home/types';
+import WhatWeGetSvg from './WhatWeGetSvg';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface WhatWeGetData {
+export interface WhatWeGetData extends HeadingProps {
   version?: 'v1' | 'v2';
-  title?: string;
   promo_cards?: WhatWeGetCardProps[];
   bottom_description?: string;
 }
 
-interface WhatWeGetProps {
-  data?: {
-    data?: WhatWeGetData;
-  };
-}
+export type WhatWeGetProps = BlockData<WhatWeGetData>;
 
 const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
   const content = data?.data ?? {};
   const {
     version = 'v1',
-    title,
+    title = '',
     promo_cards = [],
-    bottom_description,
+    bottom_description = '',
   } = content;
 
   const { description, highlight } = extractBottomText(bottom_description);
@@ -50,7 +47,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
             trigger: spanRef.current,
             start: 'top 80%',
           },
-        }
+        },
       );
     }
 
@@ -95,7 +92,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
               <span
                 ref={spanRef}
                 className={cn(
-                  'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 xl:h-3 xl:w-[230px]'
+                  'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 xl:h-3 xl:w-[230px]',
                 )}
               />
             </h2>
@@ -114,7 +111,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
               data-aos="fade-up"
               className={cn(
                 'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
-                version === 'v2' && 'max-w-[800px] lg:max-w-[950px]'
+                version === 'v2' && 'max-w-[800px] lg:max-w-[950px]',
               )}
             >
               <span>{description}</span>{' '}
@@ -129,33 +126,10 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
       </div>
 
       {version === 'v1' && (
-        <svg
+        <WhatWeGetSvg
           ref={svgRef}
           className="absolute z-20 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px] -right-[200px] xl:-top-56 xl:-right-[478px]"
-          width={641}
-          height={630}
-          viewBox="0 0 641 630"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M320.5 0C143.496 0 0 140.916 0 314.759C0 488.601 143.496 629.496 320.5 629.496C497.504 629.496 641 488.58 641 314.759C641 140.938 497.504 0 320.5 0ZM320.985 508.276C217.109 508.276 132.874 421.629 132.874 314.759C132.874 207.888 217.109 121.22 320.985 121.22C424.861 121.22 509.095 207.867 509.095 314.759C509.095 421.651 424.882 508.276 320.985 508.276Z"
-            fill="url(#paint0_linear_2069_9817)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_2069_9817"
-              x1={0}
-              y1="314.737"
-              x2={641}
-              y2="314.737"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#E13FAB" />
-              <stop offset={1} stopColor="#EB335B" />
-            </linearGradient>
-          </defs>
-        </svg>
+        />
       )}
     </section>
   );

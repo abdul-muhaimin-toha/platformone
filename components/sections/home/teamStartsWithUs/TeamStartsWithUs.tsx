@@ -3,28 +3,23 @@
 import TeamCylinder from './TeamCylinder';
 import TeamHeading from './TeamHeading';
 
-export interface TeamStartsWithUsData {
-  title: string;
-  subtitle: string;
-  short_description: string;
+import { BlockData, HeadingProps } from '../types';
+
+export interface TeamStartsWithUsData extends HeadingProps {
   teams: { team_member: string; _id: string }[];
 }
 
-interface TeamStartsWithUsProps {
-  data?: {
-    data?: TeamStartsWithUsData;
-  };
-}
+export type TeamStartsWithUsProps = BlockData<TeamStartsWithUsData>;
 
 export default function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
-  const content: TeamStartsWithUsData = data?.data ?? {
-    title: '',
-    subtitle: '',
-    short_description: '',
-    teams: [],
-  };
+  const content = data?.data ?? {};
 
-  const { title, subtitle, short_description, teams } = content;
+  const {
+    title = '',
+    subtitle = '',
+    short_description = '',
+    teams = [],
+  } = content;
 
   const peopleImages = teams.map((t) => t.team_member);
 

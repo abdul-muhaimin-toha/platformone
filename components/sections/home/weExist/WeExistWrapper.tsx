@@ -6,22 +6,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
 import { useRef } from 'react';
+import { BlockData, ButtonProps, HeadingProps } from '../types';
 
-export interface WeExistData {
-  btn_text?: string;
-  btn_url?: string;
+export interface WeExistData extends ButtonProps, HeadingProps {
   feature_image?: string;
-  open_in_new_tab?: boolean;
-  short_description?: string;
-  subtitle?: string;
-  title?: string;
 }
 
-interface WeExistWrapperProps {
-  data?: {
-    data?: WeExistData;
-  };
-}
+export type WeExistWrapperProps = BlockData<WeExistData>;
 
 function WeExistWrapper({ data }: WeExistWrapperProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);

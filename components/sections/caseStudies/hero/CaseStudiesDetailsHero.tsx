@@ -6,29 +6,24 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
 import { FC, useRef } from 'react';
+import { BlockData, HeadingProps } from '../../home/types';
+import CaseStudiesDetailsHeroSvg from './CaseStudiesDetailsHeroSvg';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface CaseStudiesDetailsHeroProps {
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  buttonHref: string;
-  imageSrc: string;
-  imageAlt: string;
+export interface CaseStudiesDetailsHeroData extends HeadingProps {
+  case_study_btn?: string;
+  case_study_file?: string;
+  feature_image?: string;
+  top_title?: string;
 }
+
+export type CaseStudiesDetailsHeroProps = BlockData<CaseStudiesDetailsHeroData>;
 
 const MOVE_STRENGTH = 18;
 const ROTATE_STRENGTH = 4;
 
-const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({
-  title,
-  subtitle,
-  buttonText,
-  buttonHref,
-  imageSrc,
-  imageAlt,
-}) => {
+const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -58,7 +53,7 @@ const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({
             trigger: section,
             start: 'top 80%',
           },
-        }
+        },
       );
 
       const qx = gsap.quickTo(svg, 'x', {
@@ -91,8 +86,19 @@ const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({
         section.removeEventListener('mousemove', handleMouseMove);
       };
     },
-    { dependencies: [] }
+    { dependencies: [] },
   );
+
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    case_study_btn = '',
+    case_study_file = '',
+    feature_image = '',
+    title = '',
+    top_title = '',
+  } = content;
 
   return (
     <section className="bg-white relative overflow-hidden" ref={sectionRef}>
@@ -105,54 +111,37 @@ const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({
             >
               <div className="w-full flex flex-col max-w-[400px] md:max-w-[500px] gap-6">
                 <p className="text-xl font-normal text-pulse-pink-600 leading-[1.30] lg:text-2xl lg:leading-[1.33] xl:text-2xl xl:leading-[1.33]">
-                  {subtitle}
+                  {top_title}
                 </p>
                 <h1 className="text-[38px] inline-flex flex-col font-bold leading-[1.26] lg:text-[48px] lg:leading-[1.23] xl:text-[56px] xl:leading-[1.28] text-white">
                   {title}
                 </h1>
-                <Button href={buttonHref} variant="secondary">
-                  {buttonText}
+                <Button
+                  target="_blank"
+                  href={case_study_file}
+                  variant="secondary"
+                >
+                  {case_study_btn}
                 </Button>
               </div>
 
-              <div className="w-full relative md:max-w-[516px] aspect-380/244 lg:aspect-516/327">
-                <Image
-                  fill
-                  src={imageSrc}
-                  alt={imageAlt}
-                  className="object-cover z-20 rounded-3xl"
-                />
-              </div>
+              {feature_image && (
+                <div className="w-full relative md:max-w-[516px] aspect-380/244 lg:aspect-516/327">
+                  <Image
+                    fill
+                    src={feature_image}
+                    alt={title}
+                    className="object-cover z-20 rounded-3xl"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <svg
+        <CaseStudiesDetailsHeroSvg
           ref={svgRef}
           className="absolute -bottom-[350px] md:-bottom-[300px] md:-right-56 md:w-[400px] xl:-bottom-[327px] -right-64 xl:-right-[466px] z-20 aspect-641/629 w-[389px] xl:w-[641px]"
-          width={641}
-          height={630}
-          viewBox="0 0 641 630"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M320.5 0C143.496 0 0 140.916 0 314.759C0 488.601 143.496 629.496 320.5 629.496C497.504 629.496 641 488.58 641 314.759C641 140.938 497.504 0 320.5 0ZM320.985 508.276C217.109 508.276 132.874 421.629 132.874 314.759C132.874 207.888 217.109 121.22 320.985 121.22C424.861 121.22 509.095 207.867 509.095 314.759C509.095 421.651 424.882 508.276 320.985 508.276Z"
-            fill="url(#paint0_linear_2069_9817)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_2069_9817"
-              x1={0}
-              y1="314.737"
-              x2={641}
-              y2="314.737"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#ED29FF" />
-              <stop offset={1} stopColor="#7386F5" />
-            </linearGradient>
-          </defs>
-        </svg>
+        />
       </div>
     </section>
   );

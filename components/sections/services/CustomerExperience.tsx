@@ -2,24 +2,27 @@
 
 import Image from 'next/image';
 import { FC } from 'react';
+import { BlockData, HeadingProps } from '../home/types';
+import CustomerExperienceSvg from './CustomerExperienceSvg';
 
-interface CustomerExperienceProps {
-  data?: {
-    data?: {
-      top_title?: string;
-      title?: string;
-      subtitle?: string;
-      short_description?: string;
-      feature_image?: string;
-    };
-  };
+export interface CustomerExperienceData extends HeadingProps {
+  top_title?: string;
+  feature_image?: string;
 }
 
-const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
-  const content = data?.data ?? {};
+export type CustomerExperienceProps = BlockData<CustomerExperienceData>;
 
-  const { top_title, title, subtitle, short_description, feature_image } =
-    content;
+const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    top_title = '',
+    title = '',
+    subtitle = '',
+    short_description = '',
+    feature_image = '',
+  } = content;
 
   return (
     <section>
@@ -58,32 +61,7 @@ const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
                   className="object-cover z-20 rounded-3xl"
                   sizes="(max-width: 768px) 100vw, 440px"
                 />
-                <svg
-                  className="absolute -bottom-[57px] w-[515px] h-[104px] sm:-right-16 md:-right-20 md:-bottom-[60px] lg:w-[600px] lg:h-[122px] lg:-bottom-[73px] lg:-right-[150px] 2xl:-right-10"
-                  width={450}
-                  height={122}
-                  viewBox="0 0 450 122"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M602.644 0H0V122.404H602.644V0Z"
-                    fill="url(#paint0_linear_2287_7082)"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_2287_7082"
-                      x1={0}
-                      y1="61.2"
-                      x2="602.644"
-                      y2="61.2"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="#E13FAB" />
-                      <stop offset={1} stopColor="#EB335B" />
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <CustomerExperienceSvg />
               </div>
             )}
           </div>
