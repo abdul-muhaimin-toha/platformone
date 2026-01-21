@@ -4,7 +4,7 @@ import { FC, useRef } from 'react';
 import WhatWeGetCard, { WhatWeGetCardProps } from './WhatWeGetCard';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { cn, extractBottomText } from '@/utils/utils';
+import { cn, parseHighlights } from '@/utils/utils';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BlockData, HeadingProps } from '../../home/types';
 import WhatWeGetSvg from './WhatWeGetSvg';
@@ -28,7 +28,6 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
     bottom_description = '',
   } = content;
 
-  const { description, highlight } = extractBottomText(bottom_description);
 
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -88,7 +87,9 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
         <div className="w-full z-20 flex flex-col gap-16 py-32 items-center justify-center">
           {title && (
             <h2 className="text-white w-full md:gap-3 flex-row flex items-center text-[38px] md:text-[56px] md:leading-[1.28] font-bold gap-2 leading-[1.26]">
-              <span>{title}</span>
+              <span
+                dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+              />
               <span
                 ref={spanRef}
                 className={cn(
@@ -113,14 +114,10 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
                 'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
                 version === 'v2' && 'max-w-[800px] lg:max-w-[950px]',
               )}
-            >
-              <span>{description}</span>{' '}
-              {highlight && (
-                <span className="text-pulse-pink-600 wrap-break-word">
-                  {highlight}
-                </span>
-              )}
-            </h2>
+              dangerouslySetInnerHTML={{
+                __html: parseHighlights(bottom_description),
+              }}
+            />
           )}
         </div>
       </div>

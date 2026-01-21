@@ -1,3 +1,4 @@
+import { parseHighlights } from '@/utils/utils';
 import TextRevealDescription from './TextRevealDescription';
 
 interface Props {
@@ -10,9 +11,10 @@ export default function WhatWeDoHeading({ title, description }: Props) {
     <div className="container-custom">
       <div className="w-full flex flex-col gap-14 max-w-[600px] lg:max-w-max">
         <div className="flex flex-col items-left justify-center gap-10 lg:flex-row lg:items-center xl:gap-36">
-          <h2 className="text-[38px] lg:text-[56px] lg:leading-[1.28] lg:w-full font-bold leading-[1.26] text-black">
-            {title}
-          </h2>
+          <h2
+            className="text-[38px] lg:text-[56px] lg:leading-[1.28] lg:w-full font-bold leading-[1.26] text-black"
+            dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+          />
           <TextRevealDescription text={description} />
         </div>
         <h4 className="text-[32px] lg:hidden font-semibold leading-tight text-mulberry-900">

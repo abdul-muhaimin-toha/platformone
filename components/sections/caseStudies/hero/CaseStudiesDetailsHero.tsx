@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { FC, useRef } from 'react';
 import { BlockData, HeadingProps } from '../../home/types';
 import CaseStudiesDetailsHeroSvg from './CaseStudiesDetailsHeroSvg';
+import { parseHighlights } from '@/utils/utils';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -110,12 +111,14 @@ const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({ data }) => {
               className="w-full flex flex-col z-50 gap-20 md:flex-row md:gap-8 md:pb-[91px] md:justify-between pt-[182px] pb-8 lg:pb-[91px] lg:pt-[166px] items-start justify-center md:items-center"
             >
               <div className="w-full flex flex-col max-w-[400px] md:max-w-[500px] gap-6">
-                <p className="text-xl font-normal text-pulse-pink-600 leading-[1.30] lg:text-2xl lg:leading-[1.33] xl:text-2xl xl:leading-[1.33]">
-                  {top_title}
-                </p>
-                <h1 className="text-[38px] inline-flex flex-col font-bold leading-[1.26] lg:text-[48px] lg:leading-[1.23] xl:text-[56px] xl:leading-[1.28] text-white">
-                  {title}
-                </h1>
+                <p
+                  className="text-xl font-normal text-pulse-pink-600 leading-[1.30] lg:text-2xl lg:leading-[1.33] xl:text-2xl xl:leading-[1.33]"
+                  dangerouslySetInnerHTML={{ __html: parseHighlights(top_title) }}
+                />
+                <h1
+                  className="text-[38px] inline-flex flex-col font-bold leading-[1.26] lg:text-[48px] lg:leading-[1.23] xl:text-[56px] xl:leading-[1.28] text-white"
+                  dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+                />
                 <Button
                   target="_blank"
                   href={case_study_file}
@@ -130,7 +133,7 @@ const CaseStudiesDetailsHero: FC<CaseStudiesDetailsHeroProps> = ({ data }) => {
                   <Image
                     fill
                     src={feature_image}
-                    alt={title}
+                    alt={title ? title.replace(/<[^>]*>/g, '') : ''}
                     className="object-cover z-20 rounded-3xl"
                   />
                 </div>

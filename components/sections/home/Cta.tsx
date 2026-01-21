@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/globals/Button';
-import { cn } from '@/utils/utils';
+import { cn, parseHighlights } from '@/utils/utils';
 
 import { BlockData, ButtonProps, HeadingProps } from './types';
 
@@ -36,9 +36,17 @@ const Cta: React.FC<CtaProps> = ({ data }) => {
               version === 'v1' ? 'text-[56px]' : 'text-4xl sm:text-[56px]'
             )}
           >
-            {title && <span className="text-[#4D2B42]">{title}</span>}
+            {title && (
+              <span
+                className="text-[#4D2B42]"
+                dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+              />
+            )}
             {subtitle && (
-              <span className="text-pulse-pink-600">{subtitle}</span>
+              <span
+                className="text-pulse-pink-600"
+                dangerouslySetInnerHTML={{ __html: parseHighlights(subtitle) }}
+              />
             )}
           </h2>
 

@@ -1,4 +1,4 @@
-import { cn } from '@/utils/utils';
+import { cn, parseHighlights } from '@/utils/utils';
 import Image from 'next/image';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../../home/types';
@@ -47,8 +47,17 @@ const CaseStudiesHero: FC<CaseStudiesHeroProps> = ({ data }) => {
                       : 'text-[56px] md:text-[38px] lg:text-[54px] xl:text-[64px]',
                   )}
                 >
-                  <span>{title_one}</span>
-                  <span className="text-pulse-pink-600">{title_two}</span>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: parseHighlights(title_one),
+                    }}
+                  />
+                  <span
+                    className="text-pulse-pink-600"
+                    dangerouslySetInnerHTML={{
+                      __html: parseHighlights(title_two),
+                    }}
+                  />
                 </h1>
 
                 {short_description && (
@@ -71,7 +80,7 @@ const CaseStudiesHero: FC<CaseStudiesHeroProps> = ({ data }) => {
                   <Image
                     fill
                     src={feature_image}
-                    alt={title_one}
+                    alt={title_one ? title_one.replace(/<[^>]*>/g, '') : ''}
                     className="object-cover z-20 rounded-3xl"
                   />
 

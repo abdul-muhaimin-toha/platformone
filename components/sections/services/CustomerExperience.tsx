@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../home/types';
 import CustomerExperienceSvg from './CustomerExperienceSvg';
+import { parseHighlights } from '@/utils/utils';
 
 export interface CustomerExperienceData extends HeadingProps {
   top_title?: string;
@@ -40,9 +41,12 @@ const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
                 </p>
               )}
               {(title || subtitle) && (
-                <h1 className="text-[38px] font-bold leading-[1.26] lg:text-[56px] lg:leading-[1.28] text-black mb-10">
-                  {title || subtitle}
-                </h1>
+                <h1
+                  className="text-[38px] font-bold leading-[1.26] lg:text-[56px] lg:leading-[1.28] text-black mb-10"
+                  dangerouslySetInnerHTML={{
+                    __html: parseHighlights(title || subtitle),
+                  }}
+                />
               )}
               {short_description && (
                 <p className="text-xl font-normal text-black leading-[100%]">
@@ -57,7 +61,11 @@ const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
                 <Image
                   fill
                   src={feature_image}
-                  alt={top_title || 'Header image'}
+                  alt={
+                    top_title
+                      ? top_title.replace(/<[^>]*>/g, '')
+                      : 'Header image'
+                  }
                   className="object-cover z-20 rounded-3xl"
                   sizes="(max-width: 768px) 100vw, 440px"
                 />

@@ -116,120 +116,174 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
           </div>
 
           {/* Desktop Columns */}
-          <div
-            className="hidden [@media(min-width:950px)]:flex gap-6 h-[488px] overflow-hidden"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/** Column 1 */}
-            <div className="hidden xl:flex w-[150px] xl:w-[196px] overflow-hidden">
-              <div ref={verticalRef1} className="flex flex-col gap-6">
-                {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
-                  desktopImages[0].map((img, idx) => (
-                    <Image
-                      key={`v1-${rIdx}-${idx}`}
-                      src={img.src}
-                      alt={img.alt}
-                      width={196}
-                      height={258}
-                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
-                    />
-                  )),
-                )}
-              </div>
-            </div>
+          {desktopImages.length > 0 && (
+            <div
+              className="hidden [@media(min-width:950px)]:flex gap-6 h-[488px] overflow-hidden"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              {/** Column 1 */}
+              {desktopImages[0]?.length > 0 && (
+                <div className="hidden xl:flex w-[150px] xl:w-[196px] overflow-hidden">
+                  <div ref={verticalRef1} className="flex flex-col gap-6">
+                    {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
+                      desktopImages[0].map((img, idx) => (
+                        <div
+                          key={`v1-${rIdx}-${idx}`}
+                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          style={{
+                            background:
+                              'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                          }}
+                        >
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            sizes="(min-width: 1280px) 196px, 150px"
+                            className="object-cover"
+                          />
+                        </div>
+                      )),
+                    )}
+                  </div>
+                </div>
+              )}
 
-            {/** Column 2 */}
-            <div className="w-[150px] xl:w-[196px] overflow-hidden">
-              <div ref={verticalRef2} className="flex flex-col gap-6">
-                {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
-                  desktopImages[1].map((img, idx) => (
-                    <Image
-                      key={`v2-${rIdx}-${idx}`}
-                      src={img.src}
-                      alt={img.alt}
-                      width={196}
-                      height={258}
-                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
-                    />
-                  )),
-                )}
-              </div>
-            </div>
+              {/** Column 2 */}
+              {desktopImages[1]?.length > 0 && (
+                <div className="w-[150px] xl:w-[196px] overflow-hidden">
+                  <div ref={verticalRef2} className="flex flex-col gap-6">
+                    {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
+                      desktopImages[1].map((img, idx) => (
+                        <div
+                          key={`v2-${rIdx}-${idx}`}
+                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          style={{
+                            background:
+                              'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                          }}
+                        >
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            sizes="(min-width: 1280px) 196px, 150px"
+                            className="object-cover"
+                          />
+                        </div>
+                      )),
+                    )}
+                  </div>
+                </div>
+              )}
 
-            {/** Column 3 */}
-            <div className="w-[150px] xl:w-[196px] overflow-hidden">
-              <div ref={verticalRef3} className="flex flex-col gap-6">
-                {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
-                  desktopImages[2].map((img, idx) => (
-                    <Image
-                      key={`v3-${rIdx}-${idx}`}
-                      src={img.src}
-                      alt={img.alt}
-                      width={196}
-                      height={258}
-                      className="w-[150px] xl:w-[196px] aspect-196/258 object-cover shrink-0"
-                    />
-                  )),
-                )}
-              </div>
+              {/** Column 3 */}
+              {desktopImages[2]?.length > 0 && (
+                <div className="w-[150px] xl:w-[196px] overflow-hidden">
+                  <div ref={verticalRef3} className="flex flex-col gap-6">
+                    {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
+                      desktopImages[2].map((img, idx) => (
+                        <div
+                          key={`v3-${rIdx}-${idx}`}
+                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          style={{
+                            background:
+                              'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                          }}
+                        >
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            sizes="(min-width: 1280px) 196px, 150px"
+                            className="object-cover"
+                          />
+                        </div>
+                      )),
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+          )}
         </div>
       </div>
 
       {/* Mobile Rows */}
-      <div className="[@media(min-width:950px)]:hidden flex flex-col gap-4 md:gap-6">
-        {/** Top Row */}
-        <div
-          className="overflow-hidden"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div
-            className="flex gap-4 md:gap-6 whitespace-nowrap"
-            ref={topRowRef}
-          >
-            {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
-              mobileImages[0].map((img, idx) => (
-                <Image
-                  key={`mobile-top-${rIdx}-${idx}`}
-                  src={img.src}
-                  alt={img.alt}
-                  width={150}
-                  height={174}
-                  className="w-[150px] object-cover shrink-0"
-                />
-              )),
-            )}
-          </div>
-        </div>
+      {mobileImages.length > 0 && (
+        <div className="[@media(min-width:950px)]:hidden flex flex-col gap-4 md:gap-6">
+          {/** Top Row */}
+          {mobileImages[0]?.length > 0 && (
+            <div
+              className="overflow-hidden"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div
+                className="flex gap-4 md:gap-6 whitespace-nowrap"
+                ref={topRowRef}
+              >
+                {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
+                  mobileImages[0].map((img, idx) => (
+                    <div
+                      key={`mobile-top-${rIdx}-${idx}`}
+                      className="relative w-[150px] aspect-150/174 shrink-0 rounded-[8px] overflow-hidden"
+                      style={{
+                        background:
+                          'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                      }}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="150px"
+                        className="object-cover"
+                      />
+                    </div>
+                  )),
+                )}
+              </div>
+            </div>
+          )}
 
-        {/** Bottom Row */}
-        <div
-          className="overflow-hidden"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div
-            className="flex gap-4 md:gap-6 whitespace-nowrap"
-            ref={bottomRowRef}
-          >
-            {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
-              mobileImages[1].map((img, idx) => (
-                <Image
-                  key={`mobile-bottom-${rIdx}-${idx}`}
-                  src={img.src}
-                  alt={img.alt}
-                  width={150}
-                  height={174}
-                  className="w-[150px] object-cover shrink-0"
-                />
-              )),
-            )}
-          </div>
+          {/** Bottom Row */}
+          {mobileImages[1]?.length > 0 && (
+            <div
+              className="overflow-hidden"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div
+                className="flex gap-4 md:gap-6 whitespace-nowrap"
+                ref={bottomRowRef}
+              >
+                {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
+                  mobileImages[1].map((img, idx) => (
+                    <div
+                      key={`mobile-bottom-${rIdx}-${idx}`}
+                      className="relative w-[150px] aspect-150/174 shrink-0 rounded-[8px] overflow-hidden"
+                      style={{
+                        background:
+                          'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                      }}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="150px"
+                        className="object-cover"
+                      />
+                    </div>
+                  )),
+                )}
+              </div>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };

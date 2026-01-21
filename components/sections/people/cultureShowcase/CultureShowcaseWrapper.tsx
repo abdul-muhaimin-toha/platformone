@@ -27,8 +27,8 @@ const CultureShowcaseWrapper: FC<CultureShowcaseWrapperProps> = ({ data }) => {
   } = content;
 
   const images = [
-    { src: feature_image_one, alt: title_one },
-    { src: feature_image_two, alt: title_two },
+    { src: feature_image_one, alt: title_one.replace(/<[^>]*>/g, '') },
+    { src: feature_image_two, alt: title_two.replace(/<[^>]*>/g, '') },
     { src: feature_image_three, alt: '' },
   ].filter((img) => img.src);
 

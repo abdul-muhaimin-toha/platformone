@@ -1,4 +1,4 @@
-import { cn } from '@/utils/utils';
+import { cn, parseHighlights } from '@/utils/utils';
 import Image from 'next/image';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../home/types';
@@ -23,7 +23,6 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
     short_description = '',
     feature_image = '',
     content_type = 'left',
-    // select_version = 'v1', // Unused variable
   } = content;
 
   return (
@@ -39,12 +38,16 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
         >
           {/* Text Content */}
           <div className="w-full flex flex-col max-w-[480px] md:max-w-max">
-            <h1 className="text-[38px] font-bold leading-[1.26] text-black mb-10">
-              {title}{' '}
-              {highlight_text && (
-                <span className="text-pulse-pink-600">{highlight_text}</span>
-              )}
-            </h1>
+            <h1
+              className="text-[38px] font-bold leading-[1.26] text-black mb-10"
+              dangerouslySetInnerHTML={{
+                __html:
+                  parseHighlights(title) +
+                  (highlight_text
+                    ? ` <span class="text-pulse-pink-600">${parseHighlights(highlight_text)}</span>`
+                    : ''),
+              }}
+            />
             <p className="text-xl font-normal text-black max-w-[578px] leading-[1.3]">
               {short_description}
             </p>
@@ -59,7 +62,7 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
               <Image
                 fill
                 src={feature_image}
-                alt={title || 'Side by side image'}
+                alt={title.replace(/<[^>]*>/g, '') || 'Side by side image'}
                 className="object-cover w-full"
               />
             </div>

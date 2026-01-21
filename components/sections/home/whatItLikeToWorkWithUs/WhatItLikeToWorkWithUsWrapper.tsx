@@ -18,6 +18,8 @@ const WhatItLikeToWorkWithUsWrapper: FC<WhatItLikeToWorkWithUsWrapperProps> = ({
 
   const { title, short_description, testimonials = [] } = content;
 
+  
+
   return (
     <section className="bg-white bg-linear-[90deg] from-[#E9C4DD99]/0 to-[#E9C4DD99]">
       <div className="flex flex-col w-full pt-32 lg:pb-20 pb-[88px] gap-24">

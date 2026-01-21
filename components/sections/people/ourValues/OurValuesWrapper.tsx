@@ -1,18 +1,17 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../../home/types';
+import { parseHighlights } from '@/utils/utils';
 
-export interface OurValueCard {
-  icon: string;
-  icon_alt?: string;
-  title: string;
-  short_description: string;
-  bg_color: string;
+export interface OurValueItem {
+  feature_icon?: string;
+  value_title?: string;
+  value_description?: string;
+  bg_color?: string;
 }
 
 export interface OurValuesData extends HeadingProps {
-  highlight_text?: string;
-  value_items?: OurValueCard[];
+  values?: OurValueItem[];
 }
 
 export type OurValuesWrapperProps = BlockData<OurValuesData>;
@@ -21,46 +20,45 @@ const OurValuesWrapper: FC<OurValuesWrapperProps> = ({ data }) => {
   const content = data?.data;
   if (!content) return null;
 
-  const {
-    title = '',
-    highlight_text = '',
-    value_items = [],
-  } = content;
+  const { title = '', values = [] } = content;
+
+  const parsedTitle = parseHighlights(title);
+
   return (
     <section>
       <div className="container-custom">
         <div className="grid w-full grid-cols-1 md:grid-cols-2 items-center gap-6 py-28 xl:grid-cols-3 xl:py-32">
           {/* Heading */}
           <div className="w-full">
-            <h2 className="w-full text-[56px] font-bold leading-[1.28] my-8">
-              {title}{' '}
-              <span className="text-pulse-pink-600">{highlight_text}</span>
-            </h2>
+            <h2
+              className="w-full text-[34px] md:text-[44px] xl:text-[56px] font-bold leading-[1.28] my-8"
+              dangerouslySetInnerHTML={{ __html: parsedTitle }}
+            />
           </div>
 
           {/* Cards */}
-          {value_items.map((value, index) => (
+          {values.map((value, index) => (
             <div
               key={index}
               className="w-full flex flex-col rounded-2xl gap-10 p-10 md:p-6 lg:p-10"
-              style={{ backgroundColor: value.bg_color }}
+              style={{ backgroundColor: value.bg_color || '#F9F9F9' }}
             >
-              {value.icon && (
+              {value.feature_icon && (
                 <Image
-                  src={value.icon}
+                  src={value.feature_icon}
                   className="aspect-70/70 object-contain"
                   width={70}
                   height={70}
-                  alt={value.icon_alt || ''}
+                  alt={value.value_title || ''}
                 />
               )}
 
               <div className="w-full flex flex-col gap-6">
                 <h3 className="text-black text-[32px] font-semibold leading-normal">
-                  {value.title}
+                  {value.value_title}
                 </h3>
                 <p className="text-black text-xl font-normal leading-normal">
-                  {value.short_description}
+                  {value.value_description}
                 </p>
               </div>
             </div>
@@ -69,6 +67,6 @@ const OurValuesWrapper: FC<OurValuesWrapperProps> = ({ data }) => {
       </div>
     </section>
   );
-}
+};
 
 export default OurValuesWrapper;

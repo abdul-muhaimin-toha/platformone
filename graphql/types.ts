@@ -38,6 +38,16 @@ export interface CaseStudyNode extends WPNode {
   };
 }
 
+export interface TeamNode extends WPNode {
+  featuredImage: {
+    node: {
+      id?: string;
+      mediaItemUrl: string;
+      sourceUrl?: string;
+    };
+  };
+}
+
 export interface WPEdge<T> {
   node: T;
 }

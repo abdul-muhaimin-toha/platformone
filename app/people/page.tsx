@@ -9,5 +9,9 @@ export default async function PeoplePage() {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={peopleData} />;
+  return (
+    <div className="overflow-hidden">
+      <RenderBlocksHelper blocks={peopleData} />
+    </div>
+  );
 }

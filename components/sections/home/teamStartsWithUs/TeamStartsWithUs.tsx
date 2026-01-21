@@ -1,27 +1,28 @@
-'use client';
-
 import TeamCylinder from './TeamCylinder';
 import TeamHeading from './TeamHeading';
+import { getTeamsImagesRandom } from '@/graphql/components/get-team-data';
 
 import { BlockData, HeadingProps } from '../types';
 
-export interface TeamStartsWithUsData extends HeadingProps {
-  teams: { team_member: string; _id: string }[];
-}
+export interface TeamStartsWithUsData extends HeadingProps {}
 
 export type TeamStartsWithUsProps = BlockData<TeamStartsWithUsData>;
 
-export default function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
+export default async function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
   const content = data?.data ?? {};
 
   const {
     title = '',
     subtitle = '',
     short_description = '',
-    teams = [],
   } = content;
 
-  const peopleImages = teams.map((t) => t.team_member);
+  // Fetch 12 random team images to populate the revolving cylinder
+  const randomTeams = await getTeamsImagesRandom(12);
+
+  const peopleImages = randomTeams
+    .map((t) => t.featuredImage.node.mediaItemUrl)
+    .filter(Boolean) as string[];
 
   return (
     <section className="bg-white">
@@ -38,10 +39,12 @@ export default function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
             short_description={short_description}
           />
         </div>
-        <TeamCylinder
-          peopleImages={peopleImages}
-          centerpieceImage="/home/start-with-us/center.png"
-        />
+        {peopleImages.length > 0 && (
+          <TeamCylinder
+            peopleImages={peopleImages}
+            centerpieceImage="/home/start-with-us/center.png"
+          />
+        )}
       </div>
     </section>
   );

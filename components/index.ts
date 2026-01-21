@@ -61,6 +61,11 @@ const blockComponentsMapping = {
   // /////////////////////
   'carbon-fields/people-banner-section': LeadershipHero,
   'carbon-fields/people-cultural-section': CultureShowcaseWrapper,
+  'carbon-fields/people-half-to-half-section': HowWeDoItWrapper,
+  'carbon-fields/people-cta-section': OpenRoleCta,
+  'carbon-fields/people-values-section': OurValuesWrapper,
+  'carbon-fields/people-up-to-date-section': StayUpToDateWrapper,
+  'carbon-fields/certification-showcase': CertificationShowcase,
 };
 
 export default blockComponentsMapping;

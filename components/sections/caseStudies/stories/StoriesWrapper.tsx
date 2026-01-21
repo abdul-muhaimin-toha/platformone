@@ -33,12 +33,8 @@ async function StoriesWrapper({ data }: StoriesWrapperProps) {
     caseStudies = await getCaseStudiesByIds(ids);
   }
 
-  // ✅ Correct variable name usage
+  // Cast CaseStudyNode to any to avoid missing props errors in StoriesCard
   const validCaseStudies = caseStudies.filter((node) => node?.id);
-
-  console.log(validCaseStudies);
-
-  console.log(validCaseStudies);
 
   return (
     <section className="bg-white">

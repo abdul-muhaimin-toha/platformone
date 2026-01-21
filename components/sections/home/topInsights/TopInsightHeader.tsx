@@ -1,4 +1,5 @@
 import Button from '@/components/globals/Button';
+import { parseHighlights } from '@/utils/utils';
 
 interface TopInsightsHeaderProps {
   title: string;
@@ -21,12 +22,14 @@ export default function TopInsightsHeader({
       className="w-full flex flex-col gap-10 md:flex-row md:items-center md:justify-between"
     >
       <div className="w-full flex flex-col gap-2">
-        <h2 className="text-[38px] lg:text-[56px] lg:leading-[1.28] font-bold leading-[1.26] text-black">
-          {title}
-        </h2>
-        <h3 className="text-2xl font-semibold leading-[1.33] text-pulse-pink-600">
-          {subtitle}
-        </h3>
+        <h2
+          className="text-[38px] lg:text-[56px] lg:leading-[1.28] font-bold leading-[1.26] text-black"
+          dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+        />
+        <h3
+          className="text-2xl font-semibold leading-[1.33] text-pulse-pink-600"
+          dangerouslySetInnerHTML={{ __html: parseHighlights(subtitle) }}
+        />
       </div>
 
       <Button

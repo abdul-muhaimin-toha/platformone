@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/all';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { BlockData, ButtonProps, HeadingProps } from '../types';
+import { parseHighlights } from '@/utils/utils';
 
 export interface WeExistData extends ButtonProps, HeadingProps {
   feature_image?: string;
@@ -96,15 +97,17 @@ function WeExistWrapper({ data }: WeExistWrapperProps) {
         <div className="w-full z-50 grid gap-16 grid-cols-1 md:grid-cols-2 md:gap-10 pb-32 xl:pb-[200px] xl:grid-cols-[632px_1fr]">
           <div className="flex flex-col justify-center xl:pr-14">
             {title && (
-              <h3 className="text-[38px] font-bold xl:text-[56px] text-black mb-2">
-                {title}
-              </h3>
+              <h3
+                className="text-[38px] font-bold xl:text-[56px] text-black mb-2"
+                dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+              />
             )}
 
             {subtitle && (
-              <h4 className="text-2xl font-semibold text-pulse-pink-600 mb-10">
-                {subtitle}
-              </h4>
+              <h4
+                className="text-2xl font-semibold text-pulse-pink-600 mb-10"
+                dangerouslySetInnerHTML={{ __html: parseHighlights(subtitle) }}
+              />
             )}
 
             {short_description && (
@@ -128,7 +131,7 @@ function WeExistWrapper({ data }: WeExistWrapperProps) {
                 src={feature_image}
                 fill
                 className="object-cover"
-                alt={title || 'We exist image'}
+                alt={title ? title.replace(/<[^>]*>/g, '') : 'We exist image'}
                 priority={false}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 680px"
               />

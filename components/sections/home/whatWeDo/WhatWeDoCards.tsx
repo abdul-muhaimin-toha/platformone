@@ -9,6 +9,7 @@ import Button from '@/components/globals/Button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { WhatWeDoCardData } from './WhatWeDoWrapper';
+import { parseHighlights } from '@/utils/utils';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,21 +90,29 @@ export default function WhatWeDoCards({
               <div className="flex w-full flex-col justify-between gap-6 sm:gap-10 xl:gap-[50px] [@media(min-width:900px)]:flex-row [@media(min-width:900px)]:items-end [@media(min-width:900px)]:pb-0">
                 {/* Text Column */}
                 <div className="flex w-full max-w-[600px] flex-col xl:mb-24! [@media(min-width:900px)]:mb-16 [@media(min-width:1000px)]:max-w-[632px]">
-                  <h4 className="mb-6 text-2xl font-semibold uppercase leading-[1.33] tracking-[2px] text-[#6C445F]">
-                    {card.top_title}
-                  </h4>
-                  <h3 className="mb-2 text-[38px] font-bold leading-[1.47] text-black">
-                    {card.title_one}
-                  </h3>
-                  <p className="mb-8 text-2xl font-semibold leading-[1.33] text-pulse-pink-700 xl:text-[38px] xl:leading-[1.47]">
-                    {card.title_two}
-                  </p>
+                  <h4
+                    className="mb-6 text-2xl font-semibold uppercase leading-[1.33] tracking-[2px] text-[#6C445F]"
+                    dangerouslySetInnerHTML={{
+                      __html: parseHighlights(card.top_title || ''),
+                    }}
+                  />
+                  <h3
+                    className="mb-2 text-[38px] font-bold leading-[1.47] text-black"
+                    dangerouslySetInnerHTML={{
+                      __html: parseHighlights(card.title_one || ''),
+                    }}
+                  />
+                  <p
+                    className="mb-8 text-2xl font-semibold leading-[1.33] text-pulse-pink-700 xl:text-[38px] xl:leading-[1.47]"
+                    dangerouslySetInnerHTML={{
+                      __html: parseHighlights(card.title_two || ''),
+                    }}
+                  />
                   <p className="mb-8 text-base text-[#4D2B42] font-normal leading-[1.37] xl:text-xl xl:leading-[1.30]">
                     {card.short_description}
                   </p>
                   <Button
                     variant="tertiary"
-                    as={Link}
                     href={card.btn_url}
                     target={card.open_in_new_tab ? '_blank' : undefined}
                   >
@@ -114,7 +123,7 @@ export default function WhatWeDoCards({
                 {/* Image Column */}
                 <Image
                   src={card.feature_image}
-                  alt={card.title_one}
+                  alt={card.title_one ? card.title_one.replace(/<[^>]*>/g, '') : ''}
                   width={338}
                   height={335}
                   className="

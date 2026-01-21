@@ -2,13 +2,12 @@ import StayUpToDateHeader from './StayUpToDateHeader';
 import StayUpToDateImages from './StayUpToDateImages';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../../home/types';
-
-export interface StayUpToDateImage {
+export interface StayUpToDateItem {
   feature_image: string;
 }
 
 export interface StayUpToDateData extends HeadingProps {
-  feature_images?: StayUpToDateImage[];
+  up_to_date?: StayUpToDateItem[];
 }
 
 export type StayUpToDateWrapperProps = BlockData<StayUpToDateData>;
@@ -21,12 +20,12 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
     title = '',
     subtitle = '',
     short_description = '',
-    feature_images = [],
+    up_to_date = [],
   } = content;
 
-  const images = feature_images.map((img) => ({
+  const images = up_to_date.map((img) => ({
     src: img.feature_image,
-    alt: '',
+    alt: title.replace(/<[^>]*>/g, ''), // Strip HTML for alt tags
   }));
   return (
     <section className="bg-mulberry-900">

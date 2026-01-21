@@ -2,16 +2,15 @@ import { extractBottomText } from '@/utils/utils';
 import LeadershipHeroInner from './LeadershipHeroInner';
 import { FC } from 'react';
 import { BlockData, ButtonProps } from '../../home/types';
+import { getTeamsImagesRandom } from '@/graphql/components/get-team-data';
 
 export interface LeadershipHeroData extends ButtonProps {
   title_one: string;
-  desktop_images?: { feature_image: string }[];
-  mobile_images?: { feature_image: string }[];
 }
 
 export type LeadershipHeroProps = BlockData<LeadershipHeroData>;
 
-const LeadershipHero: FC<LeadershipHeroProps> = ({ data }) => {
+const LeadershipHero: FC<LeadershipHeroProps> = async ({ data }) => {
   const content = data?.data;
   if (!content) return null;
 
@@ -19,46 +18,38 @@ const LeadershipHero: FC<LeadershipHeroProps> = ({ data }) => {
     btn_text = '',
     btn_url = '',
     title_one = '',
-    desktop_images = [],
-    mobile_images = [],
   } = content;
+
+  // Fetch random team images (defaults to LARGE size)
+  const randomTeams = await getTeamsImagesRandom(10);
+
+  // Format and filter images
+  const formattedImages = randomTeams
+    .map((team) => ({
+      src: team.featuredImage.node.mediaItemUrl || '',
+      alt: team.title || 'Team Member',
+    }))
+    .filter((img) => img.src);
+
+  // Helper to slice array into groups
+  const chunkArray = (arr: any[], size: number) => {
+    return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+      arr.slice(i * size, i * size + size),
+    );
+  };
+
+  // Distribute across 3 columns for desktop and 2 rows for mobile
+  const desktopImagesList = chunkArray(
+    formattedImages,
+    Math.ceil(formattedImages.length / 3),
+  );
+  const mobileImagesList = chunkArray(
+    formattedImages,
+    Math.ceil(formattedImages.length / 2),
+  );
 
   const heading = extractBottomText(title_one);
 
-  // Fallback images if not provided by CMS
-  const defaultDesktopImages = [
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-  ];
-
-  const defaultMobileImages = [
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-    [
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-      { src: '/leadership/hero/leader-1.png', alt: 'Team 1' },
-    ],
-  ];
-
-  // Helper to chunk images for rows/columns if needed, or just use defaults for now if CMS shape is different
-  // For now, preservation of style is priority, so I'll keep the 3x/3x grid structure.
-  
   return (
     <section className="bg-background">
       <div className="bg-[#FF69B4] rounded-bl-[64px] overflow-hidden">
@@ -68,8 +59,8 @@ const LeadershipHero: FC<LeadershipHeroProps> = ({ data }) => {
         >
           <LeadershipHeroInner
             heading={heading}
-            desktopImages={defaultDesktopImages}
-            mobileImages={defaultMobileImages}
+            desktopImages={desktopImagesList}
+            mobileImages={mobileImagesList}
             button={{ href: btn_url, label: btn_text }}
           />
         </div>

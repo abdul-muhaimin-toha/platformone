@@ -8,26 +8,14 @@ import HowWeDoItCard from './HowWeDoItCard';
 import { BlockData, HeadingProps } from '../../home/types';
 
 export interface HowWeDoItData extends HeadingProps {
-  highlight_text?: string;
-  feature_image?: string;
-  short_description_two?: string;
+  title_one: string;
+  title_two: string;
+  feature_image_one?: string;
 }
 
 export type HowWeDoItWrapperProps = BlockData<HowWeDoItData>;
 
 const HowWeDoItWrapper: FC<HowWeDoItWrapperProps> = ({ data }) => {
-  const content = data?.data;
-  if (!content) return null;
-
-  const {
-    title = '',
-    highlight_text = '',
-    short_description = '',
-    short_description_two = '',
-    feature_image = '',
-  } = content;
-
-  const paragraphs = [short_description, short_description_two].filter(Boolean);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -58,7 +46,7 @@ const HowWeDoItWrapper: FC<HowWeDoItWrapperProps> = ({ data }) => {
           trigger: section,
           start: 'top 80%',
         },
-      }
+      },
     );
 
     const moveStrength = 18;
@@ -96,14 +84,22 @@ const HowWeDoItWrapper: FC<HowWeDoItWrapperProps> = ({ data }) => {
     };
   }, []);
 
+  const content = data?.data;
+  if (!content) return null;
+
+  const {
+    feature_image_one = '',
+    short_description = '',
+    title_one = '',
+  } = content;
+
   return (
     <section ref={sectionRef} className="relative">
       <div className="container-custom">
         <HowWeDoItCard
-          title={title}
-          highlight={highlight_text || ''}
-          paragraphs={paragraphs}
-          image={{ src: feature_image, alt: title }}
+          title={title_one}
+          description={short_description}
+          image={{ src: feature_image_one, alt: title_one }}
         />
       </div>
       <svg
@@ -135,6 +131,6 @@ const HowWeDoItWrapper: FC<HowWeDoItWrapperProps> = ({ data }) => {
       </svg>
     </section>
   );
-}
+};
 
 export default HowWeDoItWrapper;
