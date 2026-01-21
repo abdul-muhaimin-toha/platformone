@@ -3,15 +3,11 @@ import RenderBlocksHelper from '@/utils/render-blocks-helper';
 import { notFound } from 'next/navigation';
 
 export default async function PeoplePage() {
-  const peopleData = await getPageData('people');
+  const pageData = await getPageData('people');
 
-  if (!peopleData) {
+  if (!pageData) {
     notFound();
   }
 
-  return (
-    <div className="overflow-hidden">
-      <RenderBlocksHelper blocks={peopleData} />
-    </div>
-  );
+  return <RenderBlocksHelper blocks={pageData} />;
 }

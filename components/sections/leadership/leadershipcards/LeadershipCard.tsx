@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Button from '@/components/globals/Button';
-import { cn } from '@/utils/utils';
+import { cn, parseHighlights } from '@/utils/utils';
+import Link from 'next/link';
 
 export interface LeadershipPerson {
-  id: string;
+  id?: string;
   name: string;
   role: string;
   image: string;
@@ -12,7 +13,8 @@ export interface LeadershipPerson {
 
 function LeadershipCard({ name, role, image, linkedinUrl }: LeadershipPerson) {
   return (
-    <div
+    <Link
+      href={linkedinUrl || '/'}
       data-aos="fade-up"
       className="group flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white"
     >
@@ -20,7 +22,7 @@ function LeadershipCard({ name, role, image, linkedinUrl }: LeadershipPerson) {
       <div className="relative w-full min-h-[286px] bg-[#FFF0F9] aspect-320/286 overflow-hidden">
         <Image
           src={image}
-          alt={name}
+          alt={name ? name.replace(/<[^>]*>/g, '') : ''}
           fill
           className="z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
@@ -34,27 +36,29 @@ function LeadershipCard({ name, role, image, linkedinUrl }: LeadershipPerson) {
       </div>
 
       {/* Content Section */}
-      <div className="relative flex w-full flex-col p-6 pt-4 sm:p-4 md:p-6">
+      <div className="relative flex w-full flex-col p-6 pt-4 sm:p-4 md:p-6  h-full">
         {/* Default gradient border */}
         <div
           className={cn(
-            `absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[#E13FAB] to-[#F02D30] group-hover:from-[#F02D30] group-hover:to-[#E13FAB] duration-500`
+            `absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[#E13FAB] to-[#F02D30] group-hover:from-[#F02D30] group-hover:to-[#E13FAB] duration-500`,
           )}
         />
 
-        <p className="mb-1 text-2xl font-semibold leading-[1.33] text-mulberry-950">
-          {name}
-        </p>
+        <p
+          className="mb-1 text-2xl font-semibold leading-[1.33] text-mulberry-950"
+          dangerouslySetInnerHTML={{ __html: parseHighlights(name) }}
+        />
 
-        <p className="pb-4 text-xl font-normal leading-[1.3] text-pulse-pink-700">
-          {role}
-        </p>
+        <p
+          className="pb-4 text-xl font-normal leading-[1.3] text-pulse-pink-700"
+          dangerouslySetInnerHTML={{ __html: parseHighlights(role) }}
+        />
 
-        <Button href={linkedinUrl} variant="tertiary">
+        <Button variant="tertiary" className="mt-auto">
           LinkedIn
         </Button>
       </div>
-    </div>
+    </Link>
   );
 }
 

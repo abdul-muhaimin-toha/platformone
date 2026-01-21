@@ -9,15 +9,11 @@ interface ServicesPageProps {
 export default async function ServicesPage({ params }: ServicesPageProps) {
   const { slug } = await params;
 
-  const serviceData = await getServiceData(slug);
+  const pageData = await getServiceData(slug);
 
-  if (!serviceData) {
+  if (!pageData) {
     notFound();
   }
 
-  return (
-    <div className="overflow-hidden">
-      <RenderBlocksHelper blocks={serviceData} />
-    </div>
-  );
+  return <RenderBlocksHelper blocks={pageData} />;
 }

@@ -1,14 +1,20 @@
-import Image from "next/image";
+import { FC } from 'react';
+import { parseHighlights } from '@/utils/utils';
+import { BlockData } from '../home/types';
 
-interface OurPurposeHeadingProps {
-  heading: {
-    line1: string;
-    line2: string;
-  };
-  paragraph: string;
+export interface OurPurposeHeadingData {
+  title?: string;
+  description?: string;
 }
 
-function OurPurposeHeading({ heading, paragraph }: OurPurposeHeadingProps) {
+export type OurPurposeHeadingProps = BlockData<OurPurposeHeadingData>;
+
+const OurPurposeHeading: FC<OurPurposeHeadingProps> = ({ data }) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const { title = '', description = '' } = content;
+
   return (
     <section>
       <div className="container-custom">
@@ -16,16 +22,19 @@ function OurPurposeHeading({ heading, paragraph }: OurPurposeHeadingProps) {
           data-aos="fade-up"
           className="flex items-left pt-24 lg:pt-32 xl:pb-32 flex-col justify-center lg:flex-row text-left gap-8 md:max-w-[600px] xl:gap-36 lg:max-w-max lg:items-center"
         >
-          <h2 className="text-[28px] sm:text-[38px] lg:text-[32px] xl:text-[38px] inline-flex flex-col lg:w-1/2 font-bold leading-[1.26] text-black">
-            <span>{heading.line1}</span>
-            <span className="text-pulse-pink-600">{heading.line2}</span>
-          </h2>
+          <div
+            className="text-[28px] sm:text-[38px] lg:text-[32px] xl:text-[38px] inline-flex flex-col lg:w-1/2 font-bold leading-[1.26] text-black"
+            dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+          />
 
-          <p className="text-xl font-normal lg:w-1/2 text-black">{paragraph}</p>
+          <div
+            className="text-xl font-normal lg:w-1/2 text-black"
+            dangerouslySetInnerHTML={{ __html: parseHighlights(description) }}
+          />
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default OurPurposeHeading;

@@ -1,13 +1,24 @@
-import LeadershipCard, { LeadershipPerson } from './LeadershipCard';
+import LeadershipCard from './LeadershipCard';
 import LeadershipSectionHeading from './LeadershipSectionHeading';
+import { getLeadershipTeams } from '@/graphql/components/get-team-data';
+import { BlockData, HeadingProps } from '../../home/types';
 
-interface LeadershipWrapperProps {
-  title: string;
-  subtitle: string;
-  data: LeadershipPerson[];
+export interface LeadershipData extends HeadingProps {
+  people_list?: any[];
 }
 
-function LeadershipWrapper({ title, subtitle, data }: LeadershipWrapperProps) {
+export type LeadershipWrapperProps = BlockData<LeadershipData>;
+
+const LeadershipWrapper = async ({ data }: LeadershipWrapperProps) => {
+  const content = data?.data;
+  if (!content) return null;
+
+  const { title = '', subtitle = '' } = content;
+
+  const teams = await getLeadershipTeams();
+
+  if (!teams || teams.length === 0) return null;
+
   return (
     <section className="bg-background">
       <div className="container-custom">
@@ -15,14 +26,20 @@ function LeadershipWrapper({ title, subtitle, data }: LeadershipWrapperProps) {
           <LeadershipSectionHeading title={title} subtitle={subtitle} />
 
           <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-4 md:gap-6">
-            {data.map((person) => (
-              <LeadershipCard key={person.id} {...person} />
+            {teams.map((person) => (
+              <LeadershipCard
+                key={person.id}
+                name={person.title || ''}
+                role={person.designation || ''}
+                image={person.featuredImage?.node?.mediaItemUrl || ''}
+                linkedinUrl={person.linkedinLink || "#"}
+              />
             ))}
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default LeadershipWrapper;

@@ -12,7 +12,7 @@ import WhatWeGetSvg from './WhatWeGetSvg';
 gsap.registerPlugin(ScrollTrigger);
 
 export interface WhatWeGetData extends HeadingProps {
-  version?: 'v1' | 'v2';
+  select_version?: 'v1' | 'v2';
   promo_cards?: WhatWeGetCardProps[];
   bottom_description?: string;
 }
@@ -22,12 +22,11 @@ export type WhatWeGetProps = BlockData<WhatWeGetData>;
 const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
   const content = data?.data ?? {};
   const {
-    version = 'v1',
+    select_version = 'v1',
     title = '',
     promo_cards = [],
     bottom_description = '',
   } = content;
-
 
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -50,7 +49,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
       );
     }
 
-    if (version === 'v1' && svgRef.current && sectionRef.current) {
+    if (select_version === 'v1' && svgRef.current && sectionRef.current) {
       const svg = svgRef.current;
       const section = sectionRef.current;
 
@@ -86,14 +85,14 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
       <div className="container-custom">
         <div className="w-full z-20 flex flex-col gap-16 py-32 items-center justify-center">
           {title && (
-            <h2 className="text-white w-full md:gap-3 flex-row flex items-center text-[38px] md:text-[56px] md:leading-[1.28] font-bold gap-2 leading-[1.26]">
+            <h2 className="text-white z-10 w-full md:gap-3 flex-row flex items-center text-[38px] md:text-[56px] md:leading-[1.28] font-bold gap-2 leading-[1.26]">
               <span
                 dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
               />
               <span
                 ref={spanRef}
                 className={cn(
-                  'inline-flex rounded-[3px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 xl:h-3 xl:w-[230px]',
+                  ' rounded-[3px] hidden md:inline-flex w-[120px] h-2 md:h-3 bg-linear-[90deg] from-pulse-pink-700/0 to-pulse-pink-700 xl:h-3 xl:w-[230px]',
                 )}
               />
             </h2>
@@ -112,7 +111,7 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
               data-aos="fade-up"
               className={cn(
                 'text-white w-full text-[38px] self-start lg:text-[56px] lg:leading-[1.28] font-bold gap-2 leading-[1.26]',
-                version === 'v2' && 'max-w-[800px] lg:max-w-[950px]',
+                select_version === 'v2' && 'max-w-[800px] lg:max-w-[950px]',
               )}
               dangerouslySetInnerHTML={{
                 __html: parseHighlights(bottom_description),
@@ -122,10 +121,10 @@ const WhatWeGet: FC<WhatWeGetProps> = ({ data }) => {
         </div>
       </div>
 
-      {version === 'v1' && (
+      {select_version === 'v1' && (
         <WhatWeGetSvg
           ref={svgRef}
-          className="absolute z-20 aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px] -right-[200px] xl:-top-56 xl:-right-[478px]"
+          className="absolute  aspect-423/415 h-auto w-[350px] xl:w-[640px] -top-[120px] -right-[200px] xl:-top-56 xl:-right-[478px]"
         />
       )}
     </section>

@@ -3,11 +3,11 @@ import RenderBlocksHelper from '@/utils/render-blocks-helper';
 import { notFound } from 'next/navigation';
 
 export default async function CaseStudiesPage() {
-  const caseStudiesPageData = await getPageData('case-studies');
+  const pageData = await getPageData('case-studies');
 
-  if (!caseStudiesPageData) {
+  if (!pageData) {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={caseStudiesPageData} />;
+  return <RenderBlocksHelper blocks={pageData} />;
 }

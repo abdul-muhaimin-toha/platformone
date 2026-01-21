@@ -13,7 +13,7 @@ export interface ClientItem {
 
 export interface TopClientsData {
   brand_logos?: ClientItem[];
-  bg?: string;
+  bg_color?: string;
 }
 
 export type TopClientsProps = BlockData<TopClientsData>;
@@ -23,9 +23,9 @@ function TopClients({ data }: TopClientsProps): JSX.Element | null {
 
   const brandLogos = useMemo(
     () => content.brand_logos ?? [],
-    [content.brand_logos]
+    [content.brand_logos],
   );
-  const bg = content.bg;
+  const bg = content.bg_color || '';
 
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -72,7 +72,10 @@ function TopClients({ data }: TopClientsProps): JSX.Element | null {
   const items: ClientItem[] = Array(repeatCount).fill(brandLogos).flat();
 
   return (
-    <section className={cn('w-full overflow-hidden', bg)}>
+    <section
+      className={cn('w-full overflow-hidden')}
+      style={{ background: bg }}
+    >
       <div className="container-custom z-10">
         <div
           className="flex items-center gap-24 py-[26px] w-full"

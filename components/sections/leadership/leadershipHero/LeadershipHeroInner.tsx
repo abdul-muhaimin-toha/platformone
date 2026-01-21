@@ -108,7 +108,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
               <br />
               <span className="text-pulse-pink-600">{heading.highlight}</span>
             </h1>
-            {button && (
+            {button?.label && button.href && (
               <Button href={button.href} variant="secondary">
                 {button.label}
               </Button>

@@ -16,3 +16,23 @@ export const teamsImagesRandomQuery = gql`
     }
   }
 `;
+
+export const leadershipTeamsQuery = gql`
+  query NewQuery {
+    teams(first: 100) {
+      edges {
+        node {
+          id
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          title
+          designation
+          linkedinLink
+        }
+      }
+    }
+  }
+`;

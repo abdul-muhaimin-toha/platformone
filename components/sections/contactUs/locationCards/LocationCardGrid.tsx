@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import LocationCard, { LocationCardProps } from './LocationCard';
 
 interface LocationCardGridProps {
-  locations: LocationCardProps[];
+  locations?: LocationCardProps[];
 }
 
-function LocationCardGrid({ locations }: LocationCardGridProps) {
+const LocationCardGrid: FC<LocationCardGridProps> = ({ locations = [] }) => {
+  if (!locations || locations.length === 0) return null;
+
   return (
     <div
       data-aos="fade-up"
@@ -15,6 +18,6 @@ function LocationCardGrid({ locations }: LocationCardGridProps) {
       ))}
     </div>
   );
-}
+};
 
 export default LocationCardGrid;

@@ -3,6 +3,8 @@ import CaseStudiesDetailsHero from './sections/caseStudies/hero/CaseStudiesDetai
 import CaseStudiesHero from './sections/caseStudies/hero/CaseStudiesHero';
 import SideBySideWrapper from './sections/caseStudies/sideBySideCard/SideBySideWrapper';
 import StoriesWrapper from './sections/caseStudies/stories/StoriesWrapper';
+import ContactFormWrapper from './sections/contactUs/contactForm/ContactFormWrapper';
+import LocationCardWrapper from './sections/contactUs/locationCards/LocationCardWrapper';
 import Cta from './sections/home/Cta';
 import Hero from './sections/home/hero/Hero';
 import TeamStartsWithUs from './sections/home/teamStartsWithUs/TeamStartsWithUs';
@@ -11,13 +13,16 @@ import TopInsightsWrapper from './sections/home/topInsights/TopInsightsWrapper';
 import WeExistWrapper from './sections/home/weExist/WeExistWrapper';
 import WhatItLikeToWorkWithUsWrapper from './sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
 import WhatWeDoSection from './sections/home/whatWeDo/WhatWeDoWrapper';
+import LeadershipWrapper from './sections/leadership/leadershipcards/LeadershipWrapper';
 import LeadershipHero from './sections/leadership/leadershipHero/LeadershipHero';
+import OurPurposeHeading from './sections/ourPurpose/OurPurposeHeading';
 import CertificationShowcase from './sections/people/CertificationShowcase';
 import CultureShowcaseWrapper from './sections/people/cultureShowcase/CultureShowcaseWrapper';
 import HowWeDoItWrapper from './sections/people/howWeDoIt/HowWeDoItWrapper';
 import OpenRoleCta from './sections/people/OpenRoleCta';
 import OurValuesWrapper from './sections/people/ourValues/OurValuesWrapper';
 import StayUpToDateWrapper from './sections/people/stayUpToDate/StayUpToDateWrapper';
+import PoliciesWrapper from './sections/policies/PoliciesWrapper';
 import CustomerExperience from './sections/services/CustomerExperience';
 import ReimagineAService from './sections/services/ReimagineAService';
 import SideBySide from './sections/services/SideBySide';
@@ -66,6 +71,26 @@ const blockComponentsMapping = {
   'carbon-fields/people-values-section': OurValuesWrapper,
   'carbon-fields/people-up-to-date-section': StayUpToDateWrapper,
   'carbon-fields/certification-showcase': CertificationShowcase,
+
+  // /////////////////////
+  // Leadership
+  // /////////////////////
+  'carbon-fields/people-list-section': LeadershipWrapper,
+
+  // /////////////////////
+  // Our purpose
+  // /////////////////////
+  'carbon-fields/our-purpose-heading': OurPurposeHeading,
+
+  // /////////////////////
+  // Contact Us
+  // /////////////////////
+  'carbon-fields/location-section': LocationCardWrapper,
+
+  // /////////////////////
+  // Policies
+  // /////////////////////
+  'carbon-fields/policies': PoliciesWrapper,
 };
 
 export default blockComponentsMapping;

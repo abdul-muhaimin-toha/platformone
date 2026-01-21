@@ -11,11 +11,11 @@ export default async function CaseStudiesDetailsPage({
 }: CaseStudyDetailsPageProps) {
   const { slug } = await params;
 
-  const caseStudyDetailsPageData = await getCaseStudyBySlug(slug);
+  const pageData = await getCaseStudyBySlug(slug);
 
-  if (!caseStudyDetailsPageData) {
+  if (!pageData) {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={caseStudyDetailsPageData} />;
+  return <RenderBlocksHelper blocks={pageData} />;
 }

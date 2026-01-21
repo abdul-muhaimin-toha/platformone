@@ -39,6 +39,8 @@ export interface CaseStudyNode extends WPNode {
 }
 
 export interface TeamNode extends WPNode {
+  designation?: string;
+  linkedinLink?: string;
   featuredImage: {
     node: {
       id?: string;
