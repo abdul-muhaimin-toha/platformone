@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Button from '@/components/globals/Button';
 import { CaseStudyNode } from '@/graphql/types';
 import Image from 'next/image';
@@ -6,7 +7,7 @@ export interface StoriesCardProps {
   caseStudy: CaseStudyNode;
 }
 
-function StoriesCard({ caseStudy }: StoriesCardProps) {
+const StoriesCard: FC<StoriesCardProps> = ({ caseStudy }) => {
   if (!caseStudy) return null;
 
   return (
@@ -19,8 +20,9 @@ function StoriesCard({ caseStudy }: StoriesCardProps) {
           <Image
             src={caseStudy.featuredImage.node.mediaItemUrl}
             fill
-            alt={caseStudy.title || 'Case Study Image'}
+            alt={caseStudy.title || 'Case study featured image'}
             className="object-cover group-hover:scale-105 duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         )}
       </div>
@@ -32,7 +34,7 @@ function StoriesCard({ caseStudy }: StoriesCardProps) {
             width={380}
             height={64}
             className="lg:w-full aspect-380/64 w-[300px] object-contain"
-            alt={caseStudy.title || 'Client Logo'}
+            alt={`${caseStudy.title} client logo`}
           />
         )}
 
@@ -52,6 +54,6 @@ function StoriesCard({ caseStudy }: StoriesCardProps) {
       </div>
     </div>
   );
-}
+};
 
 export default StoriesCard;

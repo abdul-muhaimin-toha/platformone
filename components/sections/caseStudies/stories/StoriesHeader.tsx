@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { parseHighlights } from '@/utils/utils';
 
-interface StoriesHeaderProps {
+export interface StoriesHeaderProps {
   title: string;
   highlightedTitle: string;
   description: string;
 }
 
-function StoriesHeader({
+const StoriesHeader: FC<StoriesHeaderProps> = ({
   title,
   highlightedTitle,
   description,
-}: StoriesHeaderProps) {
+}) => {
   return (
     <div
       data-aos="fade-up"
@@ -29,6 +30,6 @@ function StoriesHeader({
       </p>
     </div>
   );
-}
+};
 
 export default StoriesHeader;

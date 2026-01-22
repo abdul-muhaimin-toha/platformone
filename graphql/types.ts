@@ -50,6 +50,24 @@ export interface TeamNode extends WPNode {
   };
 }
 
+export interface PolicyNode extends WPNode {
+  dateGmt?: string;
+}
+
+export interface TestimonialNode extends WPNode {
+  clientDescription?: string;
+  logoFile?: string;
+  uploadClientImage?: string;
+  designation?: string;
+  caseStyudy?: {
+    slug?: string;
+  }[];
+}
+
+export interface BrandNode extends WPNode {
+  logoFile?: string;
+}
+
 export interface WPEdge<T> {
   node: T;
 }

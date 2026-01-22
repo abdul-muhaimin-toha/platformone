@@ -14,6 +14,7 @@ const LeadershipWrapper = async ({ data }: LeadershipWrapperProps) => {
   if (!content) return null;
 
   const { title = '', subtitle = '' } = content;
+  console.log(content);
 
   const teams = await getLeadershipTeams();
 
@@ -32,7 +33,7 @@ const LeadershipWrapper = async ({ data }: LeadershipWrapperProps) => {
                 name={person.title || ''}
                 role={person.designation || ''}
                 image={person.featuredImage?.node?.mediaItemUrl || ''}
-                linkedinUrl={person.linkedinLink || "#"}
+                linkedinUrl={person.linkedinLink || '#'}
               />
             ))}
           </div>

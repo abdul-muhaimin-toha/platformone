@@ -2,28 +2,27 @@
 
 import { FC } from 'react';
 import Button from '@/components/globals/Button';
-import { cn, parseHighlights } from '@/utils/utils';
+import { cn, formatDate, parseHighlights } from '@/utils/utils';
 
 export interface PolicyCard {
   title: string;
-  short_description: string;
-  button_text: string;
-  className?: string;
+  date?: string;
+  button_text?: string;
   link?: string;
 }
 
 const PoliciesCard: FC<PolicyCard> = ({
   title,
-  short_description,
-  button_text,
-  className = '',
-  link = '/policies/details',
+  date = '',
+  button_text = 'Read More',
+  link = '',
 }) => {
+  const formattedDate = formatDate(date);
+
   return (
     <div
       className={cn(
         'flex flex-col p-6 border-border border rounded-2xl h-[186px]',
-        className
       )}
     >
       <h3
@@ -31,7 +30,7 @@ const PoliciesCard: FC<PolicyCard> = ({
         dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
       />
       <p className="text-base font-normal leading-[1.37] text-[#737373]">
-        {short_description}
+        {formattedDate}
       </p>
 
       <Button href={link} variant="tertiary" className="mt-auto">

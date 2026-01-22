@@ -1,14 +1,15 @@
+import AutoSurveyHero from './sections/autoSurvey/AutoSurveyHero';
+import PriceTable from './sections/autoSurvey/priceTable/PriceTable';
 import CounterWrapper from './sections/caseStudies/counterSection/CounterWrapper';
 import CaseStudiesDetailsHero from './sections/caseStudies/hero/CaseStudiesDetailsHero';
 import CaseStudiesHero from './sections/caseStudies/hero/CaseStudiesHero';
 import SideBySideWrapper from './sections/caseStudies/sideBySideCard/SideBySideWrapper';
 import StoriesWrapper from './sections/caseStudies/stories/StoriesWrapper';
-import ContactFormWrapper from './sections/contactUs/contactForm/ContactFormWrapper';
 import LocationCardWrapper from './sections/contactUs/locationCards/LocationCardWrapper';
 import Cta from './sections/home/Cta';
 import Hero from './sections/home/hero/Hero';
 import TeamStartsWithUs from './sections/home/teamStartsWithUs/TeamStartsWithUs';
-import TopClients from './sections/home/topClients/TopClients';
+import TopClientsWrapper from './sections/home/topClients/TopClientsWrapper';
 import TopInsightsWrapper from './sections/home/topInsights/TopInsightsWrapper';
 import WeExistWrapper from './sections/home/weExist/WeExistWrapper';
 import WhatItLikeToWorkWithUsWrapper from './sections/home/whatItLikeToWorkWithUs/WhatItLikeToWorkWithUsWrapper';
@@ -36,7 +37,7 @@ const blockComponentsMapping = {
   'carbon-fields/home-customer-experience-section': WhatWeDoSection,
   'carbon-fields/home-half-to-half-image-with-text-section': WeExistWrapper,
   'carbon-fields/testimonial-section': WhatItLikeToWorkWithUsWrapper,
-  'carbon-fields/brand-logo-section': TopClients,
+  'carbon-fields/brand-logo-section': TopClientsWrapper,
   'carbon-fields/team-animation-section': TeamStartsWithUs,
   'carbon-fields/home-insight-section': TopInsightsWrapper,
   'carbon-fields/get-in-touch-section': Cta,
@@ -91,6 +92,13 @@ const blockComponentsMapping = {
   // Policies
   // /////////////////////
   'carbon-fields/policies': PoliciesWrapper,
+
+  // /////////////////////
+  // Auto Survey
+  // /////////////////////
+  'carbon-fields/auto-survey': AutoSurveyHero,
+  // 'core/columns': PriceTable,
+  // 'carbon-fields/cta-people-page-section': AutoSurveyHero,
 };
 
 export default blockComponentsMapping;

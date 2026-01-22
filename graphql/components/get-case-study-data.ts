@@ -3,6 +3,7 @@ import { WPConnection, CaseStudyNode, PageBlock } from '../types';
 import {
   multiCaseStudyQuery,
   singleCaseStudyQuery,
+  allCaseStudiesQuery,
 } from '../queries/case-study-data-query';
 
 interface CaseStudyData {
@@ -72,5 +73,38 @@ export const getCaseStudyBySlug = async (
   } catch (error) {
     console.error('Error fetching case study blocks:', error);
     return null;
+  }
+};
+
+/**
+ * Fetch all case studies with pagination
+ */
+export const getAllCaseStudies = async (
+  first: number = 10,
+  after?: string,
+): Promise<{
+  nodes: CaseStudyNode[];
+  pageInfo: { hasNextPage: boolean; endCursor: string };
+}> => {
+  try {
+    const data = await getGqlData<{ caseStudies: WPConnection<CaseStudyNode> }>(
+      allCaseStudiesQuery,
+      { first, after },
+    );
+
+    if (!data?.caseStudies?.edges) {
+      return { nodes: [], pageInfo: { hasNextPage: false, endCursor: '' } };
+    }
+
+    const nodes = data.caseStudies.edges.map((edge) => edge.node);
+    const pageInfo = data.caseStudies.pageInfo || {
+      hasNextPage: false,
+      endCursor: '',
+    };
+
+    return { nodes, pageInfo };
+  } catch (error) {
+    console.error('Error fetching all case studies:', error);
+    return { nodes: [], pageInfo: { hasNextPage: false, endCursor: '' } };
   }
 };

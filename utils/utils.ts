@@ -34,3 +34,17 @@ export function parseHighlights(text: string): string {
       '<span class="text-pulse-pink-600">$1</span>',
     );
 }
+/**
+ * Formats a date string into "Last Updated 14 August 2025" format.
+ */
+export function formatDate(dateString?: string): string {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return dateString;
+
+  const day = date.getDate();
+  const month = date.toLocaleString('en-GB', { month: 'long' });
+  const year = date.getFullYear();
+
+  return `Last Updated ${day} ${month} ${year}`;
+}

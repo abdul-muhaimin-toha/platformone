@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { JSX, useEffect, useRef, useMemo } from 'react';
 
 import { BlockData } from '../types';
+import { CloudCog } from 'lucide-react';
 
 export interface ClientItem {
   company_logo?: string;
@@ -16,15 +17,17 @@ export interface TopClientsData {
   bg_color?: string;
 }
 
-export type TopClientsProps = BlockData<TopClientsData>;
+export interface TopClientsProps extends BlockData<TopClientsData> {
+  brands?: ClientItem[];
+}
 
-function TopClients({ data }: TopClientsProps): JSX.Element | null {
+function TopClients({
+  data,
+  brands = [],
+}: TopClientsProps): JSX.Element | null {
   const content = data?.data ?? {};
 
-  const brandLogos = useMemo(
-    () => content.brand_logos ?? [],
-    [content.brand_logos],
-  );
+  const brandLogos = useMemo(() => brands, [brands]);
   const bg = content.bg_color || '';
 
   const marqueeRef = useRef<HTMLDivElement | null>(null);

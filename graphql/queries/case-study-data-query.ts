@@ -33,3 +33,27 @@ export const singleCaseStudyQuery: DocumentNode = gql`
     }
   }
 `;
+
+export const allCaseStudiesQuery = gql`
+  query AllCaseStudies($first: Int, $after: String) {
+    caseStudies(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          slug
+          title
+          logoFile
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;

@@ -1,40 +1,29 @@
 import StoriesHeader from './StoriesHeader';
-import StoriesCard from './StoriesCard';
-import { getCaseStudiesByIds } from '@/graphql/components/get-case-study-data';
-import { CaseStudyNode } from '@/graphql/types';
+import { getAllCaseStudies } from '@/graphql/components/get-case-study-data';
 import { BlockData, HeadingProps } from '../../home/types';
+import StoriesGrid from './StoriesGrid';
 
 export interface StoriesData extends HeadingProps {
-  crb_case_study_association?: any[];
   title_one?: string;
   title_two?: string;
 }
 
 export type StoriesWrapperProps = BlockData<StoriesData>;
 
-async function StoriesWrapper({ data }: StoriesWrapperProps) {
+const StoriesWrapper = async ({ data }: StoriesWrapperProps) => {
   const content = data?.data;
   if (!content) return null;
 
   const {
-    crb_case_study_association = [],
     short_description = '',
     title_one = '',
     title_two = '',
   } = content;
 
-  const ids = crb_case_study_association
-    .map((item) => item.databaseId ?? item.id)
-    .filter(Boolean);
+  // Initial fetch for the first set of case studies
+  const { nodes: initialCaseStudies, pageInfo: initialPageInfo } = await getAllCaseStudies(6);
 
-  let caseStudies: CaseStudyNode[] = [];
-
-  if (ids.length > 0) {
-    caseStudies = await getCaseStudiesByIds(ids);
-  }
-
-  // Cast CaseStudyNode to any to avoid missing props errors in StoriesCard
-  const validCaseStudies = caseStudies.filter((node) => node?.id);
+  if (!initialCaseStudies || initialCaseStudies.length === 0) return null;
 
   return (
     <section className="bg-white">
@@ -46,15 +35,14 @@ async function StoriesWrapper({ data }: StoriesWrapperProps) {
             description={short_description}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-            {validCaseStudies.map((caseStudy, index) => (
-              <StoriesCard key={index} caseStudy={caseStudy} />
-            ))}
-          </div>
+          <StoriesGrid 
+            initialCaseStudies={initialCaseStudies}
+            initialPageInfo={initialPageInfo}
+          />
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default StoriesWrapper;

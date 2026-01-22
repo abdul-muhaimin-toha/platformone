@@ -6,7 +6,6 @@ import LocationHeader from './LocationHeader';
 
 export interface LocationCardSectionData {
   title?: string;
-  shor?: string; // Potential CMS field name
   short_description?: string;
   location?: LocationCardProps[];
 }
@@ -17,13 +16,7 @@ const LocationCardWrapper: FC<LocationCardWrapperProps> = ({ data }) => {
   const content = data?.data;
   if (!content) return null;
 
-  const {
-    title = '',
-    shor = '',
-    short_description = '',
-    location = [],
-  } = content;
-
+  const { title = '', short_description = '', location = [] } = content;
 
   return (
     <section className="z-10">
