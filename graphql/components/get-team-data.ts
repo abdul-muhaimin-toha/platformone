@@ -1,6 +1,6 @@
 import getGqlData from '@/lib/get-gql-data';
 import { WPConnection, TeamNode } from '../types';
-import { teamsImagesRandomQuery, leadershipTeamsQuery } from '../queries/team-data-query';
+import { teamsImagesRandomQuery, leadershipTeamsQuery, leadershipTeamsByIdsQuery } from '../queries/team-data-query';
 
 interface TeamData {
   teams: WPConnection<TeamNode> & { nodes?: TeamNode[] };
@@ -56,10 +56,22 @@ export const getTeamsImagesRandom = async (
 };
 
 /**
- * Fetch all teams for Leadership page
+ * Fetch specific teams by IDs or all teams for Leadership page
  */
-export const getLeadershipTeams = async (): Promise<TeamNode[]> => {
+export const getLeadershipTeams = async (
+  ids?: (string | number)[],
+): Promise<TeamNode[]> => {
   try {
+    if (ids && ids.length > 0) {
+      const stringIds = ids.map((id) => id.toString());
+      const data = await getGqlData<{ teams: { nodes: TeamNode[] } }>(
+        leadershipTeamsByIdsQuery,
+        { ids: stringIds },
+      );
+
+      return data?.teams?.nodes || [];
+    }
+
     const data = await getGqlData<{ teams: WPConnection<TeamNode> }>(
       leadershipTeamsQuery,
     );

@@ -36,3 +36,21 @@ export const leadershipTeamsQuery = gql`
     }
   }
 `;
+
+export const leadershipTeamsByIdsQuery = gql`
+  query LeadershipTeamsByIds($ids: [ID!]!) {
+    teams(where: { in: $ids }, first: 100) {
+      nodes {
+        id
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
+        title
+        designation
+        linkedinLink
+      }
+    }
+  }
+`;

@@ -12,6 +12,7 @@ type ButtonProps = {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 export default function Button({
@@ -22,9 +23,12 @@ export default function Button({
   className,
   type = 'button',
   onClick,
+  disabled = false,
 }: ButtonProps) {
-  const baseStyles =
-    'inline-flex items-center justify-center shrink-0 duration-300 cursor-pointer';
+  const baseStyles = clsx(
+    'inline-flex items-center justify-center shrink-0 duration-300',
+    disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+  );
 
   const variants: Record<string, string> = {
     primary:
@@ -100,6 +104,7 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={clsx(baseStyles, variants[variant], className)}
     >
       {content}

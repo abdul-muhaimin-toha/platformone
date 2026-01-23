@@ -15,5 +15,9 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={pageData} />;
+  return (
+    <div className="w-full overflow-hidden">
+      <RenderBlocksHelper blocks={pageData} />
+    </div>
+  );
 }

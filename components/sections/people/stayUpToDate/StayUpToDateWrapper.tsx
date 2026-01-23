@@ -25,7 +25,7 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
 
   const images = up_to_date.map((img) => ({
     src: img.feature_image,
-    alt: title.replace(/<[^>]*>/g, ''), // Strip HTML for alt tags
+    alt: title.replace(/<[^>]*>/g, ''),
   }));
   return (
     <section className="bg-mulberry-900">
@@ -41,6 +41,6 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
       </div>
     </section>
   );
-}
+};
 
 export default StayUpToDateWrapper;

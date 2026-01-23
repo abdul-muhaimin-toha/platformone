@@ -5,6 +5,7 @@ import { BlockData, HeadingProps } from '../../home/types';
 
 export interface LeadershipData extends HeadingProps {
   people_list?: any[];
+  team_members?: { id: string | number; type: string; subtype: string }[];
 }
 
 export type LeadershipWrapperProps = BlockData<LeadershipData>;
@@ -13,10 +14,11 @@ const LeadershipWrapper = async ({ data }: LeadershipWrapperProps) => {
   const content = data?.data;
   if (!content) return null;
 
-  const { title = '', subtitle = '' } = content;
-  console.log(content);
+  const { title = '', subtitle = '', team_members = [] } = content;
 
-  const teams = await getLeadershipTeams();
+  const ids = team_members.map((item: any) => item.id).filter(Boolean);
+
+  const teams = await getLeadershipTeams(ids);
 
   if (!teams || teams.length === 0) return null;
 

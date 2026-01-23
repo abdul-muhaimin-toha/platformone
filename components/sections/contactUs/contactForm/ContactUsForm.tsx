@@ -1,21 +1,36 @@
 'use client';
 
-import Button from '@/components/globals/Button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/utils/utils';
+import { useState } from 'react';
 import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/utils/utils';
+import { Textarea } from '@/components/ui/textarea';
+import Button from '@/components/globals/Button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { toast } from 'sonner';
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+const countries = [
+  'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Zimbabwe', "others"
+];
 
 const contactUsSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
   email: z.string().email('Invalid email address'),
   company: z.string().min(1, 'Company is required'),
-  purpose: z.string().min(1, 'Purpose is required'),
+  phone: z.string().optional(),
+  country: z.string().optional(),
   message: z.string().min(1, 'Message is required'),
   terms: z.boolean().refine((val) => val === true, {
     message: 'You must accept the privacy policy',
@@ -25,18 +40,73 @@ const contactUsSchema = z.object({
 type ContactUsFormValues = z.infer<typeof contactUsSchema>;
 
 export default function ContactUsForm() {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<ContactUsFormValues>({
     resolver: zodResolver(contactUsSchema),
     defaultValues: { terms: false },
   });
 
-  const onSubmit = (data: ContactUsFormValues) => {
-    console.log('Form Data:', data);
+  const onSubmit = async (data: ContactUsFormValues) => {
+    setLoading(true);
+
+    const apiPayload = {
+      firstname: data.firstName,
+      lastname: data.lastName,
+      email: data.email,
+      company: data.company,
+      phone: data.phone || '',
+      country: data.country || '',
+      message: data.message,
+    };
+
+    console.log('Sending Form Data:', apiPayload);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/wp-json/nh/v1/cform/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(apiPayload),
+        },
+      );
+
+      if (!res.ok) throw new Error('Failed to submit form');
+
+      const result = await res.json();
+      console.log('API Response:', result);
+
+      if (result.success) {
+        reset({
+          firstName: '',
+          lastName: '',
+          email: '',
+          company: '',
+          phone: '',
+          country: '',
+          message: '',
+          terms: false,
+        });
+        toast.success(result.message || 'Message sent successfully!');
+      } else {
+        console.error('API Error:', result.message);
+        toast.error(result.message || 'Something went wrong.');
+      }
+    } catch (err) {
+      console.error('Submission Error:', err);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,6 +114,8 @@ export default function ContactUsForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 md:grid-cols-2 w-full flex-col bg-white gap-6 p-6 sm:p-10 lg:p-6 lg:gap-6 lg:gap-y-6 md:p-16 sm:gap-y-10 rounded-2xl lg:max-w-[520px]"
     >
+      
+
       {/* First Name */}
       <div className="flex flex-col gap-1">
         <Label className="text-black text-base leading-[1.37] font-normal">
@@ -52,14 +124,17 @@ export default function ContactUsForm() {
         <Input
           type="text"
           {...register('firstName')}
+          disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.firstName?.message}
-        </span>
+        {errors.firstName && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.firstName.message}
+          </span>
+        )}
       </div>
 
       {/* Last Name */}
@@ -70,32 +145,81 @@ export default function ContactUsForm() {
         <Input
           type="text"
           {...register('lastName')}
+          disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.lastName?.message}
-        </span>
+        {errors.lastName && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.lastName.message}
+          </span>
+        )}
       </div>
 
       {/* Email */}
-      <div className="flex flex-col gap-1 md:col-span-2">
+      <div className="flex flex-col gap-1">
         <Label className="text-black text-base leading-[1.37] font-normal">
           Work email
         </Label>
         <Input
           type="email"
           {...register('email')}
+          disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.email?.message}
-        </span>
+        {errors.email && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.email.message}
+          </span>
+        )}
+      </div>
+
+      {/* Country Selection */}
+      <div className="flex flex-col gap-1">
+        <Label className="text-black text-base leading-[1.37] font-normal">
+          Country
+        </Label>
+        <Controller
+          name="country"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={field.onChange}
+              value={field.value}
+              disabled={loading}
+            >
+              <SelectTrigger
+                className={cn(
+                  'w-full bg-[#FBFBFB] border-border h-10! rounded-xl shadow-none md:text-sm text-black data-[placeholder]:text-pulse-pink-600',
+                  'focus:ring-0 focus:ring-offset-0 focus-visible:border focus-visible:ring-0',
+                )}
+              >
+                <SelectValue placeholder="Select your country" />
+              </SelectTrigger>
+              <SelectContent className="bg-white border-border rounded-xl">
+                {countries.map((country) => (
+                  <SelectItem
+                    key={country}
+                    value={country}
+                    className="cursor-pointer hover:bg-pulse-pink-50 focus:bg-pulse-pink-50"
+                  >
+                    {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.country && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.country.message}
+          </span>
+        )}
       </div>
 
       {/* Company */}
@@ -106,32 +230,38 @@ export default function ContactUsForm() {
         <Input
           type="text"
           {...register('company')}
+          disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.company?.message}
-        </span>
+        {errors.company && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.company.message}
+          </span>
+        )}
       </div>
 
-      {/* Purpose */}
+      {/* Phone */}
       <div className="flex flex-col gap-1">
         <Label className="text-black text-base leading-[1.37] font-normal">
-          Contact purpose
+          Phone number
         </Label>
         <Input
           type="text"
-          {...register('purpose')}
+          {...register('phone')}
+          disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.purpose?.message}
-        </span>
+        {errors.phone && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.phone.message}
+          </span>
+        )}
       </div>
 
       {/* Message */}
@@ -141,14 +271,17 @@ export default function ContactUsForm() {
         </Label>
         <Textarea
           {...register('message')}
+          disabled={loading}
           className={cn(
             'h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0'
+            'focus-visible:border focus-visible:ring-0',
           )}
         />
-        <span className="text-red-500 text-xs ml-1">
-          {errors.message?.message}
-        </span>
+        {errors.message && (
+          <span className="text-red-500 text-xs ml-1">
+            {errors.message.message}
+          </span>
+        )}
       </div>
 
       {/* Terms */}
@@ -161,6 +294,7 @@ export default function ContactUsForm() {
               <Checkbox
                 id="terms"
                 checked={!!field.value}
+                disabled={loading}
                 className="border-border"
                 onCheckedChange={(checked) => field.onChange(Boolean(checked))}
               />
@@ -182,8 +316,8 @@ export default function ContactUsForm() {
       </div>
 
       {/* Submit */}
-      <Button type="submit" className="md:col-span-2">
-        Send Message
+      <Button type="submit" className="md:col-span-2" disabled={loading}>
+        {loading ? 'Sending...' : 'Send Message'}
       </Button>
     </form>
   );

@@ -9,5 +9,9 @@ export default async function ContactUsPage() {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={pageData} />;
+  return (
+    <div className="relative bg-linear-to-bl from-[#FFEBF5] to-white">
+      <RenderBlocksHelper blocks={pageData} />
+    </div>
+  );
 }

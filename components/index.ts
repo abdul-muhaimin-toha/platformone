@@ -5,6 +5,7 @@ import CaseStudiesDetailsHero from './sections/caseStudies/hero/CaseStudiesDetai
 import CaseStudiesHero from './sections/caseStudies/hero/CaseStudiesHero';
 import SideBySideWrapper from './sections/caseStudies/sideBySideCard/SideBySideWrapper';
 import StoriesWrapper from './sections/caseStudies/stories/StoriesWrapper';
+import ContactFormWrapper from './sections/contactUs/contactForm/ContactFormWrapper';
 import LocationCardWrapper from './sections/contactUs/locationCards/LocationCardWrapper';
 import Cta from './sections/home/Cta';
 import Hero from './sections/home/hero/Hero';
@@ -25,6 +26,7 @@ import OurValuesWrapper from './sections/people/ourValues/OurValuesWrapper';
 import StayUpToDateWrapper from './sections/people/stayUpToDate/StayUpToDateWrapper';
 import PoliciesWrapper from './sections/policies/PoliciesWrapper';
 import CustomerExperience from './sections/services/CustomerExperience';
+import FaqWrapper from './sections/services/faqWrapper/FaqWrapper';
 import ReimagineAService from './sections/services/ReimagineAService';
 import SideBySide from './sections/services/SideBySide';
 import WhatWeGet from './sections/services/whatWeGet/WhatWeGet';
@@ -48,6 +50,7 @@ const blockComponentsMapping = {
   'carbon-fields/service-banner-two-section': SideBySide,
   'carbon-fields/reimagine-a-service': ReimagineAService,
   'carbon-fields/service-what-you-get-section': WhatWeGet,
+  'carbon-fields/service-faq-section': FaqWrapper,
 
   // /////////////////////
   // Case Studies
@@ -86,6 +89,7 @@ const blockComponentsMapping = {
   // /////////////////////
   // Contact Us
   // /////////////////////
+  'carbon-fields/contact-us-section': ContactFormWrapper,
   'carbon-fields/location-section': LocationCardWrapper,
 
   // /////////////////////

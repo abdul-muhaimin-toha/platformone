@@ -68,6 +68,10 @@ export interface BrandNode extends WPNode {
   logoFile?: string;
 }
 
+export interface FAQNode extends WPNode {
+  faqContent?: string;
+}
+
 export interface WPEdge<T> {
   node: T;
 }

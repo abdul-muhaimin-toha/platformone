@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { parseHighlights } from '@/utils/utils';
 
 export interface ContactHeaderProps {
-  title: [string, string];
-  description: string[];
+  title: string;
+  description: string;
   email: string;
   emailHref: string;
 }
@@ -15,21 +16,15 @@ function ContactUsHeader({
 }: ContactHeaderProps) {
   return (
     <div className="flex w-full max-w-[520px] flex-col gap-10 md:max-w-[552px]">
-      <h1 className="inline-flex flex-col text-[56px] font-bold leading-[1.28] text-black">
-        <span>{title[0]}</span>
-        <span className="text-pulse-pink-600">{title[1]}</span>
-      </h1>
+      <h1
+        className="inline-flex flex-col text-[56px] font-bold leading-[1.28] text-black [&_span]:text-pulse-pink-600"
+        dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+      />
 
-      <div className="flex flex-col gap-4">
-        {description.map((text, index) => (
-          <p
-            key={index}
-            className="text-xl font-normal leading-normal text-black"
-          >
-            {text}
-          </p>
-        ))}
-      </div>
+      <div
+        className="flex flex-col gap-4 text-xl font-normal leading-normal text-black"
+        dangerouslySetInnerHTML={{ __html: parseHighlights(description) }}
+      />
 
       <Link
         href={emailHref}
