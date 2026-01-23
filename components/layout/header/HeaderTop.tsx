@@ -3,11 +3,20 @@ import Link from 'next/link';
 import Button from '@/components/globals/Button';
 import { cn } from '@/utils/utils';
 import HeaderHamBurgerButton from './HeaderHamBurgerButton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
+
+import { NavLink } from './types';
 
 interface HeaderTopProps {
   logoSrc: string;
   logoLightSrc: string;
-  desktopLinks: { label: string; href: string }[];
+  desktopLinks: NavLink[];
   cta: { label: string; href: string };
   onMenuClick?: () => void;
   scrolled: boolean;
@@ -32,7 +41,7 @@ export default function HeaderTop({
           scrolled || open
             ? 'bg-white backdrop-blur-none'
             : 'bg-black/8 backdrop-blur-xl',
-          !open && 'shadow-[0_4px_16px_0_rgba(0,0,0,0.08)]'
+          !open && 'shadow-[0_4px_16px_0_rgba(0,0,0,0.08)]',
         )}
       >
         <div className="container-custom">
@@ -44,7 +53,7 @@ export default function HeaderTop({
                 height={34}
                 className={cn(
                   'aspect-208/34 max-w-[168px] md:max-w-max',
-                  scrolled || open ? 'block' : 'hidden'
+                  scrolled || open ? 'block' : 'hidden',
                 )}
                 alt="Platformone logo"
               />
@@ -54,7 +63,7 @@ export default function HeaderTop({
                 height={34}
                 className={cn(
                   'aspect-208/34 max-w-[168px] md:max-w-max',
-                  scrolled || open ? 'hidden' : 'block'
+                  scrolled || open ? 'hidden' : 'block',
                 )}
                 alt="Platformone logo"
               />
@@ -65,23 +74,55 @@ export default function HeaderTop({
               <div
                 className={cn(
                   'lg:flex hidden flex-row  items-center justify-end gap-12',
-                  scrolled || open ? 'text-black' : 'text-white'
+                  scrolled || open ? 'text-black' : 'text-white',
                 )}
               >
-                {desktopLinks.map((link, i) => (
-                  <Link
-                    key={i}
-                    href={link.href}
-                    className={cn(
-                      'duration-300',
-                      scrolled || open
-                        ? 'hover:text-pulse-pink-900'
-                        : 'hover:text-pulse-pink-100'
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {desktopLinks.map((link, i) => {
+                  if (link.child) {
+                    return (
+                      <DropdownMenu key={i} modal={false}>
+                        <DropdownMenuTrigger
+                          className={cn(
+                            'flex items-center gap-2 cursor-pointer outline-none duration-300',
+                            scrolled || open
+                              ? 'hover:text-pulse-pink-900 data-[state=open]:text-pulse-pink-900'
+                              : 'hover:text-pulse-pink-100 data-[state=open]:text-pulse-pink-100',
+                          )}
+                        >
+                          {link.label}
+                          <ChevronDown className="size-6" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="bg-white z-9999 hidden lg:block p-2.5 py-3 rounded-sm border border-border mt-6 shadow-xs w-[270px]">
+                          {link.child.map((childLink, j) => (
+                            <DropdownMenuItem key={j} asChild>
+                              <Link
+                                href={childLink.href}
+                                className="w-full bg-gray-100 my-1 cursor-pointer rounded-sm px-4 py-3 hover:bg-pulse-pink-100 hover:text-black focus:bg-pulse-pink-100 capitalize focus:text-black text-[18px] font-medium"
+                              >
+                                {childLink.label}
+                              </Link>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={i}
+                      href={link.href || '#'}
+                      className={cn(
+                        'duration-300',
+                        scrolled || open
+                          ? 'hover:text-pulse-pink-900'
+                          : 'hover:text-pulse-pink-100',
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* CTA */}

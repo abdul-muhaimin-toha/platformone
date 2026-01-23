@@ -6,6 +6,9 @@ import Footer from '@/components/layout/footer/Footer';
 import AOSWrapper from '@/utils/aos-wrapper';
 import ReactLenis from 'lenis/react';
 import { Toaster } from 'sonner';
+import { getSiteHeaderFooterData } from '@/graphql/components/get-menu-data';
+import { mapHeaderData } from '@/utils/header-utils';
+import { mapFooterData } from '@/utils/footer-utils';
 
 const overusedGothek = localFont({
   src: [
@@ -24,11 +27,21 @@ export const metadata: Metadata = {
   description: 'Know Whats your customers want',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const globalData = await getSiteHeaderFooterData();
+  const headerProps = mapHeaderData(
+    globalData.menus,
+    globalData.crbThemeOptions
+  );
+  const footerProps = mapFooterData(
+    globalData.menus,
+    globalData.crbThemeOptions
+  );
+
   return (
     <html lang="en">
       <ReactLenis root>
@@ -36,9 +49,9 @@ export default function RootLayout({
           className={`${overusedGothek.variable} font-sans overflow-hidden overflow-y-auto  antialiased`}
         >
           <AOSWrapper>
-            <Header />
+            <Header {...headerProps} />
             <div className="min-h-screen">{children}</div>
-            <Footer />
+            <Footer {...footerProps} />
           </AOSWrapper>
           <Toaster />
         </body>

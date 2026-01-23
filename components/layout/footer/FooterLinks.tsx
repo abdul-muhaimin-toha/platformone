@@ -17,9 +17,9 @@ export default function FooterLinks({ columns }: FooterLinksProps) {
           key={idx}
           className="flex flex-col w-full gap-2.5 font-normal text-lg leading-[1.33] text-pulse-pink-300"
         >
-          <Link className="font-semibold text-pulse-pink-50" href="/">
+          <h4 className="font-semibold text-pulse-pink-50">
             {col.title}
-          </Link>
+          </h4>
           {col.links.map((link, i) => (
             <Link
               key={i}

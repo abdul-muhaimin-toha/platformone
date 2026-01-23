@@ -1,54 +1,30 @@
 import LogoSocials from './LogoSocials';
 import FooterLinks from './FooterLinks';
 import FooterBottom from './FooterBottom';
+import { FooterProps } from '../header/types';
 
-const footerLinksData = [
-  {
-    title: 'Services',
-    links: [
-      { label: 'Customer Experience', href: '/services/cx' },
-      { label: 'Insight Communities', href: '/services/ic' },
-      { label: 'On-Demand Market Research', href: '/services/cx' },
-      { label: 'Syndicated Research', href: '/services/ic' },
-      { label: 'Digital Journey Intelligence', href: '/services/cx' },
-    ],
-  },
-  {
-    title: 'Discover',
-    links: [
-      { label: 'Insights', href: '/' },
-      { label: 'About Us', href: '/' },
-      { label: 'Our Purpose', href: '/our-purpose' },
-      { label: 'Case Studies', href: '/case-studies' },
-      { label: 'Contact', href: '/' },
-    ],
-  },
-];
-
-const footerBottomLinks = [
-  { label: 'Privacy, Security and Legal Policies', href: '/' },
-  { label: 'Terms and conditions', href: '/' },
-  { label: 'Auto survey winners', href: '/' },
-  { label: 'Sitemap', href: '/' },
-];
-
-export default function Footer() {
+export default function Footer({
+  logoSrc,
+  description,
+  columns,
+  copyright,
+  bottomLinks,
+  socials,
+}: FooterProps) {
   return (
     <footer className="bg-linear-[97deg] from-gradient-start to-gradient-end w-full">
       <div className="container-custom">
         <div className="w-full py-10 md:py-24 gap-16 flex flex-col">
           <div className="w-full flex flex-col lg:flex-row gap-20 lg:gap-10 xl:gap-20">
             <LogoSocials
-              logoSrc="/brandings/logo-footer.svg"
+              logoSrc={logoSrc}
               logoAlt="Platformone Logo"
-              description="We’re a global team of insight specialists driven to make understanding people easier."
+              description={description}
+              socials={socials}
             />
-            <FooterLinks columns={footerLinksData} />
+            <FooterLinks columns={columns} />
           </div>
-          <FooterBottom
-            copyright="© 2025 Platform One. All rights reserved."
-            links={footerBottomLinks}
-          />
+          <FooterBottom copyright={copyright} links={bottomLinks} />
         </div>
       </div>
     </footer>
