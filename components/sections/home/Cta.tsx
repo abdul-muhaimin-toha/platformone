@@ -6,7 +6,7 @@ import { cn, parseHighlights } from '@/utils/utils';
 import { BlockData, ButtonProps, HeadingProps } from './types';
 
 export interface CtaData extends ButtonProps, HeadingProps {
-  version?: 'v1' | 'v2';
+  select_version?: 'v1' | 'v2';
 }
 
 export type CtaProps = BlockData<CtaData>;
@@ -20,8 +20,10 @@ const Cta: React.FC<CtaProps> = ({ data }) => {
     open_in_new_tab = false,
     subtitle = '',
     title = '',
-    version = 'v1',
+    select_version = 'v1',
   } = content;
+
+  console.log(content);
 
   return (
     <section className="bg-linear-90 from-[#E9C4DD00]/0 to-[#E9C4DD99]/60">
@@ -32,8 +34,10 @@ const Cta: React.FC<CtaProps> = ({ data }) => {
         >
           <h2
             className={cn(
-              'text-[56px] flex w-full flex-col font-bold leading-[1.33]',
-              version === 'v1' ? 'text-[56px]' : 'text-4xl sm:text-[56px]'
+              ' flex w-full flex-col font-bold leading-[1.33]',
+              select_version === 'v1'
+                ? 'text-[56px]'
+                : 'text-4xl  lg:text-[56px]',
             )}
           >
             {title && (

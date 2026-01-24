@@ -101,8 +101,7 @@ const blockComponentsMapping = {
   // Auto Survey
   // /////////////////////
   'carbon-fields/auto-survey': AutoSurveyHero,
-  // 'core/columns': PriceTable,
-  // 'carbon-fields/cta-people-page-section': AutoSurveyHero,
+  'carbon-fields/auto-servay-prize-draw': PriceTable,
 };
 
 export default blockComponentsMapping;

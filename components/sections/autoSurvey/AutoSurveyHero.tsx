@@ -1,11 +1,23 @@
-function AutoSurveyHero({ data }) {
+interface AutoSurveyHeroData {
+  title: string;
+  short_description: string;
+  right_description: string;
+}
+
+interface AutoSurveyHeroProps {
+  data: {
+    data: AutoSurveyHeroData;
+  };
+}
+
+function AutoSurveyHero({ data }: AutoSurveyHeroProps) {
   const content = data?.data;
   if (!content) return null;
 
   const {
-    right_description = '',
-    short_description = '',
     title = '',
+    short_description = '',
+    right_description = '',
   } = content;
 
   return (
