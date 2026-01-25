@@ -25,6 +25,7 @@ export default function LogoSocials({
     <div className="flex flex-col max-w-[416px] gap-8 w-full bg-white/8 p-6 rounded-2xl">
       {logoSrc && (
         <Image
+          quality={100}
           src={logoSrc}
           width={208}
           height={34}
@@ -32,7 +33,7 @@ export default function LogoSocials({
           alt={logoAlt}
         />
       )}
-      <p className="font-normal text-lg leading-[1.33] xl:leading-[100%] text-pulse-pink-300">
+      <p className="font-normal text-lg leading-[1.33] xl:leading-6 text-pulse-pink-300">
         {description}
       </p>
       <div className="flex text-pulse-pink-700 flex-row gap-3 items-center">

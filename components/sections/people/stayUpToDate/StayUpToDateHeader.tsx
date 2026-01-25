@@ -21,7 +21,7 @@ function StayUpToDateHeader({ title, subtitle, description }: HeaderProps) {
           {subtitle}
         </p>
       </div>
-      <p className="text-xl font-normal leading-[100%] lg:w-1/2 xl:max-w-xl text-white">
+      <p className="text-xl font-normal leading-[27px] lg:w-1/2 xl:max-w-xl text-white">
         {description}
       </p>
     </div>

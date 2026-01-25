@@ -30,7 +30,7 @@ export default function TeamHeading({
       </div>
 
       {short_description && (
-        <p className="text-xl font-normal leading-[100%] lg:max-w-xl lg:w-1/2 text-pulse-pink-200">
+        <p className="text-xl font-normal leading-[27px] lg:max-w-xl lg:w-1/2 text-pulse-pink-200">
           {short_description}
         </p>
       )}

@@ -23,7 +23,7 @@ const TestimonialCard: FC<Props> = ({ data }) => {
   } = data;
 
   return (
-    <div className="flex flex-col p-6 md:py-8 md:px-10 gap-10 w-full bg-pulse-pink-800 rounded-2xl md:gap-[30px]">
+    <div className="flex relative flex-col overflow-hidden p-6 md:py-8 pb-16 md:pb-8 md:px-10 gap-10 w-full bg-pulse-pink-800 rounded-2xl md:gap-[30px]">
       <div className="w-full justify-between flex flex-row items-center">
         {company_logo && (
           <Image
@@ -39,7 +39,7 @@ const TestimonialCard: FC<Props> = ({ data }) => {
             href={btn_url}
             target={open_in_new_tab ? '_blank' : undefined}
             rel={open_in_new_tab ? 'noopener noreferrer' : undefined}
-            className="inline-flex justify-center items-center gap-2 text-base font-normal leading-[100%] text-white hover:text-pulse-pink-200 duration-300"
+            className="hidden md:inline-flex justify-center items-center gap-2 text-base font-normal leading-[100%] text-white hover:text-pulse-pink-200 duration-300"
           >
             <span>{btn_text}</span>
             <ArrowUpRight className="w-5 h-5 shrink-0" />
@@ -77,6 +77,16 @@ const TestimonialCard: FC<Props> = ({ data }) => {
             )}
           </div>
         </div>
+      )}
+      {btn_url && btn_text && (
+        <Link
+          className="absolute h-10 md:hidden bg-mulberry-900 text-white gap-2 text-base font-normal leading-[100%] hover:text-pulse-pink-200 duration-300 inline-flex justify-center items-center bottom-0 left-0 right-0"
+          href={btn_url}
+          target={open_in_new_tab ? '_blank' : undefined}
+          rel={open_in_new_tab ? 'noopener noreferrer' : undefined}
+        >
+          Read Case Study
+        </Link>
       )}
     </div>
   );

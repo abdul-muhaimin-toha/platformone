@@ -81,7 +81,9 @@ async function FaqWrapper({ data }: FaqWrapperProps) {
                   key={faq.id || index}
                   value={`item-${index + 1}`}
                 >
-                  <AccordionTrigger>{faq.title}</AccordionTrigger>
+                  <AccordionTrigger className="text-mulberry-950 duration-300 data-[state=open]:text-pulse-pink-600 hover:text-pulse-pink-600">
+                    {faq.title}
+                  </AccordionTrigger>
                   <AccordionContent>
                     <div
                       dangerouslySetInnerHTML={{

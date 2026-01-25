@@ -22,7 +22,7 @@ const HeadingBlock: FC<Props> = ({ title, description }) => {
           />
         )}
         {description && (
-          <p className="text-xl font-normal leading-[100%] lg:w-1/2 text-black">
+          <p className="text-xl font-normal leading-[27px] lg:w-1/2 text-black">
             {description}
           </p>
         )}

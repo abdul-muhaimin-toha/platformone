@@ -49,7 +49,7 @@ const CustomerExperience: FC<CustomerExperienceProps> = ({ data }) => {
                 />
               )}
               {short_description && (
-                <p className="text-xl font-normal text-black leading-[100%]">
+                <p className="text-xl font-normal text-black leading-[27px]">
                   {short_description}
                 </p>
               )}

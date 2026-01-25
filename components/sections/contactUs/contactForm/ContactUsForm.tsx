@@ -318,8 +318,6 @@ export default function ContactUsForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 md:grid-cols-2 w-full flex-col bg-white gap-6 p-6 sm:p-10 lg:p-6 lg:gap-6 lg:gap-y-6 md:p-16 sm:gap-y-10 rounded-2xl lg:max-w-[520px]"
     >
-      
-
       {/* First Name */}
       <div className="flex flex-col gap-1">
         <Label className="text-black text-base leading-[1.37] font-normal">
@@ -331,7 +329,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.firstName && (
@@ -352,7 +350,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.lastName && (
@@ -373,7 +371,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.email && (
@@ -399,8 +397,8 @@ export default function ContactUsForm() {
             >
               <SelectTrigger
                 className={cn(
-                  'w-full bg-[#FBFBFB] border-border h-10! rounded-xl shadow-none md:text-sm text-black data-[placeholder]:text-pulse-pink-600',
-                  'focus:ring-0 focus:ring-offset-0 focus-visible:border focus-visible:ring-0',
+                  'w-full bg-[#FBFBFB] border-border h-10! rounded-xl shadow-none md:text-sm text-black data-placeholder:text-pulse-pink-600',
+                  'focus:ring-0 focus:ring-offset-0 focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
                 )}
               >
                 <SelectValue placeholder="Select your country" />
@@ -410,7 +408,7 @@ export default function ContactUsForm() {
                   <SelectItem
                     key={country}
                     value={country}
-                    className="cursor-pointer hover:bg-pulse-pink-50 focus:bg-pulse-pink-50"
+                    className="cursor-pointer hover:bg-pulse-pink-50 focus:bg-pulse-pink-50 "
                   >
                     {country}
                   </SelectItem>
@@ -437,7 +435,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.company && (
@@ -458,7 +456,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.phone && (
@@ -478,7 +476,7 @@ export default function ContactUsForm() {
           disabled={loading}
           className={cn(
             'h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
           )}
         />
         {errors.message && (

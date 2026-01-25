@@ -53,8 +53,9 @@ function TopClients({
     };
 
     const startAnimation = () => {
-      if (!animationRef.current)
+      if (!animationRef.current) {
         animationRef.current = requestAnimationFrame(animate);
+      }
     };
 
     const stopAnimation = () => {
@@ -69,6 +70,30 @@ function TopClients({
     return () => stopAnimation();
   }, [brandLogos, speed]);
 
+  const handleMouseEnter = () => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!animationRef.current && marqueeRef.current) {
+      const marquee = marqueeRef.current;
+      const totalWidth = marquee.scrollWidth / 2;
+
+      const animate = () => {
+        positionRef.current -= speed;
+        if (Math.abs(positionRef.current) >= totalWidth) {
+          positionRef.current += totalWidth;
+        }
+        marquee.style.transform = `translateX(${positionRef.current}px)`;
+        animationRef.current = requestAnimationFrame(animate);
+      };
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
+
   if (brandLogos.length === 0) return null;
 
   const repeatCount = 4;
@@ -78,46 +103,26 @@ function TopClients({
     <section
       className={cn('w-full overflow-hidden')}
       style={{ background: bg }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="container-custom z-10">
         <div
-          className="flex items-center gap-24 py-[26px] w-full"
+          className="flex items-center gap-24 py-6  w-full"
           ref={marqueeRef}
         >
           {[...items, ...items].map((item, index) => (
             <div
               key={index}
               className="inline-flex justify-center items-center shrink-0"
-              onMouseEnter={() => {
-                if (animationRef.current)
-                  cancelAnimationFrame(animationRef.current);
-                animationRef.current = null;
-              }}
-              onMouseLeave={() => {
-                if (!animationRef.current) {
-                  const marquee = marqueeRef.current;
-                  if (!marquee) return;
-                  const totalWidth = marquee.scrollWidth / 2;
-
-                  const animate = () => {
-                    positionRef.current -= speed;
-                    if (Math.abs(positionRef.current) >= totalWidth) {
-                      positionRef.current += totalWidth;
-                    }
-                    marquee.style.transform = `translateX(${positionRef.current}px)`;
-                    animationRef.current = requestAnimationFrame(animate);
-                  };
-                  animate();
-                }
-              }}
             >
               {item.company_logo && (
                 <Image
                   src={item.company_logo}
-                  width={90}
-                  height={90}
+                  width={100}
+                  height={100}
                   alt="Client Logo"
-                  className="object-contain aspect-square w-full"
+                  className="object-contain size-[100px] aspect-square w-full"
                 />
               )}
             </div>

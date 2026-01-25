@@ -50,7 +50,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
           pos += reverse ? speed : -speed;
           if (!reverse && pos <= -halfWidth) pos = 0;
           if (reverse && pos >= 0) pos = -halfWidth;
-          row.style.transform = `translateX(${pos}px)`;
+          row.style.transform = `translate3d(${pos}px, 0, 0)`;
         }
         requestAnimationFrame(animate);
       };
@@ -64,7 +64,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
     ) => {
       const children = Array.from(column.children);
       children.forEach((child) => column.appendChild(child.cloneNode(true)));
-      const halfHeight = column.scrollHeight / 2;
+      const halfHeight = Math.floor(column.scrollHeight / 2);
       let pos = direction === 'down' ? -halfHeight : 0;
 
       const animate = () => {
@@ -72,7 +72,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
           pos += direction === 'down' ? speed : -speed;
           if (direction === 'down' && pos >= 0) pos = -halfHeight;
           if (direction === 'up' && pos <= -halfHeight) pos = 0;
-          column.style.transform = `translateY(${pos}px)`;
+          column.style.transform = `translate3d(0, ${pos}px, 0)`;
         }
         requestAnimationFrame(animate);
       };
@@ -97,6 +97,13 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
   const handleMouseEnter = () => (paused.current = true);
   const handleMouseLeave = () => (paused.current = false);
 
+  const cardBaseStyle = {
+    backfaceVisibility: 'hidden' as const,
+    WebkitBackfaceVisibility: 'hidden' as const,
+    transform: 'translateZ(0)',
+    willChange: 'transform',
+  };
+
   return (
     <div className="flex flex-col gap-20 pt-[182px] [@media(min-width:950px)]:pt-24">
       {/* Heading */}
@@ -118,22 +125,27 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
           {/* Desktop Columns */}
           {desktopImages.length > 0 && (
             <div
-              className="hidden [@media(min-width:950px)]:flex gap-6 h-[488px] overflow-hidden"
+              className="hidden [@media(min-width:950px)]:flex gap-6 h-[488px] overflow-hidden perspective-[1000px]"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
               {/** Column 1 */}
               {desktopImages[0]?.length > 0 && (
                 <div className="hidden xl:flex w-[150px] xl:w-[196px] overflow-hidden">
-                  <div ref={verticalRef1} className="flex flex-col gap-6">
+                  <div
+                    ref={verticalRef1}
+                    className="flex flex-col gap-6 will-change-transform"
+                    style={{ transform: 'translateZ(0)' }}
+                  >
                     {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                       desktopImages[0].map((img, idx) => (
                         <div
                           key={`v1-${rIdx}-${idx}`}
-                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          className="relative w-[150px] xl:w-[196px] h-[198px] xl:h-[258px] shrink-0 rounded-2xl overflow-hidden"
                           style={{
                             background:
                               'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                            ...cardBaseStyle,
                           }}
                         >
                           <Image
@@ -153,15 +165,20 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
               {/** Column 2 */}
               {desktopImages[1]?.length > 0 && (
                 <div className="w-[150px] xl:w-[196px] overflow-hidden">
-                  <div ref={verticalRef2} className="flex flex-col gap-6">
+                  <div
+                    ref={verticalRef2}
+                    className="flex flex-col gap-6 will-change-transform"
+                    style={{ transform: 'translateZ(0)' }}
+                  >
                     {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                       desktopImages[1].map((img, idx) => (
                         <div
                           key={`v2-${rIdx}-${idx}`}
-                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          className="relative w-[150px] xl:w-[196px] h-[198px] xl:h-[258px] shrink-0 rounded-[16px] overflow-hidden"
                           style={{
                             background:
                               'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                            ...cardBaseStyle,
                           }}
                         >
                           <Image
@@ -181,15 +198,20 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
               {/** Column 3 */}
               {desktopImages[2]?.length > 0 && (
                 <div className="w-[150px] xl:w-[196px] overflow-hidden">
-                  <div ref={verticalRef3} className="flex flex-col gap-6">
+                  <div
+                    ref={verticalRef3}
+                    className="flex flex-col gap-6 will-change-transform"
+                    style={{ transform: 'translateZ(0)' }}
+                  >
                     {Array.from({ length: REPEAT_COUNT }).map((_, rIdx) =>
                       desktopImages[2].map((img, idx) => (
                         <div
                           key={`v3-${rIdx}-${idx}`}
-                          className="relative w-[150px] xl:w-[196px] aspect-196/258 shrink-0 rounded-[16px] overflow-hidden"
+                          className="relative w-[150px] xl:w-[196px] h-[198px] xl:h-[258px] shrink-0 rounded-[16px] overflow-hidden"
                           style={{
                             background:
                               'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                            ...cardBaseStyle,
                           }}
                         >
                           <Image
@@ -212,7 +234,7 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
 
       {/* Mobile Rows */}
       {mobileImages.length > 0 && (
-        <div className="[@media(min-width:950px)]:hidden flex flex-col gap-4 md:gap-6">
+        <div className="[@media(min-width:950px)]:hidden flex flex-col gap-4 md:gap-6 [perspective:1000px]">
           {/** Top Row */}
           {mobileImages[0]?.length > 0 && (
             <div
@@ -221,17 +243,19 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
               onMouseLeave={handleMouseLeave}
             >
               <div
-                className="flex gap-4 md:gap-6 whitespace-nowrap"
+                className="flex gap-4 md:gap-6 whitespace-nowrap will-change-transform"
                 ref={topRowRef}
+                style={{ transform: 'translateZ(0)' }}
               >
                 {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
                   mobileImages[0].map((img, idx) => (
                     <div
                       key={`mobile-top-${rIdx}-${idx}`}
-                      className="relative w-[150px] aspect-150/174 shrink-0 rounded-[8px] overflow-hidden"
+                      className="relative w-[150px] h-[174px] shrink-0 rounded-[8px] overflow-hidden"
                       style={{
                         background:
                           'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                        ...cardBaseStyle,
                       }}
                     >
                       <Image
@@ -256,17 +280,19 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
               onMouseLeave={handleMouseLeave}
             >
               <div
-                className="flex gap-4 md:gap-6 whitespace-nowrap"
+                className="flex gap-4 md:gap-6 whitespace-nowrap will-change-transform"
                 ref={bottomRowRef}
+                style={{ transform: 'translateZ(0)' }}
               >
                 {Array.from({ length: MOBILE_REPEAT_COUNT }).map((_, rIdx) =>
                   mobileImages[1].map((img, idx) => (
                     <div
                       key={`mobile-bottom-${rIdx}-${idx}`}
-                      className="relative w-[150px] aspect-150/174 shrink-0 rounded-[8px] overflow-hidden"
+                      className="relative w-[150px] h-[174px] shrink-0 rounded-[8px] overflow-hidden"
                       style={{
                         background:
                           'linear-gradient(0deg, #FFF0F9 0%, #FF2E90 100%)',
+                        ...cardBaseStyle,
                       }}
                     >
                       <Image

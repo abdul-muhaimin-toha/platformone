@@ -23,7 +23,7 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
     short_description = '',
     feature_image = '',
     content_type = 'left',
-    select_version
+    select_version,
   } = content;
 
   return (
@@ -35,7 +35,7 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
             content_type === 'right'
               ? 'flex-col-reverse md:flex-row-reverse pb-32 xl:pt-32'
               : 'flex-col md:flex-row pb-14',
-            select_version === "v2" && "pb-32! pt-[168px]!"
+            select_version === 'v2' && 'pb-32! pt-[168px]!',
           )}
         >
           {/* Text Content */}
@@ -50,7 +50,7 @@ const SideBySide: FC<SideBySideProps> = ({ data }) => {
                     : ''),
               }}
             />
-            <p className="text-xl font-normal text-black max-w-[578px] leading-[1.3]">
+            <p className="text-xl font-normal text-black max-w-[578px] leading-[27px]">
               {short_description}
             </p>
           </div>

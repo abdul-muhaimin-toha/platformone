@@ -34,7 +34,7 @@ const WhatItLikeToWorkWithUsWrapper = async ({
 
       return {
         _id: node.id || '',
-        btn_text: 'Read More',
+        btn_text: 'Read Case Study',
         btn_url: caseStudySlug ? `/case-studies/${caseStudySlug}` : '',
         company_logo: node.logoFile,
         customer_image: node.uploadClientImage,

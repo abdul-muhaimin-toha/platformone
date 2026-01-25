@@ -41,10 +41,10 @@ const CaseStudiesHero: FC<CaseStudiesHeroProps> = ({ data }) => {
               <div className="w-full flex flex-col self-start md:self-center sm:max-w-[578px]">
                 <h1
                   className={cn(
-                    'inline-flex flex-col font-bold leading-[1.28]  lg:leading-tight text-white',
+                    'inline-flex flex-col font-bold   text-white',
                     crb_select == 'version-one'
-                      ? 'text-[56px] lg:text-[64px]'
-                      : 'text-[56px] md:text-[38px] lg:text-[54px] xl:text-[64px]',
+                      ? 'text-[56px] lg:text-[64px] leading-tight!'
+                      : 'text-[56px] md:text-[38px] lg:text-[54px] leading-[1.28]! xl:text-[64px]',
                   )}
                 >
                   <span
