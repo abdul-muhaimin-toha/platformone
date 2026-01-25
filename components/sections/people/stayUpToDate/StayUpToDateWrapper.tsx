@@ -2,6 +2,7 @@ import StayUpToDateHeader from './StayUpToDateHeader';
 import StayUpToDateImages from './StayUpToDateImages';
 import { FC } from 'react';
 import { BlockData, HeadingProps } from '../../home/types';
+import Script from 'next/script';
 export interface StayUpToDateItem {
   feature_image: string;
 }
@@ -16,17 +17,11 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
   const content = data?.data;
   if (!content) return null;
 
-  const {
-    title = '',
-    subtitle = '',
-    short_description = '',
-    up_to_date = [],
-  } = content;
+  const { title = '', subtitle = '', short_description = '' } = content;
 
-  const images = up_to_date.map((img) => ({
-    src: img.feature_image,
-    alt: title.replace(/<[^>]*>/g, ''),
-  }));
+  const elfsightAppScript = process.env.NEXT_PUBLIC_ELFSIGHT_APP_SCRIPT;
+  const elfsightAppClass = process.env.NEXT_PUBLIC_ELFSIGHT_APP_CLASS;
+
   return (
     <section className="bg-mulberry-900">
       <div className="container-custom">
@@ -36,7 +31,14 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
             subtitle={subtitle}
             description={short_description}
           />
-          <StayUpToDateImages images={images} />
+          <Script
+            src={elfsightAppScript}
+            strategy="lazyOnload"
+          />
+
+          {elfsightAppClass && (
+            <div className={elfsightAppClass} />
+          )}
         </div>
       </div>
     </section>

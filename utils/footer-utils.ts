@@ -2,7 +2,7 @@ import { FooterProps, MenuNode, ThemeOptions } from '@/components/layout/header/
 
 export const mapFooterData = (
   menus: MenuNode[],
-  crbThemeOptions: ThemeOptions
+  crbThemeOptions: Partial<ThemeOptions>
 ): FooterProps => {
   const servicesMenu = menus.find((menu) => menu.name === 'Services');
   const discoverMenu = menus.find((menu) => menu.name === 'Discover');

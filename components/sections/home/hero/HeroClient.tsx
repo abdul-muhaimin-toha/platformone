@@ -232,7 +232,7 @@ export default function HeroClient({
           <div ref={buttonRef} className="opacity-0 translate-y-8">
             <Button
               href={btn_url}
-              arget={open_in_new_tab ? '_blank' : undefined}
+              target={open_in_new_tab ? '_blank' : undefined}
               variant="secondary"
               className="mt-[50px] md:mt-[60px] -ml-4"
             >

@@ -64,9 +64,10 @@ export const getCaseStudyBySlug = async (
     // Parse each block's attributesJSON safely
     const parsedBlocks = blocks.map((block) => ({
       ...block,
-      attributesJSON: block.attributesJSON
-        ? JSON.parse(block.attributesJSON)
-        : {},
+      attributesJSON:
+        typeof block.attributesJSON === 'string' && block.attributesJSON
+          ? JSON.parse(block.attributesJSON)
+          : block.attributesJSON || {},
     }));
 
     return parsedBlocks;

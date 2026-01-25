@@ -1,6 +1,6 @@
 import { MenuNode, NavLink, ThemeOptions } from '@/components/layout/header/types';
 
-export const mapHeaderData = (menus: MenuNode[], crbThemeOptions: ThemeOptions) => {
+export const mapHeaderData = (menus: MenuNode[], crbThemeOptions: Partial<ThemeOptions>) => {
   const primaryMenu = menus.find((menu) => menu.name === 'Primary Menu');
 
   const navLinks: NavLink[] =
