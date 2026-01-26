@@ -23,8 +23,6 @@ const Cta: React.FC<CtaProps> = ({ data }) => {
     select_version = 'v1',
   } = content;
 
-  console.log(content);
-
   return (
     <section className="bg-linear-90 from-[#E9C4DD00]/0 to-[#E9C4DD99]/60">
       <div className="container-custom">

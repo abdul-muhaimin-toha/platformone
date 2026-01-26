@@ -270,8 +270,6 @@ export default function ContactUsForm() {
       message: data.message,
     };
 
-    console.log('Sending Form Data:', apiPayload);
-
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API}/wp-json/nh/v1/cform/`,
@@ -287,7 +285,6 @@ export default function ContactUsForm() {
       if (!res.ok) throw new Error('Failed to submit form');
 
       const result = await res.json();
-      console.log('API Response:', result);
 
       if (result.success) {
         reset({
