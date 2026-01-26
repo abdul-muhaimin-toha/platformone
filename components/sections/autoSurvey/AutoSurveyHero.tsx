@@ -20,6 +20,8 @@ function AutoSurveyHero({ data }: AutoSurveyHeroProps) {
     right_description = '',
   } = content;
 
+  console.log(content);
+
   return (
     <section className="bg-white">
       <div className="bg-[#3E122F] rounded-bl-[64px] overflow-hidden">

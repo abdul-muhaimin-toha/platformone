@@ -1,89 +1,70 @@
 import MobileNavDrawer from "@/components/sections/insights/MobileNavDrawer";
 import Sidebar from "@/components/sections/insights/sidebar/Sidebar";
 import TopInsightcard from "@/components/sections/insights/TopInsightcard";
-
 import BlogsContent from "@/components/sections/insights/BlogsContent";
+import { getInsightBySlug } from "@/graphql/components/get-insights-data";
+import { getCategoriesData } from "@/graphql/components/get-category-data";
+import { mapWpPostToInsight, extractTableOfContents, getCategoryNavigation, WpPost, WpCategory } from "@/utils/insight-utils";
+import { notFound } from "next/navigation";
 
-export default function InsightsPage() {
+export default async function InsightsPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
+
+  const [categoriesData, post] = await Promise.all([
+    getCategoriesData() as Promise<WpCategory[]>,
+    getInsightBySlug(slug)
+  ]);
+
+  if (!post) {
+     notFound();
+  }
+
+  const insight = mapWpPostToInsight(post);
+  const tocLinks = extractTableOfContents(post.blocks || []);
+
+  // Use centralized category navigation logic
+  const activeCategories = post.categories?.edges?.map((edge: any) => edge.node.slug) || [];
+  const { exploreLinks, topicLinks } = getCategoryNavigation(
+    categoriesData,
+    {}, // No search params on detail page
+    activeCategories
+  );
+
   return (
     <main className="bg-white">
       <div className="container-custom max-w-[1256px]">
         <div className="flex flex-col w-full">
           <div className="flex pt-[124px] md:pt-[130px] lg:pt-[168px] w-full">
-            <TopInsightcard
+            <TopInsightcard 
               version="v2"
-              insight={{
-                title:
-                  "From Feedback to Action: How to Turn Insights Into Measurable Growth",
-                image: "/insights/top-card.png",
-                category: { label: "Blog", href: "/" },
-                secondaryCategory: "Insight Communities",
-                author: "Andrew Dye",
-                authorImage: "/home/work-with-us/avatar.png",
-                date: "August 13, 2025",
-              }}
+              insight={insight}
             />
           </div>
           <div className="flex flex-col lg:flex-row gap-6 py-32 pt-20 lg:py-20 lg:pb-32">
             <Sidebar
               version="v1"
               page="details"
-              exploreLinks={[
-                { label: "All", href: "/", isActive: true },
-                { label: "Blogs", href: "/" },
-                { label: "Press Releases", href: "/" },
-                { label: "Podcasts", href: "/" },
-                { label: "Whitepapers", href: "/" },
-              ]}
-              topicLinks={[
-                { label: "All", href: "/", isActive: true },
-                { label: "Customer Experience", href: "/" },
-                { label: "Employee Experience", href: "/" },
-                { label: "Insight Communities", href: "/" },
-                { label: "Data Visualisation", href: "/" },
-                { label: "Data Visualisation", href: "/" },
-              ]}
+              exploreLinks={[]}
+              topicLinks={[]}
+              tocLinks={tocLinks}
             />
             <div className="flex-1 flex flex-col gap-14 md:gap-10 xl:gap-20">
               <Sidebar
                 version="v2"
                 page="details"
-                exploreLinks={[
-                  { label: "All", href: "/", isActive: true },
-                  { label: "Blogs", href: "/" },
-                  { label: "Press Releases", href: "/" },
-                  { label: "Podcasts", href: "/" },
-                  { label: "Whitepapers", href: "/" },
-                ]}
-                topicLinks={[
-                  { label: "All", href: "/", isActive: true },
-                  { label: "Customer Experience", href: "/" },
-                  { label: "Employee Experience", href: "/" },
-                  { label: "Insight Communities", href: "/" },
-                  { label: "Data Visualisation", href: "/" },
-                  { label: "Data Visualisation", href: "/" },
-                ]}
+                exploreLinks={[]}
+                topicLinks={[]}
+                tocLinks={tocLinks}
               />
               <div className="flex flex-col w-full gap-10 xl:gap-20">
-                <BlogsContent />
+                <BlogsContent blocks={post.blocks} />
               </div>
             </div>
             <MobileNavDrawer
               page="details"
-              exploreLinks={[
-                { label: "All", href: "/", isActive: true },
-                { label: "Blogs", href: "/" },
-                { label: "Press Releases", href: "/" },
-                { label: "Podcasts", href: "/" },
-                { label: "Whitepapers", href: "/" },
-              ]}
-              topicLinks={[
-                { label: "All", href: "/", isActive: true },
-                { label: "Blogs", href: "/" },
-                { label: "Press Releases", href: "/" },
-                { label: "Podcasts", href: "/" },
-                { label: "Whitepapers", href: "/" },
-              ]}
+              exploreLinks={[]}
+              topicLinks={[]}
+              tocLinks={tocLinks}
             />
           </div>
         </div>
@@ -91,3 +72,4 @@ export default function InsightsPage() {
     </main>
   );
 }
+

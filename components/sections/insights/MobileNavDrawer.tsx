@@ -7,12 +7,14 @@ interface MobileNavDrawerProps {
   page?: string;
   exploreLinks?: LinkItem[];
   topicLinks?: LinkItem[];
+  tocLinks?: LinkItem[];
 }
 
 function MobileNavDrawer({
   page = "insights",
   exploreLinks,
   topicLinks,
+  tocLinks,
 }: MobileNavDrawerProps) {
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,7 @@ function MobileNavDrawer({
     <div
       ref={drawerRef}
       className="fixed bottom-0 left-0 right-0 bg-[#F6F6F6] md:hidden"
+      data-lenis-prevent
     >
       <Sidebar
         version="v3"
@@ -49,6 +52,8 @@ function MobileNavDrawer({
         page={page}
         exploreLinks={exploreLinks}
         topicLinks={topicLinks}
+        tocLinks={tocLinks}
+        onLinkClick={page === 'details' ? () => setOpen(false) : undefined}
       />
       <button
         onClick={() => setOpen(!open)}
@@ -67,15 +72,16 @@ function MobileNavDrawer({
             fill="#B3ADAE"
           />
         </svg>
-        <span>Table of contents</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={24}
-          height={24}
-          viewBox="0 0 24 24"
-          fill="none"
-          className="shrink-0 ml-auto"
-        >
+        <span>{page === 'details' ? 'Table of contents' : 'Topics'}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={24}
+            height={24}
+            viewBox="0 0 24 24"
+            fill="none"
+            className="shrink-0 ml-auto transition-transform duration-300"
+            style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            >
           <path
             d="M17.293 8.29289C17.6835 7.90237 18.3165 7.90237 18.707 8.29289C19.0976 8.68342 19.0976 9.31643 18.707 9.70696L12.707 15.707C12.3165 16.0975 11.6835 16.0975 11.293 15.707L5.29297 9.70696C4.90245 9.31643 4.90245 8.68342 5.29297 8.29289C5.68349 7.90237 6.31651 7.90237 6.70703 8.29289L12 13.5859L17.293 8.29289Z"
             fill="#B3ADAE"

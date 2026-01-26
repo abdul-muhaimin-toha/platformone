@@ -1,7 +1,9 @@
-import { Input } from '@/components/ui/input';
+"use client";
+
+import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/utils';
-import { SearchIcon } from 'lucide-react';
 import Link from 'next/link';
+import InsightsSearch from './InsightsSearch';
 
 export interface LinkItem {
   label: string;
@@ -15,6 +17,8 @@ interface SidebarProps {
   visible?: boolean;
   exploreLinks?: LinkItem[];
   topicLinks?: LinkItem[];
+  tocLinks?: LinkItem[];
+  onLinkClick?: () => void;
 }
 
 function Sidebar({
@@ -23,7 +27,99 @@ function Sidebar({
   visible = true,
   exploreLinks = [],
   topicLinks = [],
+  tocLinks = [],
+  onLinkClick,
 }: SidebarProps) {
+  const [activeId, setActiveId] = useState<string>('');
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (page !== 'details' || tocLinks.length === 0) return;
+
+    // Disconnect previous observer if exists
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -60% 0px', // Adjust trigger point $(40% from top as requested previously for scroll position)
+        threshold: 0
+      }
+    );
+
+    tocLinks.forEach((link) => {
+      const id = link.href.replace('#', '');
+      const element = document.getElementById(id);
+      if (element && observer.current) {
+        observer.current.observe(element);
+      }
+    });
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [page, tocLinks]);
+
+  const handleTocClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Extract ID from href (e.g. "#some-id")
+    const id = href.replace('#', '');
+    const element = document.getElementById(id);
+    
+    if (element) {
+      // Calculate position: element top + current scroll - offset (40% of viewport)
+      const offset = window.innerHeight * 0.4;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+
+    if (onLinkClick) {
+      onLinkClick();
+    }
+  };
+
+  const renderLinkList = (links: LinkItem[], isToc: boolean = false) => (
+    <ul className={cn(
+      "flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] font-normal text-black",
+      isToc ? "gap-2 md:gap-8 lg:gap-2" : "gap-4 md:gap-8 lg:gap-2"
+    )}>
+      {links.map((link, index) => {
+        const id = isToc ? link.href.replace('#', '') : '';
+        const isCurrentActive = isToc ? (activeId === id || link.isActive) : link.isActive;
+        
+        return (
+          <Link
+            key={index}
+            href={link.href}
+            onClick={isToc ? (e) => handleTocClick(e, link.href) : onLinkClick}
+            className={cn(
+              'hover:text-pulse-pink-600 focus:text-pulse-pink-600 duration-300',
+              !isToc && 'py-2 md:py-0',
+              isToc && 'py-2 md:py-0',
+              isCurrentActive && 'text-pulse-pink-600'
+            )}
+          >
+            <li className={cn(isToc ? "truncate" : "text-nowrap")}>
+              {link.label}
+            </li>
+          </Link>
+        );
+      })}
+    </ul>
+  );
+
   return (
     <div
       className={cn(
@@ -39,58 +135,27 @@ function Sidebar({
           'border-r-transparent! lg:max-w-[211px]! xl:max-w-[248px]! xl:grow'
       )}
     >
-      {page === 'insights' && (
-        <div className="flex flex-row items-center gap-2 w-full h-10 p-2 rounded-full bg-white border border-[#EDEDEE] md:border-none md:bg-background mb-10 xl:mb-20">
-          <SearchIcon className="size-5 shrink-0 text-black opacity-30" />
-          <Input
-            className={cn(
-              'w-full rounded-0! border-0! leading-none! text-base! font-normal! placeholder:text-base! placeholder:font-sans! placeholder:text-black! placeholder:opacity-30! font-sans! p-0! h-auto! focus:border-0! selection:bg-transparent! selection:text-black! shadow-none! focus-visible:border-0! focus-visible:ring-0!'
-            )}
-            placeholder="Search"
-          />
-        </div>
-      )}
-      {page === 'insights' && (
+      {page === 'insights' && <InsightsSearch />}
+      {page === 'insights' && exploreLinks.length > 0 && (
         <div className="w-full flex flex-col gap-2 xl:gap-4 mb-8 lg:mb-10 xl:mb-20">
           <h6 className="text-xl leading-[1.30] md:text-base font-normal md:leading-[1.37] text-black pb-5 border-b border-b-border">
             Explore
           </h6>
-          <ul className="flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] gap-4 md:gap-8 lg:gap-2 font-normal text-black">
-            {exploreLinks.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                className={cn(
-                  'hover:text-pulse-pink-600 duration-300',
-                  link.isActive && 'text-pulse-pink-600'
-                )}
-              >
-                <li className="text-nowrap">{link.label}</li>
-              </Link>
-            ))}
-          </ul>
+          {renderLinkList(exploreLinks)}
+        </div>
+      )}
+      {page === 'details' && tocLinks && tocLinks.length > 0 && (
+        <div className="w-full flex flex-col gap-2 xl:gap-4 lg:mb-10 xl:mb-20">
+          {renderLinkList(tocLinks, true)}
         </div>
       )}
       <div className="w-full flex flex-col gap-2 xl:gap-4 lg:mb-10 xl:mb-20">
-        {page === 'insights' && (
+        {page === 'insights' && topicLinks.length > 0 && (
           <h6 className="text-xl leading-[1.30] md:text-base font-normal md:leading-[1.37] text-black pb-5 border-b border-b-border">
             Topics
           </h6>
         )}
-        <ul className="flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] gap-2 md:gap-8 lg:gap-2 font-normal text-black">
-          {topicLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.href}
-              className={cn(
-                'hover:text-pulse-pink-600 duration-300 py-2 md:py-0',
-                link.isActive && 'text-pulse-pink-600'
-              )}
-            >
-              <li className="text-nowrap">{link.label}</li>
-            </Link>
-          ))}
-        </ul>
+        {topicLinks.length > 0 && renderLinkList(topicLinks)}
       </div>
     </div>
   );

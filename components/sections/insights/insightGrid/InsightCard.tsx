@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { JSX } from "react";
@@ -18,7 +20,7 @@ export interface Insight {
 
 function InsightCard({ insight }: { insight: Insight }): JSX.Element {
   return (
-    <div className="flex flex-col gap-4 group cursor-pointer">
+    <Link href={`/insights/${insight.slug}`} className="flex flex-col gap-4 group">
       <div className="relative w-full aspect-344/210 overflow-hidden rounded-[12px] shrink-0">
         <Image
           src={insight.image}
@@ -29,12 +31,15 @@ function InsightCard({ insight }: { insight: Insight }): JSX.Element {
       </div>
 
       <div className="flex flex-row items-center gap-1 text-base font-semibold leading-[1.37] text-pulse-pink-700">
-        <Link
-          href={insight.category.href}
-          className="hover:text-black duration-300 hover:underline"
+        <span
+          className="duration-300"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
         >
           {insight.category.label}
-        </Link>
+        </span>
         {insight.secondaryCategory && (
           <>
             <p> • </p>
@@ -43,14 +48,14 @@ function InsightCard({ insight }: { insight: Insight }): JSX.Element {
         )}
       </div>
 
-      <h3 className="text-xl font-medium leading-[1.30] text-black group-hover:underline duration-300">
+      <h3 className="text-xl font-medium leading-[1.30] text-black group-hover:underline decoration-1 underline-offset-4 duration-300 line-clamp-2 min-h-[2.6em]">
         {insight.title}
       </h3>
 
       <p className="text-base font-normal leading-[1.37] text-[#737373]">
         By {insight.author}
       </p>
-    </div>
+    </Link>
   );
 }
 

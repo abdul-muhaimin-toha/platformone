@@ -84,8 +84,8 @@ async function FaqWrapper({ data }: FaqWrapperProps) {
                   <AccordionTrigger className="text-mulberry-950 duration-300 data-[state=open]:text-pulse-pink-600 hover:text-pulse-pink-600">
                     {faq.title}
                   </AccordionTrigger>
-                  <AccordionContent>
-                    <div
+                  <AccordionContent className="">
+                    <div className='faq-content'
                       dangerouslySetInnerHTML={{
                         __html: faq.faqContent || '',
                       }}

@@ -16,12 +16,14 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
         'group w-full  md:flex-row gap-6 pb-10 xl:pb-20 border-b border-b-border',
         version === 'v1'
           ? 'flex flex-col-reverse pb-10 xl:pb-20'
-          : 'grid grid-cols-1  pb-20 md:grid-cols-2 lg:flex lg:flex-row'
+          : 'grid grid-cols-1  pb-20 md:grid-cols-2 lg:flex lg:flex-row',
       )}
     >
       {version === 'v2' && (
         <div className="w-full flex flex-col md:col-span-2 lg:max-w-[211px] border-r border-transparent md:pr-2 xl:max-w-[248px] xl:pr-6">
-          <Button variant="back">Back</Button>
+          <Button href="/insights" variant="back">
+            Back
+          </Button>
         </div>
       )}
       <div
@@ -29,19 +31,16 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
           'flex flex-col',
           version === 'v1'
             ? ''
-            : 'row-start-3 md:col-start-1 md:row-start-2 xl:max-w-[456px]'
+            : 'row-start-3 md:col-start-1 md:row-start-2 xl:max-w-[456px]',
         )}
       >
-        <h2 className="text-[32px] font-semibold md:font-normal xl:font-normal md:text-2xl xl:text-[32px] leading-tight text-black mb-6 md:mb-2 xl:mb-6">
-          {insight.title}
-        </h2>
+        <Link href={`/insights/${insight.slug}`} className="group/title">
+          <h2 className="text-[32px] font-semibold md:font-normal xl:font-normal md:text-2xl xl:text-[32px] leading-tight text-black mb-6 md:mb-2 xl:mb-6 group-hover/title:underline decoration-1 underline-offset-4 duration-300 line-clamp-2 min-h-[2.4em]">
+            {insight.title}
+          </h2>
+        </Link>
         <div className="flex flex-row items-center gap-1 text-base font-semibold leading-[1.37] text-pulse-pink-600">
-          <Link
-            href={insight.category.href}
-            className="hover:text-black duration-300 hover:underline"
-          >
-            {insight.category.label}
-          </Link>
+          <span className="duration-300">{insight.category.label}</span>
           {insight.secondaryCategory && (
             <>
               <p> • </p>
@@ -52,7 +51,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
         <div
           className={cn(
             'flex w-full items-center gap-4 mt-10 md:mt-auto',
-            version === 'v1' ? '' : 'md:mt-8 md:mb-8 xl:my-10'
+            version === 'v1' ? '' : 'md:mt-8 md:mb-8 xl:my-10',
           )}
         >
           {insight.authorImage && (
@@ -148,7 +147,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
           'w-full md:w-1/2 xl:max-w-[536px] relative aspect-380/305 md:aspect-536/310 rounded-2xl shrink-0 overflow-hidden',
           version === 'v1'
             ? ''
-            : 'md:col-start-2 md:w-full md:h-full lg:h-auto lg:w-2/5 xl:max-w-[440px] xl:aspect-440/367'
+            : 'md:col-start-2 md:w-full md:h-full lg:h-auto lg:w-2/5 xl:max-w-[440px] xl:aspect-440/367',
         )}
       >
         <Image

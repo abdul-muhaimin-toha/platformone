@@ -181,3 +181,63 @@
   content: '';
   @apply absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
 }
+
+.faq-content ul{
+  @apply list-disc list-inside marker:text-pulse-pink-600;
+}
+
+.faq-content ol{
+  @apply list-decimal list-inside marker:text-pulse-pink-600;
+}
+
+.blog-content-wrapper p {
+  @apply text-xl leading-normal font-normal text-black my-8 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper h3, .blog-content-wrapper h4, .blog-content-wrapper h5 {
+  @apply text-[32px] leading-tight font-semibold text-black mt-16 mb-8 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper ol {
+  @apply text-xl marker:text-pulse-pink-600 leading-[1.3] text-black font-normal mt-8 mb-16 list-decimal flex flex-col gap-3 ml-6 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper ul {
+  @apply text-xl marker:text-pulse-pink-600 leading-[1.3] text-black font-normal mt-8 mb-16 list-disc flex flex-col gap-3 ml-6 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper blockquote {
+  @apply w-full bg-pulse-pink-50 flex flex-col p-6 gap-6 mt-8 mb-16 first:mt-0 last:mb-0 rounded-2xl;
+}
+
+.blog-content-wrapper blockquote p {
+  @apply text-2xl font-normal leading-[1.33] text-mulberry-900 my-0;
+}
+
+.blog-content-wrapper blockquote p:last-child {
+  @apply text-base font-normal leading-[1.37] text-[#6C6C6C] my-0;
+}
+
+.blog-content-wrapper img {
+  @apply object-cover w-full rounded-2xl aspect-380/249 mt-8 mb-16 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper .wp-block-counter-cards {
+  @apply flex flex-row md:grid md:grid-cols-2 xl:grid-cols-3 items-center gap-6 overflow-auto pb-4 mt-8 grow-0 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper .wp-block-counter-cards .wp-block-counter-card {
+  @apply flex md:w-full flex-col p-6 gap-4 rounded-2xl border h-full border-border min-w-[290px] md:min-w-auto;
+}
+
+.blog-content-wrapper .wp-block-counter-cards .wp-block-counter-card h3 {
+  @apply text-pulse-pink-600 text-[56px] leading-[1.28] font-bold;
+}
+
+.blog-content-wrapper .wp-block-counter-cards .wp-block-counter-card p {
+  @apply text-mulberry-900 text-xl leading-[1.30] font-normal;
+}
+
+.blog-content-wrapper .wp-block-column p:last-child {
+  @apply text-mulberry-900 text-xl leading-[1.30] font-normal my-0;
+}

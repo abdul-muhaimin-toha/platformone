@@ -16,6 +16,13 @@ export interface WPNode {
       link?: string;
     };
   };
+  blocks?: PageBlock[];
+  categories?: WPConnection<{
+    id: string;
+    name: string;
+    slug: string;
+    categoryId?: number;
+  }>;
   seo?: {
     canonical?: string;
     title?: string;
@@ -115,9 +122,9 @@ export interface MenuData {
 }
 
 export interface PageBlock {
-  name: string;
+  name?: string;
   attributesJSON: string | Record<string, any>;
-  order: number;
+  order?: number;
   dynamicContent?: string;
   originalContent?: string;
   saveContent?: string;

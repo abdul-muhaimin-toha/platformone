@@ -44,6 +44,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://elfsightcdn.com" />
+        <link rel="preconnect" href="https://core.elfsight.com" />
+      </head>
       <ReactLenis root>
         <body
           className={`${overusedGothek.variable} font-sans overflow-hidden overflow-y-auto  antialiased`}

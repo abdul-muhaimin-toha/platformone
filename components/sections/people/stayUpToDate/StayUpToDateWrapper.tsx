@@ -29,10 +29,14 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
   const elfsightAppScript = process.env.NEXT_PUBLIC_ELFSIGHT_APP_SCRIPT;
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInView(true);
+          // Delay mounting by 500ms to allow scroll momentum to settle
+          timer = setTimeout(() => {
+            setIsInView(true);
+          }, 500);
           observer.disconnect();
         }
       },
@@ -43,7 +47,10 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
       observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   return (
@@ -64,7 +71,10 @@ const StayUpToDateWrapper: FC<StayUpToDateWrapperProps> = ({ data }) => {
           )}
 
           {isInView && elfsightAppClass && (
-            <div className={elfsightAppClass} />
+            <div 
+              className={elfsightAppClass} 
+              data-lenis-prevent // Prevents scroll hijacking conflicts
+            />
           )}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import getGqlData from '@/lib/get-gql-data';
 import {
   allInsightsQuery,
+  filteredInsightsQuery,
   multiInsightQuery,
   relatedInsightsQuery,
   singleInsightQuery,
@@ -8,22 +9,52 @@ import {
 import { WPConnection, WPNode } from '../types';
 
 interface InsightsData {
-  posts: WPConnection<WPNode> & { nodes?: WPNode[] };
+  posts: WPConnection<WPNode> & {
+    nodes?: WPNode[];
+  };
   postBy?: WPNode;
 }
 
 /**
- * Fetch all insights with optional limit
+ * Fetch all insights with optional limit and search
  */
 export const getAllInsights = async (
-  limit: number = 10
-): Promise<WPConnection<WPNode>['edges']> => {
+  limit: number = 20,
+  search?: string
+): Promise<{ edges: any[], hasNextPage: boolean }> => {
   try {
-    const data = await getGqlData<InsightsData>(allInsightsQuery, { limit });
-    return data?.posts?.edges || [];
+    const data = await getGqlData<InsightsData>(allInsightsQuery, { limit, search });
+    return {
+      edges: data?.posts?.edges || [],
+      hasNextPage: data?.posts?.pageInfo?.hasNextPage || false
+    };
   } catch (error) {
     console.error('Error fetching all insights:', error);
-    return [];
+    return { edges: [], hasNextPage: false };
+  }
+};
+
+/**
+ * Fetch insights filtered by category slug and search
+ */
+export const getFilteredInsights = async (
+  categoryName?: string,
+  limit: number = 20,
+  search?: string
+): Promise<{ edges: any[], hasNextPage: boolean }> => {
+  try {
+    const data = await getGqlData<InsightsData>(filteredInsightsQuery, {
+      categoryName,
+      limit,
+      search,
+    });
+    return {
+      edges: data?.posts?.edges || [],
+      hasNextPage: data?.posts?.pageInfo?.hasNextPage || false
+    };
+  } catch (error) {
+    console.error(`Error fetching filtered insights for ${categoryName}:`, error);
+    return { edges: [], hasNextPage: false };
   }
 };
 
