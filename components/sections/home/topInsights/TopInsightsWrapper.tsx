@@ -21,7 +21,7 @@ export default async function TopInsightsWrapper({
   if (!content) return null;
 
   const {
-    btn_text = 'View all insights', // Default value if missing
+    btn_text = 'View all insights',
     btn_url = '#',
     open_in_new_tab = false,
     selected_blogs = [],
@@ -36,10 +36,10 @@ export default async function TopInsightsWrapper({
   if (ids.length > 0) {
     insights = await getInsightsData(ids);
   }
-  
+
   // Cast WPNode to Insight if structure matches, or filter out invalid nodes
   // Here we assume getInsightsData returns valid nodes compatible with Insight aside from optional id
-  const validInsights = insights.filter((node) => node.id) as any[]; 
+  const validInsights = insights.filter((node) => node.id) as any[];
 
   return (
     <section

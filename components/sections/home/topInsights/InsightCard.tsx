@@ -9,7 +9,7 @@ export interface Insight {
   title: string;
   featuredImage?: {
     node: {
-      link: string;
+      mediaItemUrl: string;
     };
   };
   categories?: {
@@ -26,14 +26,14 @@ interface InsightCardProps {
 }
 
 export default function InsightCard({ insight }: InsightCardProps) {
-  const imageSrc = insight.featuredImage?.node.link || '';
+  const imageSrc = insight.featuredImage?.node.mediaItemUrl || '';
 
   const categoryNames =
     insight.categories?.edges.map((cat) => cat.node.name).join(' • ') || '';
 
   return (
     <div className="flex group cursor-pointer flex-col w-full">
-      <div className="flex justify-center relative w-full rounded-t-4xl overflow-hidden items-center aspect-380/336">
+      <div className="flex justify-center relative w-full rounded-t-4xl overflow-hidden items-center aspect-380/336 bg-background">
         {imageSrc && (
           <Image
             src={imageSrc}

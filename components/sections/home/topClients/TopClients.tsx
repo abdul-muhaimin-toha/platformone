@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { JSX, useEffect, useRef, useMemo } from 'react';
 
 import { BlockData } from '../types';
-import { CloudCog } from 'lucide-react';
 
 export interface ClientItem {
   company_logo?: string;
@@ -33,6 +32,7 @@ function TopClients({
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const positionRef = useRef<number>(0);
+  const paused = useRef(false);
   const speed = 0.7;
 
   useEffect(() => {
@@ -44,7 +44,8 @@ function TopClients({
     const totalWidth = marquee.scrollWidth / 2;
 
     const animate = () => {
-      positionRef.current -= speed;
+      const currentSpeed = paused.current ? speed * 0.6 : speed;
+      positionRef.current -= currentSpeed;
       if (Math.abs(positionRef.current) >= totalWidth) {
         positionRef.current += totalWidth; // Smooth loop
       }
@@ -71,27 +72,11 @@ function TopClients({
   }, [brandLogos, speed]);
 
   const handleMouseEnter = () => {
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-      animationRef.current = null;
-    }
+    paused.current = true;
   };
 
   const handleMouseLeave = () => {
-    if (!animationRef.current && marqueeRef.current) {
-      const marquee = marqueeRef.current;
-      const totalWidth = marquee.scrollWidth / 2;
-
-      const animate = () => {
-        positionRef.current -= speed;
-        if (Math.abs(positionRef.current) >= totalWidth) {
-          positionRef.current += totalWidth;
-        }
-        marquee.style.transform = `translateX(${positionRef.current}px)`;
-        animationRef.current = requestAnimationFrame(animate);
-      };
-      animationRef.current = requestAnimationFrame(animate);
-    }
+    paused.current = false;
   };
 
   if (brandLogos.length === 0) return null;

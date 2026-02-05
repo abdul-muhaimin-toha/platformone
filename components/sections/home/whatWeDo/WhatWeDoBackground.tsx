@@ -50,9 +50,9 @@ export default function WhatWeDoBackground() {
 
   return (
     <>
-      <div className="container-custom relative top-[550px] sm:top-[400px] md:top-[400px] lg:top-[270px]">
+      <div className="container-custom relative top-[580px] sm:top-[400px] md:top-[400px] lg:top-[270px]">
         <svg
-          className="absolute left-54 md:left-56 lg:left-24 h-[300px] rotate-12 md:rotate-0 md:h-auto object-bottom object-cover"
+          className="absolute left-48 sm:left-54 rotate-[-2deg] md:left-56 lg:left-24 h-[300px] sm:rotate-12 md:rotate-0 md:h-auto object-bottom object-cover"
           width={160}
           height={384}
           viewBox="0 0 160 384"

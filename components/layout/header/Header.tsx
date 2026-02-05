@@ -45,9 +45,15 @@ export default function Header({
         onMenuClick={() => setOpen(!open)}
         scrolled={scrolled}
         open={open}
+        pathname={pathname}
       />
 
-      <HeaderMobileNav links={navLinks} cta={cta} isOpen={open} />
+      <HeaderMobileNav
+        links={navLinks}
+        cta={cta}
+        isOpen={open}
+        pathname={pathname}
+      />
     </header>
   );
 }

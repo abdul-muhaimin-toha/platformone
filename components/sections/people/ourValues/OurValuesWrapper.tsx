@@ -27,9 +27,9 @@ const OurValuesWrapper: FC<OurValuesWrapperProps> = ({ data }) => {
   return (
     <section>
       <div className="container-custom">
-        <div className="grid w-full grid-cols-1 md:grid-cols-2 items-center gap-6 py-28 xl:grid-cols-3 xl:py-32">
+        <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-6 py-28 xl:grid-cols-3 xl:py-32">
           {/* Heading */}
-          <div className="w-full">
+          <div className="w-full h-full flex items-center">
             <h2
               className="w-full text-[34px] md:text-[44px] xl:text-[56px] font-bold leading-[1.28] my-8"
               dangerouslySetInnerHTML={{ __html: parsedTitle }}

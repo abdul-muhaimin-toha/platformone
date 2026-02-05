@@ -21,6 +21,7 @@ interface HeaderTopProps {
   onMenuClick?: () => void;
   scrolled: boolean;
   open: boolean;
+  pathname: string;
 }
 
 export default function HeaderTop({
@@ -31,7 +32,15 @@ export default function HeaderTop({
   onMenuClick,
   scrolled,
   open,
+  pathname,
 }: HeaderTopProps) {
+  /* Helper to check if a link is active */
+  const isActive = (href: string | undefined) => {
+    if (!href) return false;
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   return (
     <div className="fixed top-0 left-0 z-501 w-full">
       <div
@@ -83,21 +92,27 @@ export default function HeaderTop({
                       <DropdownMenu key={i} modal={false}>
                         <DropdownMenuTrigger
                           className={cn(
-                            'flex items-center gap-2 cursor-pointer outline-none duration-300',
+                            'group flex items-center gap-2 cursor-pointer outline-none duration-300',
                             scrolled || open
                               ? 'hover:text-pulse-pink-900 data-[state=open]:text-pulse-pink-900'
                               : 'hover:text-pulse-pink-100 data-[state=open]:text-pulse-pink-100',
+                            isActive(link.href) &&
+                              'text-pulse-pink-600 hover:text-pulse-pink-600',
                           )}
                         >
                           {link.label}
-                          <ChevronDown className="size-6" />
+                          <ChevronDown className="size-6 transition-transform duration-300 group-data-[state=open]:rotate-180" />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="bg-white z-9999 hidden lg:block p-2.5 py-3 rounded-sm border border-border mt-6 shadow-xs w-[270px]">
+                        <DropdownMenuContent className="bg-white z-9999 hidden lg:block p-2 rounded-[8px]  mt-10 w-[270px]">
                           {link.child.map((childLink, j) => (
                             <DropdownMenuItem key={j} asChild>
                               <Link
                                 href={childLink.href}
-                                className="w-full bg-gray-100 my-1 cursor-pointer rounded-sm px-4 py-3 hover:bg-pulse-pink-100 hover:text-black focus:bg-pulse-pink-100 capitalize focus:text-black text-[18px] font-medium"
+                                className={cn(
+                                  'w-full bg-neutral-100 my-2 cursor-pointer rounded-[8px] px-4 py-2 hover:bg-pulse-pink-50 hover:text-pulse-pink-600 focus:bg-pulse-pink-50 text-black text-center justify-center capitalize focus:text-pulse-pink-600 text-xl font-medium duration-300',
+                                  isActive(childLink.href) &&
+                                    'text-pulse-pink-600 hover:text-pulse-pink-600',
+                                )}
                               >
                                 {childLink.label}
                               </Link>
@@ -117,6 +132,8 @@ export default function HeaderTop({
                         scrolled || open
                           ? 'hover:text-pulse-pink-900'
                           : 'hover:text-pulse-pink-100',
+                        isActive(link.href) &&
+                          'text-pulse-pink-600 hover:text-pulse-pink-600',
                       )}
                     >
                       {link.label}

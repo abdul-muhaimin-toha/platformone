@@ -1,3 +1,4 @@
+import { cn } from '@/utils/utils';
 import Button from '@/components/globals/Button';
 import Link from 'next/link';
 import {
@@ -13,14 +14,23 @@ interface HeaderMobileNavProps {
   links: NavLink[];
   cta: { label: string; href: string };
   isOpen: boolean;
+  pathname: string;
 }
 
 export default function HeaderMobileNav({
   links,
   cta,
   isOpen,
+  pathname,
 }: HeaderMobileNavProps) {
   if (!isOpen) return null;
+
+  /* Helper to check if a link is active */
+  const isActive = (href: string | undefined) => {
+    if (!href) return false;
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <div className="fixed top-0 z-500 left-0  w-full lg:hidden">
@@ -38,7 +48,13 @@ export default function HeaderMobileNav({
                       className="w-full border-b-0"
                     >
                       <AccordionItem value={`item-${i}`} className="border-b-0">
-                        <AccordionTrigger className="hover:text-pulse-pink-900 duration-300 py-2 hover:no-underline font-semibold text-2xl data-[state=open]:text-pulse-pink-900">
+                        <AccordionTrigger
+                          className={cn(
+                            'hover:text-pulse-pink-900 duration-300 py-2 hover:no-underline font-semibold text-2xl data-[state=open]:text-pulse-pink-900',
+                            isActive(link.href) &&
+                              'text-pulse-pink-600! hover:text-pulse-pink-600!',
+                          )}
+                        >
                           {link.label}
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-3 pt-2 pb-0 border-l-0 mb-0 pl-0">
@@ -46,7 +62,11 @@ export default function HeaderMobileNav({
                             <Link
                               key={j}
                               href={childLink.href}
-                              className="hover:text-pulse-pink-900 duration-300 py-2 hover:no-underline font-medium text-xl data-[state=open]:text-pulse-pink-900"
+                              className={cn(
+                                'hover:text-pulse-pink-900 duration-300 py-2 hover:no-underline font-medium text-xl data-[state=open]:text-pulse-pink-900',
+                                isActive(childLink.href) &&
+                                  'text-pulse-pink-600 hover:text-pulse-pink-600',
+                              )}
                             >
                               {childLink.label}
                             </Link>
@@ -61,7 +81,11 @@ export default function HeaderMobileNav({
                   <Link
                     key={i}
                     href={link.href || '#'}
-                    className="py-2 hover:text-pulse-pink-900 duration-300"
+                    className={cn(
+                      'py-2 hover:text-pulse-pink-900 duration-300',
+                      isActive(link.href) &&
+                        'text-pulse-pink-600 hover:text-pulse-pink-600',
+                    )}
                   >
                     {link.label}
                   </Link>

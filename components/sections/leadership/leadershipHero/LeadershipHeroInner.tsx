@@ -46,12 +46,11 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
       let pos = reverse ? -halfWidth : 0;
 
       const animate = () => {
-        if (!paused.current) {
-          pos += reverse ? speed : -speed;
-          if (!reverse && pos <= -halfWidth) pos = 0;
-          if (reverse && pos >= 0) pos = -halfWidth;
-          row.style.transform = `translate3d(${pos}px, 0, 0)`;
-        }
+        const currentSpeed = paused.current ? speed * 0.4 : speed;
+        pos += reverse ? currentSpeed : -currentSpeed;
+        if (!reverse && pos <= -halfWidth) pos = 0;
+        if (reverse && pos >= 0) pos = -halfWidth;
+        row.style.transform = `translate3d(${pos}px, 0, 0)`;
         requestAnimationFrame(animate);
       };
       animate();
@@ -68,12 +67,11 @@ const LeadershipHeroInner: FC<LeadershipHeroInnerProps> = ({
       let pos = direction === 'down' ? -halfHeight : 0;
 
       const animate = () => {
-        if (!paused.current) {
-          pos += direction === 'down' ? speed : -speed;
-          if (direction === 'down' && pos >= 0) pos = -halfHeight;
-          if (direction === 'up' && pos <= -halfHeight) pos = 0;
-          column.style.transform = `translate3d(0, ${pos}px, 0)`;
-        }
+        const currentSpeed = paused.current ? speed * 0.4 : speed;
+        pos += direction === 'down' ? currentSpeed : -currentSpeed;
+        if (direction === 'down' && pos >= 0) pos = -halfHeight;
+        if (direction === 'up' && pos <= -halfHeight) pos = 0;
+        column.style.transform = `translate3d(0, ${pos}px, 0)`;
         requestAnimationFrame(animate);
       };
       animate();
