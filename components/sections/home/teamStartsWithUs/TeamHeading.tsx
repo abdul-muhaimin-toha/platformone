@@ -1,15 +1,21 @@
 'use client';
 
+import Button from '@/components/globals/Button';
+
 interface TeamHeadingProps {
   title: string;
   subtitle: string;
   short_description: string;
+  btntext: string;
+  btnurl: string;
 }
 
 export default function TeamHeading({
   title,
   subtitle,
   short_description,
+  btntext,
+  btnurl,
 }: TeamHeadingProps) {
   return (
     <div
@@ -29,11 +35,18 @@ export default function TeamHeading({
         )}
       </div>
 
-      {short_description && (
-        <p className="text-xl font-normal leading-[27px] lg:max-w-xl lg:w-1/2 text-pulse-pink-200">
-          {short_description}
-        </p>
-      )}
+      <div className="flex flex-col lg:max-w-xl lg:w-1/2 gap-8">
+        {short_description && (
+          <p className="text-xl font-normal leading-[27px] w-full text-pulse-pink-200">
+            {short_description}
+          </p>
+        )}
+        {btntext && btnurl && (
+          <Button href={btnurl} variant="secondary">
+            {btntext}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

@@ -40,10 +40,13 @@ export interface WpPost {
       };
     }[];
   };
+  selectAuthor?: {
+    id: string | number;
+  };
   blocks?: any[];
 }
 
-export const mapWpPostToInsight = (post: WpPost): Insight => {
+export const mapWpPostToInsight = (post: WpPost, customAuthor?: any): Insight => {
   if (!post) {
     return {
       title: 'Insight Title',
@@ -57,6 +60,10 @@ export const mapWpPostToInsight = (post: WpPost): Insight => {
   const categoryEdge = validCategoryEdges[0];
   const secondaryCategoryEdge = validCategoryEdges[1];
 
+  // Logic for custom author if provided, otherwise fallback to default WP author
+  const authorName = customAuthor?.title || post.author?.node?.name || 'Platform One';
+  const authorImg = customAuthor?.featuredImage?.node?.mediaItemUrl || post.author?.node?.avatar?.url || '/home/work-with-us/avatar.png';
+
   return {
     title: post.title || '',
     image: post.featuredImage?.node?.mediaItemUrl || post.featuredImage?.node?.sourceUrl || post.featuredImage?.node?.link || '/insights/top-card.png',
@@ -65,8 +72,8 @@ export const mapWpPostToInsight = (post: WpPost): Insight => {
       href: `/insights?category=${categoryEdge?.node?.slug || ''}`,
     },
     secondaryCategory: secondaryCategoryEdge?.node?.name,
-    author: post.author?.node?.name || 'Platform One',
-    authorImage: post.author?.node?.avatar?.url || '/home/work-with-us/avatar.png',
+    author: authorName,
+    authorImage: authorImg,
     date: post.date ? new Date(post.date).toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric',

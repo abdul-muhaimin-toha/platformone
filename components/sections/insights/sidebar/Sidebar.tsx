@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/utils';
@@ -48,9 +48,9 @@ function Sidebar({
         });
       },
       {
-        rootMargin: '-20% 0px -60% 0px', // Adjust trigger point $(40% from top as requested previously for scroll position)
-        threshold: 0
-      }
+        rootMargin: '-20% 0px -50% 0px', // Adjust trigger point $(40% from top as requested previously for scroll position)
+        threshold: 0,
+      },
     );
 
     tocLinks.forEach((link) => {
@@ -66,13 +66,16 @@ function Sidebar({
     };
   }, [page, tocLinks]);
 
-  const handleTocClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleTocClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
-    
+
     // Extract ID from href (e.g. "#some-id")
     const id = href.replace('#', '');
     const element = document.getElementById(id);
-    
+
     if (element) {
       // Calculate position: element top + current scroll - offset (40% of viewport)
       const offset = window.innerHeight * 0.4;
@@ -81,7 +84,7 @@ function Sidebar({
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
 
@@ -91,27 +94,31 @@ function Sidebar({
   };
 
   const renderLinkList = (links: LinkItem[], isToc: boolean = false) => (
-    <ul className={cn(
-      "flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] font-normal text-black",
-      isToc ? "gap-2 md:gap-8 lg:gap-2" : "gap-4 md:gap-8 lg:gap-2"
-    )}>
+    <ul
+      className={cn(
+        'flex w-full flex-col md:flex-wrap lg:flex-nowrap md:flex-row lg:flex-col text-xl md:text-base xl:text-xl leading-[1.30] font-normal text-black',
+        isToc ? 'gap-2 md:gap-8 lg:gap-2' : 'gap-4 md:gap-8 lg:gap-2',
+      )}
+    >
       {links.map((link, index) => {
         const id = isToc ? link.href.replace('#', '') : '';
-        const isCurrentActive = isToc ? (activeId === id || link.isActive) : link.isActive;
-        
+        const isCurrentActive = isToc
+          ? activeId === id || link.isActive
+          : link.isActive;
+
         return (
           <Link
             key={index}
             href={link.href}
             onClick={isToc ? (e) => handleTocClick(e, link.href) : onLinkClick}
             className={cn(
-              'hover:text-pulse-pink-600 focus:text-pulse-pink-600 duration-300',
+              'hover:text-pulse-pink-600 duration-300',
               !isToc && 'py-2 md:py-0',
               isToc && 'py-2 md:py-0',
-              isCurrentActive && 'text-pulse-pink-600'
+              isCurrentActive && 'text-pulse-pink-600',
             )}
           >
-            <li className={cn(isToc ? "truncate" : "text-nowrap")}>
+            <li className={cn(isToc ? 'truncate' : 'text-nowrap')}>
               {link.label}
             </li>
           </Link>
@@ -132,7 +139,7 @@ function Sidebar({
           : '',
         visible == false && 'hidden',
         page === 'details' &&
-          'border-r-transparent! lg:max-w-[211px]! xl:max-w-[248px]! xl:grow'
+          'border-r-transparent! lg:max-w-[211px]! xl:max-w-[248px]! xl:grow',
       )}
     >
       {page === 'insights' && <InsightsSearch />}

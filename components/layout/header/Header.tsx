@@ -5,8 +5,6 @@ import HeaderTop from './HeaderTop';
 import HeaderMobileNav from './HeaderMobileNav';
 import { usePathname } from 'next/navigation';
 
-import { NavLink } from './types';
-
 // header
 
 import { HeaderProps } from './types';

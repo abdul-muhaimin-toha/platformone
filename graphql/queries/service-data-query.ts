@@ -12,6 +12,20 @@ export const serviceDataQuery: DocumentNode = gql`
         name
         order
       }
+      seo {
+        canonical
+        title
+        metaDesc
+        metaKeywords
+        opengraphImage {
+          mediaItemUrl
+        }
+      }
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
+      }
     }
   }
 `;

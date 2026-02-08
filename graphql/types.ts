@@ -16,6 +16,9 @@ export interface WPNode {
       link?: string;
     };
   };
+  selectAuthor?: {
+    id: string | number;
+  };
   blocks?: PageBlock[];
   categories?: WPConnection<{
     id: string;

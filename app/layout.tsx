@@ -9,6 +9,7 @@ import { Toaster } from 'sonner';
 import { getSiteHeaderFooterData } from '@/graphql/components/get-menu-data';
 import { mapHeaderData } from '@/utils/header-utils';
 import { mapFooterData } from '@/utils/footer-utils';
+import ClarityProvider from '@/components/globals/ClarityProvider';
 
 const overusedGothek = localFont({
   src: [
@@ -22,9 +23,11 @@ const overusedGothek = localFont({
   weight: '100 900',
 });
 
+import { DEFAULT_SEO } from '@/utils/generate-metadata';
+
 export const metadata: Metadata = {
-  title: 'Platformone',
-  description: 'Know Whats your customers want',
+  title: DEFAULT_SEO.title,
+  description: DEFAULT_SEO.description,
 };
 
 export default async function RootLayout({
@@ -35,11 +38,11 @@ export default async function RootLayout({
   const globalData = await getSiteHeaderFooterData();
   const headerProps = mapHeaderData(
     globalData.menus,
-    globalData.crbThemeOptions
+    globalData.crbThemeOptions,
   );
   const footerProps = mapFooterData(
     globalData.menus,
-    globalData.crbThemeOptions
+    globalData.crbThemeOptions,
   );
 
   return (
@@ -52,6 +55,7 @@ export default async function RootLayout({
         <body
           className={`${overusedGothek.variable} font-sans overflow-hidden overflow-y-auto  antialiased`}
         >
+          <ClarityProvider />
           <AOSWrapper>
             <Header {...headerProps} />
             <div className="min-h-screen">{children}</div>

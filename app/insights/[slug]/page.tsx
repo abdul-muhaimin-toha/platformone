@@ -2,24 +2,46 @@ import MobileNavDrawer from "@/components/sections/insights/MobileNavDrawer";
 import Sidebar from "@/components/sections/insights/sidebar/Sidebar";
 import TopInsightcard from "@/components/sections/insights/TopInsightcard";
 import BlogsContent from "@/components/sections/insights/BlogsContent";
-import { getInsightBySlug } from "@/graphql/components/get-insights-data";
+import { getCachedInsightBySlug, getAuthorById } from "@/graphql/components/get-insights-data";
+import { getSeoInsightData } from "@/graphql/components/get-seo-data";
 import { getCategoriesData } from "@/graphql/components/get-category-data";
-import { mapWpPostToInsight, extractTableOfContents, getCategoryNavigation, WpPost, WpCategory } from "@/utils/insight-utils";
+import {
+  mapWpPostToInsight,
+  extractTableOfContents,
+  getCategoryNavigation,
+  WpPost,
+  WpCategory,
+} from "@/utils/insight-utils";
+import { generateMetadataFromSeo } from "@/utils/generate-metadata";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await props.params;
+  const pageData = await getCachedInsightBySlug(slug);
+  return generateMetadataFromSeo(pageData);
+}
 
 export default async function InsightsPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
 
   const [categoriesData, post] = await Promise.all([
     getCategoriesData() as Promise<WpCategory[]>,
-    getInsightBySlug(slug)
+    getCachedInsightBySlug(slug)
   ]);
 
   if (!post) {
      notFound();
   }
 
-  const insight = mapWpPostToInsight(post);
+  let customAuthor = null;
+  const postNode = post as WpPost;
+  if (postNode.selectAuthor?.id) {
+    customAuthor = await getAuthorById(Number(postNode.selectAuthor.id));
+  }
+
+  const insight = mapWpPostToInsight(postNode, customAuthor);
   const tocLinks = extractTableOfContents(post.blocks || []);
 
   // Use centralized category navigation logic

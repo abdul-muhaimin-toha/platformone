@@ -1,10 +1,11 @@
 import getGqlData from '@/lib/get-gql-data';
-import { WPConnection, CaseStudyNode, PageBlock } from '../types';
+import { WPConnection, CaseStudyNode, PageBlock, WPNode } from '../types';
 import {
   multiCaseStudyQuery,
   singleCaseStudyQuery,
   allCaseStudiesQuery,
 } from '../queries/case-study-data-query';
+import { cache } from 'react';
 
 interface CaseStudyData {
   caseStudies: WPConnection<CaseStudyNode> & { nodes?: CaseStudyNode[] };
@@ -36,45 +37,42 @@ export const getCaseStudiesByIds = async (
 };
 
 /**
- * Fetch single case study by slug
+ * Enhanced fetcher that includes SEO and content.
+ * Wrapped in React cache for deduping.
  */
-export interface SingleCaseStudyData {
-  caseStudyBy: {
-    id: string;
-    blocks: PageBlock[];
-  } | null;
-}
+export const getCachedCaseStudyBySlug = cache(async (slug: string): Promise<WPNode | null> => {
+  if (!slug) return null;
+
+  try {
+    const data = await getGqlData<{ caseStudyBy: WPNode }>(singleCaseStudyQuery, { slug });
+    return data?.caseStudyBy || null;
+  } catch (error) {
+    console.error(`Error fetching cached case study by slug ${slug}:`, error);
+    return null;
+  }
+});
 
 export const getCaseStudyBySlug = async (
   slug: string,
 ): Promise<PageBlock[] | null> => {
-  if (!slug) return null;
+  const caseStudy = await getCachedCaseStudyBySlug(slug);
+  const blocks = caseStudy?.blocks;
 
-  try {
-    const data = await getGqlData<SingleCaseStudyData>(singleCaseStudyQuery, {
-      slug,
-    });
-
-    const blocks = data?.caseStudyBy?.blocks;
-    if (!blocks || blocks.length === 0) {
-      console.warn(`No blocks found for slug: ${slug}`);
-      return null;
-    }
-
-    // Parse each block's attributesJSON safely
-    const parsedBlocks = blocks.map((block) => ({
-      ...block,
-      attributesJSON:
-        typeof block.attributesJSON === 'string' && block.attributesJSON
-          ? JSON.parse(block.attributesJSON)
-          : block.attributesJSON || {},
-    }));
-
-    return parsedBlocks;
-  } catch (error) {
-    console.error('Error fetching case study blocks:', error);
+  if (!blocks || blocks.length === 0) {
+    console.warn(`No blocks found for slug: ${slug}`);
     return null;
   }
+
+  // Parse each block's attributesJSON safely
+  const parsedBlocks = blocks.map((block: PageBlock) => ({
+    ...block,
+    attributesJSON:
+      typeof block.attributesJSON === 'string' && block.attributesJSON
+        ? JSON.parse(block.attributesJSON)
+        : block.attributesJSON || {},
+  }));
+
+  return parsedBlocks;
 };
 
 /**

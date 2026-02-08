@@ -30,6 +30,20 @@ export const singleCaseStudyQuery: DocumentNode = gql`
         saveContent
         name
       }
+      seo {
+        canonical
+        title
+        metaDesc
+        metaKeywords
+        opengraphImage {
+          mediaItemUrl
+        }
+      }
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
+      }
     }
   }
 `;

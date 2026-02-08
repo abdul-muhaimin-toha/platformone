@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface FooterLinkColumn {
   title: string;
@@ -17,9 +17,7 @@ export default function FooterLinks({ columns }: FooterLinksProps) {
           key={idx}
           className="flex flex-col w-full gap-2.5 font-normal text-lg leading-[1.33] text-pulse-pink-300"
         >
-          <h4 className="font-semibold text-pulse-pink-50">
-            {col.title}
-          </h4>
+          <h4 className="font-semibold text-pulse-pink-50">{col.title}</h4>
           {col.links.map((link, i) => (
             <Link
               key={i}

@@ -4,18 +4,27 @@ import { getTeamsImagesRandom } from '@/graphql/components/get-team-data';
 
 import { BlockData, HeadingProps } from '../types';
 
-export interface TeamStartsWithUsData extends HeadingProps {}
+export interface TeamStartsWithUsData extends HeadingProps {
+  btn_text?: string;
+  btn_url?: string;
+}
 
 export type TeamStartsWithUsProps = BlockData<TeamStartsWithUsData>;
 
-export default async function TeamStartsWithUs({ data }: TeamStartsWithUsProps) {
+export default async function TeamStartsWithUs({
+  data,
+}: TeamStartsWithUsProps) {
   const content = data?.data ?? {};
 
   const {
     title = '',
     subtitle = '',
     short_description = '',
+    btn_text = '',
+    btn_url = '',
   } = content;
+
+  console.log(content);
 
   // Fetch 12 random team images to populate the revolving cylinder
   const randomTeams = await getTeamsImagesRandom(12);
@@ -37,6 +46,8 @@ export default async function TeamStartsWithUs({ data }: TeamStartsWithUsProps) 
             title={title}
             subtitle={subtitle}
             short_description={short_description}
+            btntext={btn_text}
+            btnurl={btn_url}
           />
         </div>
         {peopleImages.length > 0 && (

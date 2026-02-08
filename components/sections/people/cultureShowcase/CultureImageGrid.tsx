@@ -17,11 +17,7 @@ function CultureImageGrid({ images }: CultureImageGridProps) {
           'rounded-2xl aspect-380/338 w-full object-cover lg:aspect-434/367';
 
         const positionClass =
-          index === 1
-            ? 'hidden md:block md:mt-20'
-            : index === 2
-              ? 'hidden lg:block md:mt-40'
-              : '';
+          index === 1 ? 'block lg:mt-20' : index === 2 ? 'block lg:mt-40' : '';
 
         return (
           <Image

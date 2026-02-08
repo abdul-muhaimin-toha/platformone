@@ -26,7 +26,7 @@ export default function Hero({ data }: HeroWrapperProps) {
 
   return (
     <section>
-      <div className="bg-[#3E122F] rounded-bl-[64px]">
+      <div className=" rounded-bl-[64px]">
         <HeroClient
           title_one={titleWords}
           short_description_one={short_description_one}

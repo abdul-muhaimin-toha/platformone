@@ -15,6 +15,9 @@ export const allInsightsQuery: DocumentNode = gql`
               mediaItemUrl
             }
           }
+          selectAuthor {
+            id
+          }
           author {
             node {
               name
@@ -50,12 +53,24 @@ export const singleInsightQuery: DocumentNode = gql`
           mediaItemUrl
         }
       }
+      selectAuthor {
+        id
+      }
       author {
         node {
           name
           avatar {
             url
           }
+        }
+      }
+      seo {
+        canonical
+        title
+        metaDesc
+        metaKeywords
+        opengraphImage {
+          mediaItemUrl
         }
       }
       slug
@@ -100,6 +115,9 @@ export const relatedInsightsQuery: DocumentNode = gql`
               mediaItemUrl
             }
           }
+          selectAuthor {
+            id
+          }
           author {
             node {
               name
@@ -138,6 +156,9 @@ export const multiInsightQuery = gql`
             mediaItemUrl
           }
         }
+        selectAuthor {
+          id
+        }
         author {
           node {
             name
@@ -174,6 +195,9 @@ export const filteredInsightsQuery: DocumentNode = gql`
               mediaItemUrl
             }
           }
+          selectAuthor {
+            id
+          }
           author {
             node {
               name
@@ -193,6 +217,20 @@ export const filteredInsightsQuery: DocumentNode = gql`
           slug
           date
           excerpt
+        }
+      }
+    }
+  }
+`;
+export const authorByQuery: DocumentNode = gql`
+  query AuthorByQuery($authorId: Int!) {
+    authorBy(authorId: $authorId) {
+      id
+      title
+      featuredImage {
+        node {
+          id
+          mediaItemUrl
         }
       }
     }

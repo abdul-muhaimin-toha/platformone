@@ -10,6 +10,8 @@ interface TopInsightCardProps {
 }
 
 function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
+  console.log(insight);
+  
   return (
     <div
       className={cn(
@@ -60,7 +62,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
                 src={insight.authorImage}
                 width={56}
                 height={56}
-                className="aspect-square rounded-full w-14 md:w-12 xl:w-14"
+                className="aspect-square object-cover rounded-full w-14 md:w-12 xl:w-14"
                 alt={insight.author}
               />
             </div>

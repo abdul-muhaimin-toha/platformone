@@ -5,8 +5,10 @@ import {
   multiInsightQuery,
   relatedInsightsQuery,
   singleInsightQuery,
+  authorByQuery,
 } from '../queries/insights-data-query';
 import { WPConnection, WPNode } from '../types';
+import { cache } from 'react';
 
 interface InsightsData {
   posts: WPConnection<WPNode> & {
@@ -59,27 +61,26 @@ export const getFilteredInsights = async (
 };
 
 /**
- * Fetch single insight by slug
+ * Enhanced fetcher that includes SEO and content.
+ * Wrapped in React cache for deduping.
  */
-export const getInsightBySlug = async (slug: string): Promise<WPNode | null> => {
-  if (!slug) {
-    console.warn('No slug provided for insight fetch');
-    return null;
-  }
+export const getCachedInsightBySlug = cache(async (slug: string): Promise<WPNode | null> => {
+  if (!slug) return null;
 
   try {
     const data = await getGqlData<InsightsData>(singleInsightQuery, { slug });
-
-    if (!data?.postBy) {
-      console.warn(`Insight not found for slug: ${slug}`);
-      return null;
-    }
-
-    return data.postBy;
+    return data?.postBy || null;
   } catch (error) {
-    console.error(`Error fetching insight by slug ${slug}:`, error);
+    console.error(`Error fetching cached insight by slug ${slug}:`, error);
     return null;
   }
+});
+
+/**
+ * Fetch single insight by slug
+ */
+export const getInsightBySlug = async (slug: string): Promise<WPNode | null> => {
+  return getCachedInsightBySlug(slug);
 };
 
 /**
@@ -133,3 +134,18 @@ export const getInsightsData = async (
     return [];
   }
 };
+/**
+ * Fetch a single author by database ID
+ * Wrapped in React cache for deduping.
+ */
+export const getAuthorById = cache(async (id: number): Promise<any | null> => {
+  if (!id) return null;
+
+  try {
+    const response = await getGqlData<{ authorBy: any }>(authorByQuery, { authorId: id });
+    return response?.authorBy || null;
+  } catch (error) {
+    console.error(`Error fetching author by ID ${id}:`, error);
+    return null;
+  }
+});

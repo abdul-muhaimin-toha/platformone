@@ -15,6 +15,7 @@ function LeadershipCard({ name, role, image, linkedinUrl }: LeadershipPerson) {
   return (
     <Link
       href={linkedinUrl || '/'}
+      target="_blank"
       data-aos="fade-up"
       className="group flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white"
     >

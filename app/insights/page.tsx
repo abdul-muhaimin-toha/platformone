@@ -1,11 +1,19 @@
-import { getPageData } from '@/graphql/components/get-page-data';
+import { getFullPageData } from '@/graphql/components/get-page-data';
+import { getSeoData } from '@/graphql/components/get-seo-data';
 import RenderBlocksHelper from '@/utils/render-blocks-helper';
+import { generateMetadataFromSeo } from '@/utils/generate-metadata';
 import { notFound } from 'next/navigation';
+
+export async function generateMetadata() {
+  const pageData = await getFullPageData('insights');
+  return generateMetadataFromSeo(pageData);
+}
 import InsightPageWrapper from '@/components/sections/insights/InsightPageWrapper';
 import {
   getInsightsData,
   getAllInsights,
   getFilteredInsights,
+  getAuthorById,
 } from '@/graphql/components/get-insights-data';
 import { getCategoriesData } from '@/graphql/components/get-category-data';
 import { 
@@ -32,11 +40,13 @@ export default async function InsightsPage(props: {
   const currentPage = parseInt(pageParam || '1');
   const postsPerPage = 21;
 
-  const pageBlocks = await getPageData('insights');
+  const pageNode = await getFullPageData('insights');
 
-  if (!pageBlocks) {
+  if (!pageNode) {
     notFound();
   }
+
+  const pageBlocks = pageNode.blocks;
 
   // Find the specific blocks to identify where to inject our custom logic
   const stickyBlock = pageBlocks.find((b: PageBlock) => b.name === 'carbon-fields/block-sticky-post');
@@ -73,37 +83,43 @@ export default async function InsightsPage(props: {
   if (stickyId) {
     const stickyPostArr = await getInsightsData([stickyId]);
     if (stickyPostArr && stickyPostArr.length > 0) {
-      topInsight = mapWpPostToInsight(stickyPostArr[0]);
+      const postNode = stickyPostArr[0] as WpPost;
+      let customAuthor = null;
+      if (postNode.selectAuthor?.id) {
+        customAuthor = await getAuthorById(Number(postNode.selectAuthor.id));
+      }
+      topInsight = mapWpPostToInsight(postNode, customAuthor);
     }
   }
   
   if (!topInsight && latestPostResponse?.edges?.length > 0) {
-    topInsight = mapWpPostToInsight(latestPostResponse.edges[0].node as WpPost);
+    const postNode = latestPostResponse.edges[0].node as WpPost;
+    let customAuthor = null;
+    if (postNode.selectAuthor?.id) {
+      customAuthor = await getAuthorById(Number(postNode.selectAuthor.id));
+    }
+    topInsight = mapWpPostToInsight(postNode, customAuthor);
   }
 
   const isSearching = !!currentSearch;
-
-  if (!topInsight) {
-    return (
-      <main className="bg-white min-h-screen flex items-center justify-center p-20">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-black">No content available</h2>
-          <p className="text-gray-500">Check your WordPress connection or publish some posts.</p>
-        </div>
-      </main>
-    );
-  }
-
-  // Grid Mapping
   const allResults = gridPostsResponse.edges || [];
   
-  // Apply Strict Title Filter for search
   const query = (currentSearch || '').toLowerCase();
   const filteredResults = isSearching 
     ? allResults.filter((edge: WPEdge<WpPost>) => edge.node.title?.toLowerCase().includes(query))
     : allResults;
 
-  const gridInsights = (filteredResults || []).map((edge: WPEdge<WpPost>) => mapWpPostToInsight(edge.node));
+  // Fetch all grid authors in parallel
+  const gridInsights = await Promise.all(
+    (filteredResults || []).map(async (edge: WPEdge<WpPost>) => {
+      const node = edge.node;
+      let customAuthor = null;
+      if (node.selectAuthor?.id) {
+        customAuthor = await getAuthorById(Number(node.selectAuthor.id));
+      }
+      return mapWpPostToInsight(node, customAuthor);
+    })
+  );
   
   // Deterministic pagination using hasNextPage
   const totalPages = gridPostsResponse.hasNextPage ? currentPage + 1 : currentPage;

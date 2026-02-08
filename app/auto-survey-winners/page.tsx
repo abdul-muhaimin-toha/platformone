@@ -5,16 +5,16 @@ import { generateMetadataFromSeo } from '@/utils/generate-metadata';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
-  const pageData = await getFullPageData('leadership');
+  const pageData = await getFullPageData('auto-survey-winners');
   return generateMetadataFromSeo(pageData);
 }
 
-export default async function LeadershipPage() {
-  const pageData = await getFullPageData('leadership');
+export default async function AutoSurveyPage() {
+  const autoSurveyPageData = await getFullPageData('auto-survey-winners');
 
-  if (!pageData) {
+  if (!autoSurveyPageData) {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={pageData.blocks} />;
+  return <RenderBlocksHelper blocks={autoSurveyPageData.blocks} />;
 }

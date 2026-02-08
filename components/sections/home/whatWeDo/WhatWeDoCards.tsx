@@ -150,8 +150,8 @@ export default function WhatWeDoCards({
             >
               <div className="ml-auto my-auto flex w-full max-w-[1352px] px-6 xl:pr-[90px] lg:px-8 [@media(min-width:1512px)]:pl-0">
                 <div className="text-2xl inline-flex items-center justify-between w-full leading-[1.33] xl:text-[32px] font-semibold xl:leading-[1.28px] text-white pr-6 xl:pr-0">
-                  <span>{btn_text_main}</span>
-                  <ArrowRight className="shrink-0 lg:w-8 lg:h-8 h-6 w-6" />
+                  {btn_text_main && btn_url_main && <span>{btn_text_main}</span>}
+                  {btn_text_main && btn_url_main && <ArrowRight className="shrink-0 lg:w-8 lg:h-8 h-6 w-6" />}
                 </div>
               </div>
             </Link>

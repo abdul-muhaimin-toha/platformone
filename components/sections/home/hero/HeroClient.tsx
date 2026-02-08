@@ -148,7 +148,7 @@ export default function HeroClient({
     <div
       ref={heroRef}
       className="h-[95dvh] min-h-[872px] md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
-      style={{ backgroundImage: '/home/hero/bg.svg' }}
+      style={{ backgroundImage: "url('/home/hero/bg.svg')" }}
     >
       <div className="container-custom">
         <div className="w-full z-50 flex flex-col mt-[72px] md:mt-[74px] lg:mt-24">
@@ -221,12 +221,14 @@ export default function HeroClient({
             ref={descriptionRef}
             className="flex flex-col gap-6 max-w-[480px] md:max-w-[550px] opacity-0 translate-y-8"
           >
-            <p className="text-xl md:text-2xl md:leading-[1.33] font-normal text-white leading-[1.30]">
-              {short_description_one}
-            </p>
-            <p className="text-base md:text-xl md:leading-[1.30] font-normal text-pulse-pink-200 leading-[1.37]">
-              {short_description_two}
-            </p>
+            <p
+              className="text-xl md:text-2xl md:leading-[1.33] font-normal text-white leading-[1.30] whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: short_description_one }}
+            />
+            <p
+              className="text-base md:text-xl md:leading-[1.30] font-normal text-pulse-pink-200 leading-[1.37] whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: short_description_two }}
+            />
           </div>
 
           <div ref={buttonRef} className="opacity-0 translate-y-8">

@@ -219,7 +219,11 @@
 }
 
 .blog-content-wrapper img {
-  @apply object-cover w-full rounded-2xl aspect-380/249 mt-8 mb-16 first:mt-0 last:mb-0;
+  @apply block max-w-full h-auto rounded-2xl mt-8 mb-16 first:mt-0 last:mb-0;
+}
+
+.blog-content-wrapper .small-image {
+  @apply block object-contain! w-full max-w-[477px] rounded-2xl aspect-auto my-16 first:mt-0 last:mb-0;
 }
 
 .blog-content-wrapper .wp-block-counter-cards {

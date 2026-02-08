@@ -14,12 +14,13 @@ interface PrizeDraw {
   prize_draws_date: string;
   prize_draws_winner: string;
   terms_and_condition_url: string;
+  upload_draw_file: string;
 }
 
 interface PriceTableData {
   crb_information_text: string;
   title: string;
-  autoserveydraw: PrizeDraw[];
+  prize_draws: PrizeDraw[];
 }
 
 interface PriceTableProps {
@@ -32,13 +33,11 @@ function PriceTable({ data }: PriceTableProps) {
   const content = data?.data;
   if (!content) return null;
 
-  const {
-    crb_information_text = '',
-    title = '',
-    autoserveydraw = [],
-  } = content;
+  const { crb_information_text = '', title = '', prize_draws = [] } = content;
 
-  if (autoserveydraw.length === 0) return null;
+  console.log(content);
+
+  if (prize_draws.length === 0) return null;
 
   return (
     <section className="my-32 first:pb-10">
@@ -69,7 +68,7 @@ function PriceTable({ data }: PriceTableProps) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {autoserveydraw.map((draw) => (
+              {prize_draws.map((draw) => (
                 <TableRow key={draw._id}>
                   <TableCell className="w-[280px] text-[14px] font-normal h-12 border-none border-0 text-black bg-transparent p-4">
                     {draw.prize_draws_title}
@@ -80,23 +79,19 @@ function PriceTable({ data }: PriceTableProps) {
                   <TableCell className="w-[368px] text-[14px] font-normal h-12 border-none border-0 text-black bg-transparent p-4">
                     {draw.prize_draws_winner}
                   </TableCell>
-                  <TableCell className="w-40 h-12 text-[14px] font-normal border-none border-0 text-pulse-pink-600 bg-transparent p-4">
-                    <a
-                      href={draw.terms_and_condition_url}
-                      className="hover:underline"
-                      target={
-                        draw.terms_and_condition_url.startsWith('http')
-                          ? '_blank'
-                          : undefined
-                      }
-                      rel={
-                        draw.terms_and_condition_url.startsWith('http')
-                          ? 'noopener noreferrer'
-                          : undefined
-                      }
-                    >
-                      View
-                    </a>
+                  <TableCell className="w-40 h-12 text-[14px] font-normal border-none border-0 text-pulse-pink-600 bg-transparent p-4 text-center">
+                    {draw.upload_draw_file ? (
+                      <a
+                        href={draw.upload_draw_file}
+                        className="hover:underline font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">-</span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

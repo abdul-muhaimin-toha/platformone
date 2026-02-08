@@ -91,3 +91,72 @@ export const seoInsightDataQuery: DocumentNode = gql`
       }
    }
 `;
+
+export const seoServiceDataQuery: DocumentNode = gql`
+   query SeoServiceDataQuery($slug: String!) {
+      serviceBy(slug: $slug) {
+         id
+         seo {
+            canonical
+            title
+            metaDesc
+            metaKeywords
+            opengraphImage {
+               mediaItemUrl
+            }
+            fullHead
+         }
+         featuredImage {
+            node {
+               mediaItemUrl
+            }
+         }
+      }
+   }
+`;
+
+export const seoPolicyDataQuery: DocumentNode = gql`
+   query SeoPolicyDataQuery($slug: String!) {
+      policyBy(slug: $slug) {
+         id
+         seo {
+            canonical
+            title
+            metaDesc
+            metaKeywords
+            opengraphImage {
+               mediaItemUrl
+            }
+            fullHead
+         }
+         featuredImage {
+            node {
+               mediaItemUrl
+            }
+         }
+      }
+   }
+`;
+
+export const seoCaseStudyDataQuery: DocumentNode = gql`
+   query SeoCaseStudyDataQuery($slug: String!) {
+      caseStudyBy(slug: $slug) {
+         id
+         seo {
+            canonical
+            title
+            metaDesc
+            metaKeywords
+            opengraphImage {
+               mediaItemUrl
+            }
+            fullHead
+         }
+         featuredImage {
+            node {
+               mediaItemUrl
+            }
+         }
+      }
+   }
+`;
