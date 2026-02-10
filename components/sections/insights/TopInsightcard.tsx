@@ -34,11 +34,12 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
     window.open(xUrl, '_blank');
   };
 
-  const handleEmailShare = () => {
+  const handleGmailShare = () => {
     const url = `${window.location.origin}/insights/${insight.slug}`;
     const subject = encodeURIComponent(insight.title);
-    const body = encodeURIComponent(`Check out this article: ${url}`);
-    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+    const body = encodeURIComponent(`Check out this article:\n\n${url}`);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank');
   };
   return (
     <div
@@ -154,7 +155,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
                 />
               </svg>
             </button>
-            <button onClick={handleEmailShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
+            <button onClick={handleGmailShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
               <svg
                 className="shrink-0"
                 width={18}

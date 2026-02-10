@@ -17,11 +17,12 @@ export default function Header({
 }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(pathname !== '/');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setOpen(false);
     if (pathname === '/') {
+      // Set initial scroll state after mount
       setScrolled(window.scrollY > 200);
       const handleScroll = () => {
         setScrolled(window.scrollY > 200);
