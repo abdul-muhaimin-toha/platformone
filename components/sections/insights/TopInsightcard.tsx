@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/globals/Button';
 import { cn } from '@/utils/utils';
 import Image from 'next/image';
@@ -12,6 +14,32 @@ interface TopInsightCardProps {
 function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
   console.log(insight);
   
+  // Share handlers
+  const handleFacebookShare = () => {
+    const url = `${window.location.origin}/insights/${insight.slug}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    window.open(facebookUrl, '_blank');
+  };
+
+  const handleLinkedInShare = () => {
+    const url = `${window.location.origin}/insights/${insight.slug}`;
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+    window.open(linkedInUrl, '_blank');
+  };
+
+  const handleXShare = () => {
+    const url = `${window.location.origin}/insights/${insight.slug}`;
+    const text = insight.title;
+    const xUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    window.open(xUrl, '_blank');
+  };
+
+  const handleEmailShare = () => {
+    const url = `${window.location.origin}/insights/${insight.slug}`;
+    const subject = encodeURIComponent(insight.title);
+    const body = encodeURIComponent(`Check out this article: ${url}`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+  };
   return (
     <div
       className={cn(
@@ -81,7 +109,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
         {version === 'v2' && (
           <div className="w-full flex flex-row items-center text-base font-normal leading-[1.37] text-[#000000] gap-2.5 mt-20 md:mt-auto">
             <p>Share this article on:</p>
-            <button className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
+            <button onClick={handleFacebookShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
               <svg
                 className="shrink-0"
                 width={18}
@@ -96,7 +124,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
                 />
               </svg>
             </button>
-            <button className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
+            <button onClick={handleLinkedInShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
               <svg
                 className="shrink-0"
                 width={16}
@@ -111,7 +139,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
                 />
               </svg>
             </button>
-            <button className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
+            <button onClick={handleXShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
               <svg
                 className="shrink-0"
                 width={17}
@@ -126,7 +154,7 @@ function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
                 />
               </svg>
             </button>
-            <button className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
+            <button onClick={handleEmailShare} className="text-black hover:text-mulberry-950 duration-300 cursor-pointer">
               <svg
                 className="shrink-0"
                 width={18}

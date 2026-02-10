@@ -8,23 +8,22 @@ import { cache } from 'react';
  * Wrapped in React cache to deduplicate calls between generateMetadata and Page component.
  */
 export const getFullPageData = cache(async (uri: string) => {
-   try {
-      const pageData = await getGqlData<PageData>(pageDataQuery, { uri });
+  try {
+    const pageData = await getGqlData<PageData>(pageDataQuery, { uri });
 
-      if (!pageData?.pageBy) {
-         console.warn(`No data found for URI: ${uri}`);
-         return null;
-      }
-
-      return pageData.pageBy;
-   } catch (error) {
-      console.error('Error fetching full page data:', error);
+    if (!pageData?.pageBy) {
+      console.warn(`No data found for URI: ${uri}`);
       return null;
-   }
+    }
+
+    return pageData.pageBy;
+  } catch (error) {
+    console.error('Error fetching full page data:', error);
+    return null;
+  }
 });
 
 export const getPageData = async (uri: string) => {
-   const pageData = await getFullPageData(uri);
-   return pageData?.blocks || [];
+  const pageData = await getFullPageData(uri);
+  return pageData?.blocks || [];
 };
-

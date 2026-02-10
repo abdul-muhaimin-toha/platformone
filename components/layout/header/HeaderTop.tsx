@@ -109,9 +109,9 @@ export default function HeaderTop({
                               <Link
                                 href={childLink.href}
                                 className={cn(
-                                  'w-full bg-neutral-100 my-2 cursor-pointer rounded-[8px] px-4 py-2 hover:bg-pulse-pink-50 hover:text-pulse-pink-600 focus:bg-pulse-pink-50 text-black text-center justify-center capitalize focus:text-pulse-pink-600 text-xl font-medium duration-300',
+                                  'w-full bg-transparent my-2 cursor-pointer rounded-[8px] px-4 py-2 hover:bg-neutral-100 hover:text-black focus:bg-neutral-100 text-black text-center justify-center capitalize focus:text-black text-xl font-medium duration-300',
                                   isActive(childLink.href) &&
-                                    'text-pulse-pink-600 hover:text-pulse-pink-600',
+                                    'bg-pulse-pink-50! text-pulse-pink-600! hover:bg-neutral-100! hover:text-black!',
                                 )}
                               >
                                 {childLink.label}

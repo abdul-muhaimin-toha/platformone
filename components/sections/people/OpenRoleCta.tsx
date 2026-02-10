@@ -40,7 +40,7 @@ const OpenRoleCta: FC<OpenRoleCtaProps> = ({ data }) => {
             }}
           />
           {button_text && button_url && (
-            <Button href={button_url} variant="secondary">
+            <Button href={button_url} target="_blank" variant="secondary">
               {button_text}
             </Button>
           )}

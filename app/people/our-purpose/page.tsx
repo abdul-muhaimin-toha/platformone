@@ -1,13 +1,19 @@
-import { getPageData } from '@/graphql/components/get-page-data';
+import { getFullPageData } from '@/graphql/components/get-page-data';
+import { generateMetadataFromSeo } from '@/utils/generate-metadata';
 import RenderBlocksHelper from '@/utils/render-blocks-helper';
 import { notFound } from 'next/navigation';
 
-export default async function OurPurposePage() {
-  const pageData = await getPageData('our-purpose');
+export async function generateMetadata() {
+  const pageData = await getFullPageData('our-purpose');
+  return generateMetadataFromSeo(pageData);
+}
 
-  if (!pageData) {
+export default async function OurPurposePage() {
+  const OurPurposeData = await getFullPageData('our-purpose');
+
+  if (!OurPurposeData) {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={pageData} />;
+  return <RenderBlocksHelper blocks={OurPurposeData.blocks} />;
 }
