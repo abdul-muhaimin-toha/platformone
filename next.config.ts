@@ -24,6 +24,16 @@ const nextConfig: NextConfig = {
         destination: '/policies/privacy-policy',
         permanent: true,
       },
+      {
+        source: '/privacy-policy',
+        destination: '/policies/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/uploads/platform-one-terms-and-conditions',
+        destination: '/policies/platform-one-terms-and-conditions',
+        permanent: true,
+      },
     ];
   },
 };
