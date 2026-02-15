@@ -29,7 +29,7 @@ const WhatItLikeToWorkWithUsWrapper = async ({
     dynamicTestimonials = fetchedNodes.map((node) => {
       const caseStudySlug =
         node.caseStyudy && node.caseStyudy.length > 0
-          ? node.caseStyudy[0].slug
+          ? node?.caseStyudy[0]?.slug
           : '';
 
       return {
