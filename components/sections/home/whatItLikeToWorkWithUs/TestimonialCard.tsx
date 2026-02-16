@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
@@ -8,9 +8,36 @@ interface Props {
   data?: TestimonialData;
 }
 
-const DESCRIPTION_LIMIT = 400;
-
 const TestimonialCard: FC<Props> = ({ data }) => {
+  // Hooks are always called
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    if (!textRef.current || !data?.short_description) return;
+
+    const el = textRef.current;
+
+    const checkOverflow = () => {
+      // Remove clamp temporarily to measure full height
+      el.classList.remove('line-clamp-5');
+      const fullHeight = el.scrollHeight;
+      el.classList.add('line-clamp-5');
+      const clampedHeight = el.clientHeight;
+
+      setShowButton(fullHeight > clampedHeight);
+    };
+
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+
+    return () => {
+      window.removeEventListener('resize', checkOverflow);
+    };
+  }, [data?.short_description]);
+
+  // Early return JSX if no data
   if (!data) return null;
 
   const {
@@ -24,19 +51,8 @@ const TestimonialCard: FC<Props> = ({ data }) => {
     user_designation,
   } = data;
 
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const hasLongText = short_description && short_description.length > DESCRIPTION_LIMIT;
-
-  const displayText = useMemo(() => {
-    if (!short_description) return '';
-    if (isExpanded || !hasLongText) return short_description;
-    return short_description.slice(0, DESCRIPTION_LIMIT);
-  }, [short_description, isExpanded, hasLongText]);
-
   return (
     <div className="flex relative flex-col overflow-hidden p-6 md:py-8 pb-16 md:pb-8 md:px-10 gap-10 w-full bg-pulse-pink-800 rounded-2xl md:gap-[30px]">
-      
       {/* Top Section */}
       <div className="w-full justify-between flex flex-row items-center">
         {company_logo && (
@@ -64,21 +80,25 @@ const TestimonialCard: FC<Props> = ({ data }) => {
 
       {/* Description */}
       {short_description && (
-        <p className="text-xl font-medium md:text-base md:font-normal md:leading-[1.37] leading-[1.30] text-white">
-          {displayText}
+        <div className="text-white">
+          <p
+            ref={textRef}
+            className={`text-xl font-medium md:text-base md:font-normal md:leading-[1.37] leading-[1.30] ${
+              !isExpanded ? 'line-clamp-5' : ''
+            }`}
+          >
+            {short_description}
+          </p>
 
-          {hasLongText && (
-            <>
-              {!isExpanded && "... "}
-              <button
-                onClick={() => setIsExpanded(prev => !prev)}
-                className="inline ml-3 underline underline-offset-4 hover:text-pulse-pink-200 transition-colors font-normal"
-              >
-                {isExpanded ? " Read Less" : " Read More"}
-              </button>
-            </>
+          {showButton && (
+            <button
+              onClick={() => setIsExpanded((prev) => !prev)}
+              className="text-xl md:text-base font-medium md:font-normal md:leading-[1.37] leading-[1.30] text-pulse-pink-200 mt-1 underline underline-offset-4 hover:text-pulse-pink-100 transition-colors"
+            >
+              {isExpanded ? 'Read Less' : 'Read More'}
+            </button>
           )}
-        </p>
+        </div>
       )}
 
       {/* User Info */}

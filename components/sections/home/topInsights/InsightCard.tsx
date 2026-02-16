@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Button from '@/components/globals/Button';
+import Link from 'next/link';
 
 export interface Insight {
   id: string;
@@ -32,7 +33,10 @@ export default function InsightCard({ insight }: InsightCardProps) {
     insight.categories?.edges.map((cat) => cat.node.name).join(' • ') || '';
 
   return (
-    <div className="flex group cursor-pointer flex-col w-full">
+    <Link
+      href={`/insights/${insight.slug}`}
+      className="flex group cursor-pointer flex-col w-full"
+    >
       <div className="flex justify-center relative w-full rounded-t-4xl overflow-hidden items-center aspect-380/336 bg-background">
         {imageSrc && (
           <Image
@@ -51,18 +55,17 @@ export default function InsightCard({ insight }: InsightCardProps) {
           </h4>
         )}
 
-        <h3 className="text-[32px] line-clamp-3 font-semibold leading-tight text-black">
+        <h3 className="text-[32px] line-clamp-2 font-semibold leading-tight text-black">
           {insight.title}
         </h3>
 
         <Button
-          href={`/insights/${insight.slug}`}
           className="mt-2 opacity-0 translate-y-2 pointer-events-auto transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
           variant="tertiary"
         >
           Read more
         </Button>
       </div>
-    </div>
+    </Link>
   );
 }
