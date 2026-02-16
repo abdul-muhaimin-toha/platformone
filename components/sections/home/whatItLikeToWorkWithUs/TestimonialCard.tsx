@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
@@ -7,6 +7,8 @@ import { TestimonialData } from './TestimonialSlider';
 interface Props {
   data?: TestimonialData;
 }
+
+const DESCRIPTION_LIMIT = 400;
 
 const TestimonialCard: FC<Props> = ({ data }) => {
   if (!data) return null;
@@ -22,8 +24,20 @@ const TestimonialCard: FC<Props> = ({ data }) => {
     user_designation,
   } = data;
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const hasLongText = short_description && short_description.length > DESCRIPTION_LIMIT;
+
+  const displayText = useMemo(() => {
+    if (!short_description) return '';
+    if (isExpanded || !hasLongText) return short_description;
+    return short_description.slice(0, DESCRIPTION_LIMIT);
+  }, [short_description, isExpanded, hasLongText]);
+
   return (
     <div className="flex relative flex-col overflow-hidden p-6 md:py-8 pb-16 md:pb-8 md:px-10 gap-10 w-full bg-pulse-pink-800 rounded-2xl md:gap-[30px]">
+      
+      {/* Top Section */}
       <div className="w-full justify-between flex flex-row items-center">
         {company_logo && (
           <Image
@@ -34,6 +48,7 @@ const TestimonialCard: FC<Props> = ({ data }) => {
             className="aspect-138/32 object-contain"
           />
         )}
+
         {btn_url && btn_text && (
           <Link
             href={btn_url}
@@ -47,12 +62,26 @@ const TestimonialCard: FC<Props> = ({ data }) => {
         )}
       </div>
 
+      {/* Description */}
       {short_description && (
         <p className="text-xl font-medium md:text-base md:font-normal md:leading-[1.37] leading-[1.30] text-white">
-          {short_description}
+          {displayText}
+
+          {hasLongText && (
+            <>
+              {!isExpanded && "... "}
+              <button
+                onClick={() => setIsExpanded(prev => !prev)}
+                className="inline ml-3 underline underline-offset-4 hover:text-pulse-pink-200 transition-colors font-normal"
+              >
+                {isExpanded ? " Read Less" : " Read More"}
+              </button>
+            </>
+          )}
         </p>
       )}
 
+      {/* User Info */}
       {customer_image && (user_name || user_designation) && (
         <div className="flex mt-auto w-full items-center gap-2.5">
           <div className="flex items-center justify-center p-1.5 border-black/25 border-2 rounded-full">
@@ -64,6 +93,7 @@ const TestimonialCard: FC<Props> = ({ data }) => {
               alt={user_name || 'User Avatar'}
             />
           </div>
+
           <div className="flex flex-col gap-1.5 text-white">
             {user_name && (
               <p className="text-base font-semibold leading-[1.37]">
@@ -78,6 +108,8 @@ const TestimonialCard: FC<Props> = ({ data }) => {
           </div>
         </div>
       )}
+
+      {/* Mobile Button */}
       {btn_url && btn_text && (
         <Link
           className="absolute h-10 md:hidden bg-mulberry-900 text-white gap-2 text-base font-normal leading-[100%] hover:text-pulse-pink-200 duration-300 inline-flex justify-center items-center bottom-0 left-0 right-0"

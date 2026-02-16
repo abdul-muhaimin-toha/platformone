@@ -20,6 +20,7 @@ interface SeoData {
       mediaItemUrl: string;
     }
   } | string | null;
+  excerpt?: string;
 }
 
 /**
@@ -31,7 +32,9 @@ export function generateMetadataFromSeo(
   fallbackTitle?: string,
 ): Metadata {
   const title = data?.seo?.title || fallbackTitle || DEFAULT_SEO.title;
-  const description = data?.seo?.metaDesc || DEFAULT_SEO.description;
+  // Use SEO description if available, otherwise fall back to excerpt (stripping HTML tags), then default
+  const rawDescription = data?.seo?.metaDesc || data?.excerpt || DEFAULT_SEO.description;
+  const description = rawDescription.replace(/<[^>]*>?/gm, '');
   const canonical = data?.seo?.canonical || '';
   const keywords = data?.seo?.metaKeywords || '';
   

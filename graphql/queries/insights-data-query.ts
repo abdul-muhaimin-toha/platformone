@@ -75,6 +75,7 @@ export const singleInsightQuery: DocumentNode = gql`
       }
       slug
       date
+      excerpt
       content
       blocks {
         attributesJSON

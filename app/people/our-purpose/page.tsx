@@ -15,5 +15,5 @@ export default async function OurPurposePage() {
     notFound();
   }
 
-  return <RenderBlocksHelper blocks={OurPurposeData.blocks} />;
+  return <main className='w-full overflow-hidden'><RenderBlocksHelper blocks={OurPurposeData.blocks} /></main>;
 }
