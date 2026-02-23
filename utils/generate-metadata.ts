@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const DEFAULT_SEO = {
   title: 'Platformone',
-  description: 'Know Whats your customers want',
+  description: 'Know what your customers want',
 };
 
 interface SeoData {
@@ -15,11 +15,14 @@ interface SeoData {
       mediaItemUrl: string;
     };
   } | null;
-  featuredImage?: {
-    node: {
-      mediaItemUrl: string;
-    }
-  } | string | null;
+  featuredImage?:
+    | {
+        node: {
+          mediaItemUrl: string;
+        };
+      }
+    | string
+    | null;
   excerpt?: string;
 }
 
@@ -33,16 +36,19 @@ export function generateMetadataFromSeo(
 ): Metadata {
   const title = data?.seo?.title || fallbackTitle || DEFAULT_SEO.title;
   // Use SEO description if available, otherwise fall back to excerpt (stripping HTML tags), then default
-  const rawDescription = data?.seo?.metaDesc || data?.excerpt || DEFAULT_SEO.description;
+  const rawDescription =
+    data?.seo?.metaDesc || data?.excerpt || DEFAULT_SEO.description;
   const description = rawDescription.replace(/<[^>]*>?/gm, '');
   const canonical = data?.seo?.canonical || '';
   const keywords = data?.seo?.metaKeywords || '';
-  
-  const featuredImageUrl = typeof data?.featuredImage === 'string' 
-    ? data.featuredImage 
-    : data?.featuredImage?.node?.mediaItemUrl;
 
-  const ogImage = data?.seo?.opengraphImage?.mediaItemUrl || featuredImageUrl || '';
+  const featuredImageUrl =
+    typeof data?.featuredImage === 'string'
+      ? data.featuredImage
+      : data?.featuredImage?.node?.mediaItemUrl;
+
+  const ogImage =
+    data?.seo?.opengraphImage?.mediaItemUrl || featuredImageUrl || '';
 
   return {
     title,

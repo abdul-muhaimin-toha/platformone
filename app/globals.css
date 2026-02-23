@@ -251,3 +251,12 @@
 .blog-content-wrapper .wp-block-column p:last-child {
   @apply text-mulberry-900 text-xl leading-[1.30] font-normal my-0;
 }
+
+.blog-content-wrapper .wp-block-columns {
+  @apply flex gap-10 md:gap-14 items-center justify-start flex-wrap;
+}
+
+a,
+button {
+  @apply cursor-pointer;
+}

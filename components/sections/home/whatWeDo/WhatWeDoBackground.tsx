@@ -27,7 +27,7 @@ export default function WhatWeDoBackground() {
       path.style.strokeDasharray = `${length}`;
       path.style.opacity = '0';
 
-      const initialOffset = index === 2 ? -length : length;
+      const initialOffset = length;
       path.style.strokeDashoffset = `${initialOffset}`;
 
       gsap.to(path, {
@@ -52,7 +52,7 @@ export default function WhatWeDoBackground() {
     <>
       <div className="container-custom relative top-[580px] sm:top-[400px] md:top-[400px] lg:top-[270px]">
         <svg
-          className="absolute left-48 sm:left-54 rotate-[-2deg] md:left-56 lg:left-24 h-[300px] sm:rotate-12 md:rotate-0 md:h-auto object-bottom object-cover"
+          className="absolute left-48 sm:left-54 rotate-[-2deg] md:left-56 lg:left-24 h-[300px] sm:rotate-12 md:rotate-0 md:h-auto object-bottom object-cover pointer-events-none"
           width={160}
           height={384}
           viewBox="0 0 160 384"
@@ -80,9 +80,9 @@ export default function WhatWeDoBackground() {
           </defs>
         </svg>
       </div>
-      <div className="container-custom hidden xl:flex relative top-[600px]">
+      <div className="container-custom flex top-[2400px]  relative lg:top-[800px]">
         <svg
-          className="absolute right-2 2xl:-right-10"
+          className="absolute right-2 2xl:-right-10 pointer-events-none"
           width={422}
           height={1241}
           viewBox="0 0 422 1241"
@@ -99,7 +99,7 @@ export default function WhatWeDoBackground() {
       </div>
       <div className="container-custom">
         <svg
-          className="absolute lg:bottom-0 sm:bottom-5 md:bottom-0 xl:left-56 left-16 bottom-0"
+          className="absolute lg:bottom-0 sm:bottom-5 md:bottom-0 xl:left-56 left-16 bottom-0 pointer-events-none"
           width={85}
           height={547}
           viewBox="0 0 85 547"
@@ -107,7 +107,7 @@ export default function WhatWeDoBackground() {
         >
           <path
             ref={addPathRef}
-            d="M82.9564 544.123C-35.9184 399.026 -13.4679 205.487 82.9564 2.00049"
+            d="M82.9564 2.00049C-13.4679 205.487 -35.9184 399.026 82.9564 544.123"
             stroke="url(#paint0_linear_2263_9928)"
             strokeWidth={4}
             strokeLinecap="round"

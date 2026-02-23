@@ -26,7 +26,7 @@ export default function Hero({ data }: HeroWrapperProps) {
 
   return (
     <section>
-      <div className=" rounded-bl-[64px]">
+      <div className=" rounded-bl-[64px] bg-linear-[97deg] from-gradient-start to-gradient-end">
         <HeroClient
           title_one={titleWords}
           short_description_one={short_description_one}

@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
         destination: '/policies/platform-one-terms-and-conditions',
         permanent: true,
       },
+      {
+        source: '/about',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 };

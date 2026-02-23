@@ -147,7 +147,7 @@ export default function HeroClient({
   return (
     <div
       ref={heroRef}
-      className="h-[95dvh] min-h-[872px] md:min-h-auto w-full relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
+      className="h-[95dvh] min-h-218! md:min-h-auto w-full bg-position-[45%_50%] md:bg-position-[50%_50%] relative overflow-hidden z-40 rounded-bl-[64px] bg-no-repeat bg-cover flex flex-col items-center justify-center"
       style={{ backgroundImage: "url('/home/hero/bg.svg')" }}
     >
       <div className="container-custom">

@@ -325,8 +325,8 @@ export default function ContactUsForm() {
           {...register('firstName')}
           disabled={loading}
           className={cn(
-            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background  selection:text-black border-border h-10 rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.firstName && (
@@ -346,8 +346,8 @@ export default function ContactUsForm() {
           {...register('lastName')}
           disabled={loading}
           className={cn(
-            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.lastName && (
@@ -367,8 +367,8 @@ export default function ContactUsForm() {
           {...register('email')}
           disabled={loading}
           className={cn(
-            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.email && (
@@ -394,13 +394,13 @@ export default function ContactUsForm() {
             >
               <SelectTrigger
                 className={cn(
-                  'w-full bg-[#FBFBFB] border-border h-10! rounded-xl shadow-none md:text-sm text-black data-placeholder:text-pulse-pink-600',
-                  'focus:ring-0 focus:ring-offset-0 focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+                  'w-full bg-[#FBFBFB] border-border h-10! rounded-[8px] shadow-none md:text-sm text-black data-placeholder:text-pulse-pink-600',
+                  'focus:ring-0 focus:ring-offset-0 focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
                 )}
               >
                 <SelectValue placeholder="Select your country" />
               </SelectTrigger>
-              <SelectContent className="bg-white border-border rounded-xl">
+              <SelectContent className="bg-white border-border rounded-[8px]">
                 {countries.map((country) => (
                   <SelectItem
                     key={country}
@@ -431,8 +431,8 @@ export default function ContactUsForm() {
           {...register('company')}
           disabled={loading}
           className={cn(
-            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.company && (
@@ -452,8 +452,8 @@ export default function ContactUsForm() {
           {...register('phone')}
           disabled={loading}
           className={cn(
-            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'file:text-black bg-[#FBFBFB] placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border h-10 rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.phone && (
@@ -472,8 +472,8 @@ export default function ContactUsForm() {
           {...register('message')}
           disabled={loading}
           className={cn(
-            'h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-xl shadow-none md:text-sm',
-            'focus-visible:border focus-visible:ring-0 lg:rounded-[14px]',
+            'h-24 bg-[#FBFBFB] file:text-black placeholder:text-pulse-pink-600 selection:bg-background selection:text-black border-border rounded-[8px] shadow-none md:text-sm',
+            'focus-visible:border focus-visible:ring-0 lg:rounded-[8px]',
           )}
         />
         {errors.message && (

@@ -92,10 +92,7 @@ function TopClients({
       onMouseLeave={handleMouseLeave}
     >
       <div className="container-custom z-10">
-        <div
-          className="flex items-center gap-24 py-6  w-full"
-          ref={marqueeRef}
-        >
+        <div className="flex items-center gap-24 py-6  w-full" ref={marqueeRef}>
           {[...items, ...items].map((item, index) => (
             <div
               key={index}
@@ -107,7 +104,7 @@ function TopClients({
                   width={100}
                   height={100}
                   alt="Client Logo"
-                  className="object-contain size-[100px] aspect-square w-full"
+                  className="object-contain size-[120px] aspect-square w-full"
                 />
               )}
             </div>
