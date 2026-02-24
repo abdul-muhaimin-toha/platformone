@@ -24,8 +24,6 @@ export default async function TeamStartsWithUs({
     btn_url = '',
   } = content;
 
-  console.log(content);
-
   // Fetch 12 random team images to populate the revolving cylinder
   const randomTeams = await getTeamsImagesRandom(12);
 

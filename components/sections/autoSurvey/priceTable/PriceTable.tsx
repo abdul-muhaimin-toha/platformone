@@ -35,8 +35,6 @@ function PriceTable({ data }: PriceTableProps) {
 
   const { crb_information_text = '', title = '', prize_draws = [] } = content;
 
-  console.log(content);
-
   if (prize_draws.length === 0) return null;
 
   return (

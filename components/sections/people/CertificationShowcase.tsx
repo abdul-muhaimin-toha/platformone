@@ -1,42 +1,178 @@
+'use client';
+
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { BlockData, HeadingProps } from '../home/types';
 import { parseHighlights } from '@/utils/utils';
 
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+export interface CertificationItem {
+  _id: string;
+  certification_image: string;
+}
+
 export interface CertificationShowcaseData extends HeadingProps {
-  certification_image?: string;
+  certifications?: CertificationItem[];
 }
 
 export type CertificationShowcaseProps = BlockData<CertificationShowcaseData>;
 
 const CertificationShowcase: FC<CertificationShowcaseProps> = ({ data }) => {
+  const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
+  const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
+
   const content = data?.data;
   if (!content) return null;
 
-  const { certification_image = '', title = '', subtitle = '' } = content;
+  const {
+    certifications = [],
+    title = '',
+    subtitle = '',
+    short_description = '',
+  } = content;
 
   return (
-    <section className="bg-mulberry-950">
+    <section className="bg-mulberry-950 overflow-hidden">
       <div className="container-custom">
-        <div className="flex flex-col w-full py-20 gap-14">
-          <div className="w-full flex items-left flex-col justify-center md:flex-row text-left gap-10 xl:gap-36 lg:max-w-full md:justify-between md:items-center xl:w-full">
-            <div className="flex flex-col gap-2 w-full lg:w-1/2">
-              <h2
-                className="text-[38px] xl:text-[56px] xl:leading-[1.28] font-bold leading-[1.26] text-white"
-                dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
-              />
-              <p className="text-xl xl:font-2xl font-semibold leading-[1.33] text-pulse-pink-300">
+        <div className="flex flex-col w-full py-20 gap-14 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-2 w-full lg:w-1/2">
+            <h2
+              className="text-[38px] xl:text-[56px] xl:leading-[1.28] font-bold leading-[1.26] text-white"
+              dangerouslySetInnerHTML={{ __html: parseHighlights(title) }}
+            />
+            {subtitle && (
+              <p className="text-xl xl:text-2xl font-semibold leading-[1.33] text-pulse-pink-300">
                 {subtitle}
               </p>
-            </div>
-            {certification_image && (
-              <Image
-                className="aspect-268/112 w-[200px] md:w-[268px] object-contain"
-                alt={title.replace(/<[^>]*>/g, '')}
-                src={certification_image}
-                width={268}
-                height={112}
-              />
+            )}
+            {short_description && (
+              <p className="text-lg text-white/80 mt-4 max-w-2xl">
+                {short_description}
+              </p>
+            )}
+          </div>
+
+          <div className="w-full lg:w-1/2 relative flex items-center justify-center gap-5 xl:gap-10">
+            {certifications.length > 0 && (
+              <>
+                <button
+                  ref={(node) => setPrevEl(node)}
+                  className="hidden md:flex cursor-pointer shrink-0 z-10 disabled:opacity-30"
+                  aria-label="Previous slide"
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="39"
+                      height="39"
+                      rx="19.5"
+                      fill="#47102A"
+                    />
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="39"
+                      height="39"
+                      rx="19.5"
+                      stroke="#FFF0F9"
+                    />
+                    <path
+                      d="M22.2929 13.2929C22.6834 12.9024 23.3164 12.9024 23.707 13.2929C24.0975 13.6834 24.0975 14.3164 23.707 14.707L18.414 19.9999L23.707 25.2929C24.0975 25.6834 24.0975 26.3164 23.707 26.707C23.3164 27.0975 22.6834 27.0975 22.2929 26.707L16.2929 20.707C15.9024 20.3164 15.9024 19.6834 16.2929 19.2929L22.2929 13.2929Z"
+                      fill="#FFF0F9"
+                    />
+                  </svg>
+                </button>
+
+                <Swiper
+                  modules={[Autoplay, Navigation]}
+                  slidesPerView={1}
+                  spaceBetween={40}
+                  loop={certifications.length > 2}
+                  navigation={{
+                    prevEl,
+                    nextEl,
+                  }}
+                  autoplay={{
+                    delay: 3500,
+                    disableOnInteraction: false,
+                  }}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    1280: {
+                      slidesPerView: 2,
+                      spaceBetween: 40,
+                    },
+                  }}
+                  className="w-full flex-1"
+                >
+                  {certifications.map((item) => (
+                    <SwiperSlide
+                      key={item._id}
+                      className="flex items-center justify-center"
+                    >
+                      <div className="relative w-full aspect-[268/112]">
+                        <Image
+                          className="object-contain"
+                          alt="Certification"
+                          src={item.certification_image}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 268px"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+
+                <button
+                  ref={(node) => setNextEl(node)}
+                  className="hidden md:flex cursor-pointer shrink-0 z-10 disabled:opacity-30"
+                  aria-label="Next slide"
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="39"
+                      height="39"
+                      rx="19.5"
+                      fill="#47102A"
+                    />
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width="39"
+                      height="39"
+                      rx="19.5"
+                      stroke="#FFF0F9"
+                    />
+                    <path
+                      d="M16.2929 13.2929C16.6834 12.9024 17.3164 12.9024 17.707 13.2929L23.707 19.2929C24.0975 19.6834 24.0975 20.3164 23.707 20.707L17.707 26.707C17.3164 27.0975 16.6834 27.0975 16.2929 26.707C15.9024 26.3164 15.9024 25.6834 16.2929 25.2929L21.5859 19.9999L16.2929 14.707C15.9024 14.3164 15.9024 13.6834 16.2929 13.2929Z"
+                      fill="#FFF0F9"
+                    />
+                  </svg>
+                </button>
+              </>
             )}
           </div>
         </div>

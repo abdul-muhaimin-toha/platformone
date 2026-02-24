@@ -24,8 +24,6 @@ const LeadershipHero: FC<LeadershipHeroProps> = async ({ data }) => {
     show_selected_content,
   } = content;
 
-  console.log(content);
-
   // Fetch team images based on selection mode
   let teamNodes: any[] = [];
   const targetCount = 12; // 3 columns * 4 images for a balanced grid

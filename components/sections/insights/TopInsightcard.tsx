@@ -12,7 +12,6 @@ interface TopInsightCardProps {
 }
 
 function TopInsightcard({ version = 'v1', insight }: TopInsightCardProps) {
-  console.log(insight);
   
   // Share handlers
   const handleFacebookShare = () => {
