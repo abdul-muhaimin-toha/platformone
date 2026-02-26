@@ -24,6 +24,7 @@ const overusedGothek = localFont({
 });
 
 import { DEFAULT_SEO } from '@/utils/generate-metadata';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: DEFAULT_SEO.title,
@@ -48,6 +49,19 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-8KNFY8D5GR"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-8KNFY8D5GR');
+          `}
+        </Script>
         <link rel="preconnect" href="https://elfsightcdn.com" />
         <link rel="preconnect" href="https://core.elfsight.com" />
       </head>
