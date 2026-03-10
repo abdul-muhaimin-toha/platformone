@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import Link from 'next/link';
 
 const countries = [
   'Afghanistan',
@@ -504,7 +505,9 @@ export default function ContactUsForm() {
             className="text-black text-base leading-none font-normal"
           >
             You agree with our{' '}
-            <span className="underline">privacy policy.</span>
+            <Link href="/policies/privacy-policy" className="underline">
+              privacy policy.
+            </Link>
           </Label>
         </div>
         {errors.terms && (
