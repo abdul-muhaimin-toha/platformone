@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import Link from 'next/link';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const countries = [
   'Afghanistan',
@@ -231,12 +232,14 @@ const contactUsSchema = z.object({
   terms: z.boolean().refine((val) => val === true, {
     message: 'You must accept the privacy policy',
   }),
+  recaptcha: z.string().optional(),
 });
 
 type ContactUsFormValues = z.infer<typeof contactUsSchema>;
 
 export default function ContactUsForm() {
   const [loading, setLoading] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const {
     register,
@@ -255,23 +258,36 @@ export default function ContactUsForm() {
       country: '',
       message: '',
       terms: false,
+      recaptcha: '',
     },
   });
 
   const onSubmit = async (data: ContactUsFormValues) => {
+    if (!executeRecaptcha) {
+      toast.error('ReCAPTCHA not ready. Please try again in a few seconds.');
+      return;
+    }
+
     setLoading(true);
 
-    const apiPayload = {
-      firstname: data.firstName,
-      lastname: data.lastName,
-      email: data.email,
-      company: data.company,
-      phone: data.phone || '',
-      country: data.country || '',
-      message: data.message,
-    };
-
     try {
+      const token = await executeRecaptcha('contact_form');
+
+      if (!token) {
+        throw new Error('ReCAPTCHA verification failed');
+      }
+
+      const apiPayload = {
+        firstname: data.firstName,
+        lastname: data.lastName,
+        email: data.email,
+        company: data.company,
+        phone: data.phone || '',
+        country: data.country || '',
+        message: data.message,
+        recaptchaToken: token,
+      };
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API}/wp-json/nh/v1/cform/`,
         {
@@ -297,6 +313,7 @@ export default function ContactUsForm() {
           country: '',
           message: '',
           terms: false,
+          recaptcha: '',
         });
         toast.success(result.message || 'Message sent successfully!');
       } else {

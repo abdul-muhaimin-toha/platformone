@@ -1,5 +1,8 @@
+'use client';
+
 import ContactUsHeader from './ContactUsHeader';
 import ContactUsForm from './ContactUsForm';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import { BlockData } from '../../home/types';
 
@@ -27,7 +30,12 @@ function ContactFormWrapper({ data }: ContactFormWrapperProps) {
             email={email_address}
             emailHref={`mailto:${email_address}`}
           />
-          <ContactUsForm />
+          <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+            language="en"
+          >
+            <ContactUsForm />
+          </GoogleReCaptchaProvider>
         </div>
       </div>
     </section>
