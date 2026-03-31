@@ -288,16 +288,13 @@ export default function ContactUsForm() {
         recaptchaToken: token,
       };
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API}/wp-json/nh/v1/cform/`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(apiPayload),
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify(apiPayload),
+      });
 
       if (!res.ok) throw new Error('Failed to submit form');
 

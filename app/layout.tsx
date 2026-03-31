@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 import { getSiteHeaderFooterData } from '@/graphql/components/get-menu-data';
 import { mapHeaderData } from '@/utils/header-utils';
 import { mapFooterData } from '@/utils/footer-utils';
-import ClarityProvider from '@/components/globals/ClarityProvider';
+import ClientProviders from '@/components/globals/ClientProviders';
 
 const overusedGothek = localFont({
   src: [
@@ -69,13 +69,14 @@ export default async function RootLayout({
         <body
           className={`${overusedGothek.variable} font-sans overflow-hidden overflow-y-auto  antialiased`}
         >
-          <ClarityProvider />
-          <AOSWrapper>
-            <Header {...headerProps} />
-            <div className="min-h-screen">{children}</div>
-            <Footer {...footerProps} />
-          </AOSWrapper>
-          <Toaster />
+          <ClientProviders>
+            <AOSWrapper>
+              <Header {...headerProps} />
+              <div className="min-h-screen">{children}</div>
+              <Footer {...footerProps} />
+            </AOSWrapper>
+            <Toaster />
+          </ClientProviders>
         </body>
       </ReactLenis>
     </html>
