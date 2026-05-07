@@ -46,7 +46,7 @@ export default function GatedContentOverlay({ postId }: { postId?: number }) {
       });
 
       const response = await fetch(
-        `https://staging.hellonotionhive.com/wordpress/platformone/wp-json/nh/v1/gated-post/unlock?${queryParams.toString()}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/wp-json/nh/v1/gated-post/unlock?${queryParams.toString()}`,
         {
           method: 'POST',
           headers: {
