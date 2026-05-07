@@ -47,7 +47,9 @@ export const singleInsightQuery: DocumentNode = gql`
   query singleInsight($slug: String!) {
     postBy(slug: $slug) {
       id
+      databaseId
       title
+      gatedPostContent
       featuredImage {
         node {
           mediaItemUrl
@@ -182,8 +184,15 @@ export const multiInsightQuery = gql`
 `;
 
 export const filteredInsightsQuery: DocumentNode = gql`
-  query FilteredInsightsQuery($limit: Int = 20, $categoryName: String, $search: String) {
-    posts(first: $limit, where: { categoryName: $categoryName, search: $search }) {
+  query FilteredInsightsQuery(
+    $limit: Int = 20
+    $categoryName: String
+    $search: String
+  ) {
+    posts(
+      first: $limit
+      where: { categoryName: $categoryName, search: $search }
+    ) {
       pageInfo {
         hasNextPage
       }

@@ -8,6 +8,7 @@ export interface WPNode {
   modified?: string;
   content?: string;
   excerpt?: string;
+  gatedPostContent?: any;
   logoFile?: string; // Added for Case Studies
   featuredImage?: {
     node: {
